@@ -39,6 +39,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -48,6 +54,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -62,6 +70,12 @@ public class AdminController implements Initializable {
    private Connection con;
     private Statement ste;
     private FileChooser fc;
+    
+    final static String nature = "Nature";
+    final static String espece = "Espece";
+    
+    
+    
     public static final String chemin="C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
     @FXML
@@ -289,5 +303,47 @@ public class AdminController implements Initializable {
 //      
       return table;  
   }
+    
+    @FXML
+    public void Statistique(ActionEvent action) throws IOException, SQLException
+    {
+        ServiceUser SU = new ServiceUser();
+        Stage stage = new Stage();
+        stage.setTitle("Statistique Don");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> bc = 
+            new BarChart<String,Number>(xAxis,yAxis);
+        bc.setTitle("Don");
+        xAxis.setLabel("Type");       
+        yAxis.setLabel("Value");
+ 
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Nombre Don");       
+        series1.getData().add(new XYChart.Data("Nature",SU.NombreDonNature()));
+        series1.getData().add(new XYChart.Data("Espece",SU.NombreDonEspece()));
+        
+        
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("2004");
+        series2.getData().add(new XYChart.Data(nature, 12));
+        series2.getData().add(new XYChart.Data(espece, 9));
+        
+        
+       
+        
+        Scene scene  = new Scene(bc,800,600);
+        bc.getData().addAll(series1, series2);
+        stage.setScene(scene);
+        stage.show();
+        
+//           Parent root = FXMLLoader.load(getClass().getResource("StatistiqueDon.fxml"));
+//           Stage stage = new Stage();
+//           stage.setScene(new Scene(root));
+//           stage.initModality(Modality.APPLICATION_MODAL);
+//           stage.show();
+           
+       
+    }
     
 }
