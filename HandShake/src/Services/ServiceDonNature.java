@@ -120,6 +120,69 @@ public class ServiceDonNature implements InterfaceDon<DonNature> {
     return arr;
     
     }
+    
+    public double moyenneA() throws SQLException
+    {
+        double i=0 , j=0;
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select * from don where typeDon='Nature'");
+        
+        while(rs.next())
+        {
+            if( rs.getString("CategorieDonNature").equals("Alimentaire"))
+            {
+                i += rs.getInt("quantiteDonNature");
+                j++;
+            }
+        }
+        if(j !=0)
+        {
+             return i/j;
+        }
+       return 0;
+    }
+    
+    public double moyenneV() throws SQLException
+    {
+        double i=0 , j=0;
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select * from don where typeDon='Nature'");
+        
+        while(rs.next())
+        {
+            if( rs.getString("CategorieDonNature").equals("Vestimentaire"))
+            {
+                i += rs.getInt("quantiteDonNature");
+                j++;
+            }
+        }
+        if(j !=0)
+        {
+             return i/j;
+        }
+       return 0;
+    }
+    
+    public double moyenneAutre() throws SQLException
+    {
+        double i=0 , j=0;
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select * from don where typeDon='Nature'");
+        
+        while(rs.next())
+        {
+            if( rs.getString("CategorieDonNature").equals("Vestimentaire") != true && rs.getString("CategorieDonNature").equals("Alimentaire") != true )
+            {
+                i += rs.getInt("quantiteDonNature");
+                j++;
+            }
+        }
+        if(j !=0)
+        {
+             return i/j;
+        }
+       return 0;
+    }
 
     @Override
     public boolean update(DonNature t) throws SQLException {

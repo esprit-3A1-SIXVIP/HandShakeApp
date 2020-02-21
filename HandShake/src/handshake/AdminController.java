@@ -282,6 +282,8 @@ public class AdminController implements Initializable {
     @FXML
     public void Statistique(ActionEvent action) throws IOException, SQLException {
         ServiceUser SU = new ServiceUser();
+        ServiceDonNature SDN = new ServiceDonNature();
+        ServiceDonEspeces SDE = new ServiceDonEspeces();
         Stage stage = new Stage();
         stage.setTitle("Statistique Don");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -294,16 +296,29 @@ public class AdminController implements Initializable {
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Nombre Don");
-        series1.getData().add(new XYChart.Data("Nature", SU.NombreDonNature()));
-        series1.getData().add(new XYChart.Data("Espece", SU.NombreDonEspece()));
+        series1.getData().add(new XYChart.Data(nature, SU.NombreDonNature()));
+        series1.getData().add(new XYChart.Data(espece, SU.NombreDonEspece()));
 
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(nature, 12));
-        series2.getData().add(new XYChart.Data(espece, 9));
-
+        series2.setName("MDN Alimentaire");
+        series2.getData().add(new XYChart.Data(nature, SDN.moyenneA()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series3 = new XYChart.Series();
+        series3.setName("MDN Vestimentaire");
+        series3.getData().add(new XYChart.Data(nature, SDN.moyenneV()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series4 = new XYChart.Series();
+        series4.setName("MDN Autres");
+        series4.getData().add(new XYChart.Data(nature, SDN.moyenneAutre()));
+        
+         XYChart.Series series5 = new XYChart.Series();
+        series5.setName("MDE Montant");
+        series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
+        
         Scene scene = new Scene(bc, 800, 600);
-        bc.getData().addAll(series1, series2);
+        bc.getData().addAll(series1, series2,series3,series4,series5);
         stage.setScene(scene);
         stage.show();
 
