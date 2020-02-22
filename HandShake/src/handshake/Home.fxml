@@ -28,6 +28,11 @@
                         <Image url="@images/user1.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="shakehub" fitHeight="38.0" fitWidth="35.0" layoutX="246.0" layoutY="83.0" onMouseClicked="#handleShakeHub" onMousePressed="#handleShakeHub" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/shakehub.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <Circle fx:id="cercledon" layoutX="469.0" layoutY="712.0" opacity="0.72" radius="66.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />

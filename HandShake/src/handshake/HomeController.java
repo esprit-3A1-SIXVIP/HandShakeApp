@@ -23,6 +23,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,6 +45,10 @@ public class HomeController implements Initializable {
     
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private ImageView shakehub;
+    @FXML
+    private Circle cercledon;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,6 +86,10 @@ public class HomeController implements Initializable {
     @FXML
     private void handleImageUser() {
         loadStage("User.fxml");
+    }
+    @FXML
+    private void handleShakeHub() {
+        loadStage("AfficheShakeHub.fxml");
     }
 
     private void loadStage(String fxml) {
