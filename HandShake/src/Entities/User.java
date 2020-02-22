@@ -19,7 +19,19 @@ public class User {
    String email ;
   String nomOrganisation;
   String domaine;
-
+   int telephone ;
+   String ville ;
+   String rue ;
+   String pays ;
+   String role ;
+   
+    public User(int userId, String login, String password, String email, String role) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
     public User(String email, String nomOrganisation, String domaine, String ville, String pays) {
         this.email = email;
         this.nomOrganisation = nomOrganisation;
@@ -27,13 +39,6 @@ public class User {
         this.ville = ville;
         this.pays = pays;
     }
-   int telephone ;
-   String ville ;
-   String rue ;
-   String pays ;
-   String role ;
-   
-
     public User( int userId,String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role) {
         this.userId = userId;
         this.login = login;
@@ -160,3 +165,4 @@ public class User {
     
     
 }
+

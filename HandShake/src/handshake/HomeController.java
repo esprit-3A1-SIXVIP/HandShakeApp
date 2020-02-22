@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -89,7 +90,11 @@ public class HomeController implements Initializable {
     private void handleImageUser() {
         loadStage("User.fxml");
     }
-
+    
+    @FXML
+    private void handleShakeHub() {
+        loadStage("AfficheShakeHub.fxml");
+    }
     private void loadStage(String fxml) {
         try {
              AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));

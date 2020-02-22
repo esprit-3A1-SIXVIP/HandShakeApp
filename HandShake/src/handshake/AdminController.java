@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -67,11 +68,6 @@ public class AdminController implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
-    @FXML
-    private JFXButton supprimerD;
-    
-    @FXML
-    private JFXButton buttonPdf;
     
     @FXML
     private JFXButton Statistique;
@@ -79,30 +75,21 @@ public class AdminController implements Initializable {
     @FXML
     private JFXTextField rechercheD;
 
-    @FXML
     private Label emailU;
 
-    @FXML
     private TableColumn<Dons, Integer> donId;
 
-    @FXML
     private TableColumn<Dons, String> typeD;
 
-    @FXML
     private TableColumn<Dons, String> cibleD;
 
-    @FXML
     private TableColumn<Dons, Integer> montantD;
 
-    @FXML
     private TableColumn<Dons, String> libelleD;
 
-    @FXML
     private TableColumn<Dons, String> categorieD;
-    @FXML
     private TableColumn<Dons, Integer> quantiteD;
 
-    @FXML
     private TableColumn<Dons, Date> dateD;
 
     @FXML
@@ -289,5 +276,9 @@ public class AdminController implements Initializable {
 //      
       return table;  
   }
+
+    @FXML
+    private void addQuestion(ActionEvent event) {
+    }
     
 }

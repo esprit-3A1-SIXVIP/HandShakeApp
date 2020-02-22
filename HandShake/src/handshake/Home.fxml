@@ -29,6 +29,12 @@
                         <Image url="@images/user1.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="shakehub" fitHeight="38.0" fitWidth="35.0" layoutX="246.0" layoutY="83.0" onMouseClicked="#handleShakeHub" onMousePressed="#handleShakeHub" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/shakehub.png" />
+                     </image>
+                  </ImageView>
+
                   <JFXButton fx:id="btn" layoutX="-1.0" layoutY="158.0" onAction="#GoToEvenement" prefHeight="45.0" prefWidth="307.0" text="Mes évènements">
                      <font>
                         <Font size="22.0" />
