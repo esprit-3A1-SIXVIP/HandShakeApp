@@ -60,7 +60,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
-
 /**
  * FXML Controller class
  *
@@ -74,7 +73,7 @@ public class UserController implements Initializable {
     private Connection con;
     private Statement ste;
     private FileChooser fc;
-    public static final String chemin="C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
+    public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
     @FXML
     private AnchorPane rootPane;
@@ -87,10 +86,10 @@ public class UserController implements Initializable {
 
     @FXML
     private JFXButton modifierD;
-    
+
     @FXML
     private JFXButton buttonPdf;
-    
+
     @FXML
     private JFXTextField rechercheD;
 
@@ -127,7 +126,7 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         con = DataBase.getInstance().getConnection();
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
@@ -151,37 +150,33 @@ public class UserController implements Initializable {
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
 
         tableDon.setItems(donList);
-        
+
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
-        rechercheD.textProperty().addListener((observable,oldValue,newValue) ->{
-            
-            filteredData.setPredicate( (Dons don) -> {
-                
-                if(newValue == null || newValue.isEmpty())
-                {
+        rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            filteredData.setPredicate((Dons don) -> {
+
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                    
-                    if(don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1)
-                    {
-                        return true;
-                    }else if(don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1)
-                    {
-                        return true;
-                    }else
-                        return false;
-                
+
+                if (don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
             });
-            
+
         });
-        
+
         SortedList<Dons> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
-        
+
         tableDon.setItems(sortedData);
-        
-        
 
     }
 
@@ -209,8 +204,7 @@ public class UserController implements Initializable {
         ButtonType buttonTypeOne = new ButtonType("Confirm");
         ButtonType buttonTypeOne1 = new ButtonType("Cancel");
 
-        alert.getButtonTypes().setAll(buttonTypeOne,buttonTypeOne1);
-        
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne) {
@@ -219,29 +213,23 @@ public class UserController implements Initializable {
 //            allDon = tableDon.getItems();
 //            donSelected = tableDon.getSelectionModel().getSelectedItems();
 //            donSelected.forEach(allDon::remove);
-
-            
-            
             int index = tableDon.getSelectionModel().getSelectedIndex();
             String type = typeD.getCellData(index);
             System.out.println(type);
-            if(type.equals("Nature"))
-            {
+            if (type.equals("Nature")) {
                 int id = donId.getCellData(index);
-                
+
                 ServiceDonNature SN = new ServiceDonNature();
                 SN.delete(id);
                 donList.removeAll(tableDon.getSelectionModel().getSelectedItems());
-            tableDon.getSelectionModel().clearSelection();
-            }
-            else
-            {
+                tableDon.getSelectionModel().clearSelection();
+            } else {
                 int id = donId.getCellData(index);
-                
+
                 ServiceDonEspeces SE = new ServiceDonEspeces();
                 SE.delete(id);
                 donList.removeAll(tableDon.getSelectionModel().getSelectedItems());
-            tableDon.getSelectionModel().clearSelection();
+                tableDon.getSelectionModel().clearSelection();
             }
 
         } else {
@@ -277,46 +265,38 @@ public class UserController implements Initializable {
         }
 
     }
-    
-    public void Imprimer(ActionEvent action) 
-    {
-        
-        
-        Document document = new Document();
-    try 
-    {
-      PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
-      document.open();
-      
-      document.add(new Paragraph("Historique de Don\n\n"));
-      document.add(premierTableau());
 
-    } catch (DocumentException | IOException de) {
-      de.printStackTrace();
+    public void Imprimer(ActionEvent action) {
+
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
+            document.open();
+
+            document.add(new Paragraph("Historique de Don\n\n"));
+            document.add(premierTableau());
+
+        } catch (DocumentException | IOException de) {
+            de.printStackTrace();
+        }
+
+        document.close();
+
     }
-   
-    document.close();
-         
-        
-    }
-    
-    public static PdfPTable premierTableau()
-  {
-      //On créer un objet table dans lequel on intialise ça taille.
-      PdfPTable table = new PdfPTable(7);
-      
-      //On créer l'objet cellule.
-      table.addCell("Type");
-      table.addCell("Cible");
-      table.addCell("Montant");
-      table.addCell("Libelle");
-      table.addCell("Categorie");
-      table.addCell("Quantité");
-      table.addCell("Date");
-      
-      
-      
-      
+
+    public static PdfPTable premierTableau() {
+        //On créer un objet table dans lequel on intialise ça taille.
+        PdfPTable table = new PdfPTable(7);
+
+        //On créer l'objet cellule.
+        table.addCell("Type");
+        table.addCell("Cible");
+        table.addCell("Montant");
+        table.addCell("Libelle");
+        table.addCell("Categorie");
+        table.addCell("Quantité");
+        table.addCell("Date");
+
 //      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
 //      cell.setColspan(3);
 //      table.addCell(cell);
@@ -331,7 +311,7 @@ public class UserController implements Initializable {
 //      table.addCell("Colonne 2; Cellule 1");
 //      table.addCell("Colonne 2; Cellule 2");
 //      
-      return table;  
-  }
+        return table;
+    }
 
 }

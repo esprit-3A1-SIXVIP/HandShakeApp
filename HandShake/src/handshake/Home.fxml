@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -7,11 +8,11 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.HomeController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.HomeController">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: black;">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true">
+            <ImageView fitHeight="806.0" fitWidth="1000.0" pickOnBounds="true">
                <image>
                   <Image url="@images/main1.jpg" />
                </image>
@@ -21,7 +22,7 @@
                   <Image url="@images/logoH.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="692.0" layoutY="-2.0" opacity="0.71" prefHeight="800.0" prefWidth="307.0" style="-fx-background-color: f1f1f0;">
+            <AnchorPane layoutX="693.0" opacity="0.71" prefHeight="806.0" prefWidth="307.0" style="-fx-background-color: f1f1f0;">
                <children>
                   <ImageView fx:id="usericon" fitHeight="38.0" fitWidth="35.0" layoutX="246.0" layoutY="14.0" onMousePressed="#handleImageUser" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -33,6 +34,12 @@
                         <Image url="@images/shakehub.png" />
                      </image>
                   </ImageView>
+
+                  <JFXButton fx:id="btn" layoutX="-1.0" layoutY="158.0" onAction="#GoToEvenement" prefHeight="45.0" prefWidth="307.0" text="Mes évènements">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </AnchorPane>
             <Circle fx:id="cercledon" layoutX="469.0" layoutY="712.0" opacity="0.72" radius="66.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />

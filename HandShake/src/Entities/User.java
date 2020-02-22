@@ -17,12 +17,14 @@ public class User {
    String nomUser;
    String prenomUser ;
    String email ;
+  String nomOrganisation;
+  String domaine;
    int telephone ;
    String ville ;
    String rue ;
    String pays ;
    String role ;
-
+   
     public User(int userId, String login, String password, String email, String role) {
         this.userId = userId;
         this.login = login;
@@ -30,8 +32,13 @@ public class User {
         this.email = email;
         this.role = role;
     }
-   
-   
+    public User(String email, String nomOrganisation, String domaine, String ville, String pays) {
+        this.email = email;
+        this.nomOrganisation = nomOrganisation;
+        this.domaine = domaine;
+        this.ville = ville;
+        this.pays = pays;
+    }
     public User( int userId,String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role) {
         this.userId = userId;
         this.login = login;
@@ -158,3 +165,4 @@ public class User {
     
     
 }
+
