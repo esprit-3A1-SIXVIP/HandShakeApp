@@ -17,6 +17,16 @@ public class User {
    String nomUser;
    String prenomUser ;
    String email ;
+  String nomOrganisation;
+  String domaine;
+
+    public User(String email, String nomOrganisation, String domaine, String ville, String pays) {
+        this.email = email;
+        this.nomOrganisation = nomOrganisation;
+        this.domaine = domaine;
+        this.ville = ville;
+        this.pays = pays;
+    }
    int telephone ;
    String ville ;
    String rue ;

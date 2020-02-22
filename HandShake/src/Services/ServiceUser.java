@@ -204,29 +204,23 @@ public class ServiceUser {
         return arr;
 
     }
-    
-    public int NombreDonNature() throws SQLException
-    {
-        int i=0;
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from don where typeDon='Nature'");
-        while(rs.next())
-        {
-            i++;
+     public ObservableList<User> readOrganisation() throws SQLException {
+        ObservableList<User> arr =FXCollections.observableArrayList();
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select nomOrganisation,pays,ville,domaine,email from user\n" +
+"where type=\"organisation\";");
+        while(rs.next()){
+            
+            String nomOrganisation= rs.getString("nomOrganisation");
+            String ville= rs.getString("ville");
+           String pays= rs.getString("pays");
+           String domaine= rs.getString("domaine");
+           String email= rs.getString("email");
+          
+           User u = new User(nomOrganisation,ville,domaine,pays,email);
+            arr.add(u);
         }
-        return i;
-    }
-    
-    public int NombreDonEspece() throws SQLException
-    {
-        int i=0;
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from don where typeDon='Especes'");
-        while(rs.next())
-        {
-            i++;
-        }
-        return i;
+        return arr;
     }
 
 //    public List<Dons> recherche(String type, String cible) throws SQLException

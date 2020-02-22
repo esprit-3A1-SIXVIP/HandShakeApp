@@ -7,11 +7,13 @@ package handshake;
 
 import Services.ServiceUser;
 import Utils.UserSession;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +25,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,6 +47,10 @@ public class HomeController implements Initializable {
     
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private Circle cercledon;
+    @FXML
+    private JFXButton btn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,6 +98,23 @@ public class HomeController implements Initializable {
 
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void GoToEvenement(ActionEvent event) {
+        
+        try {
+                    FXMLLoader top=new FXMLLoader(getClass().getResource("evenement.fxml"));
+
+            Parent root =top.load();
+                    EvenementController dpc=top.getController();
+                    
+                    
+                   btn.getScene().setRoot(root);
+
+        } catch (IOException ex) {
+        System.out.println(ex.getMessage());
         }
     }
 
