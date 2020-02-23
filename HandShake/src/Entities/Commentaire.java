@@ -17,6 +17,7 @@ public class Commentaire {
     private Question question;
     private String texteCommentaire;
     private Date dateCommentaire;
+    private int score;
 
     public Commentaire() {
     }
@@ -26,6 +27,14 @@ public class Commentaire {
         this.question = question;
         this.texteCommentaire = texteCommentaire;
         this.dateCommentaire = dateCommentaire;
+    }
+
+    public Commentaire(User user, Question Q, String texteCommentaire, Date dateCommentaire, int score) {
+        this.user = user;
+        this.question = question;
+        this.texteCommentaire = texteCommentaire;
+        this.dateCommentaire = dateCommentaire;
+        this.score=score;
     }
 
     public User getUser() {
@@ -42,6 +51,14 @@ public class Commentaire {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
     
     

@@ -5,6 +5,10 @@
  */
 package Utils;
 
+import Entities.User;
+import Services.ServiceUser;
+import java.sql.SQLException;
+
 /**
  *
  * @author steph
@@ -17,6 +21,8 @@ public final class UserSession {
     private String email;
     private int id;
     private String role;
+    private static User U= new User(22,"Malek","1234","malek.taktak@esprit.tn","admin");
+    private static ServiceUser us= new ServiceUser();
     
     private UserSession()
     {
@@ -38,9 +44,10 @@ public final class UserSession {
         return instance;
     }
 
-    public static UserSession getInstace(String email, int id,String role) {
+    public static UserSession getInstance(String email, int id,String role) throws SQLException {
         if(instance == null) {
             instance = new UserSession(email, id,role);
+            U=us.getUser(id);
         }
         return instance;
     }
@@ -60,13 +67,19 @@ public final class UserSession {
     public void cleanUserSession() {
         email = "";// or null
         id = -1;// or null
+        U=null;
     }
 
+    public static User getU() {
+        return U;
+    }
+
+    public static void setU(User U) {
+        UserSession.U = U;
+    }
+    
     @Override
     public String toString() {
-        return "UserSession{" +
-                "Email ='" + email + '\'' +
-                ", Id =" + id +
-                '}';
+        return U.toString();
     }
 }

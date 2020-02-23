@@ -93,7 +93,7 @@ public class HomeController implements Initializable {
     
     @FXML
     private void handleShakeHub() {
-        loadStage("AfficheShakeHub.fxml");
+        loadStage("ShakeHub.fxml");
     }
     private void loadStage(String fxml) {
         try {

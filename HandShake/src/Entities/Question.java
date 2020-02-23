@@ -17,7 +17,7 @@ public class Question {
     private String texteQuestion;
     private Date dateQuestion;
     private User user;
-
+    private int score;
     public Question() {
     }
     
@@ -26,6 +26,14 @@ public class Question {
         this.texteQuestion = texteQuestion;
         this.dateQuestion = dateQuestion;
         this.user = user;
+    }
+
+    public Question(int questionId, String texteQuestion, Date dateQuestion, int score, User user) {
+        this.questionId = questionId;
+        this.texteQuestion = texteQuestion;
+        this.dateQuestion = dateQuestion;
+        this.user = user;
+        this.score=score;
     }
 
     public int getQuestionId() {
@@ -60,6 +68,16 @@ public class Question {
         this.user = user;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "Question posée par " + user.getLogin() + ": '" + texteQuestion + "' Créee le=" + dateQuestion ;

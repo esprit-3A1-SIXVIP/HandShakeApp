@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<fx:root type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <graphic>
+        <VBox>
+            <children>
+                <HBox>
+                    <children>
+                <VBox>
+                    <JFXButton fx:id="shakeup" text="Shake up" style="-fx-background-color: black;" textFill="#12cdf4"/> 
+                    <Label fx:id="score" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;"> <font>
+                                    <Font name="Calibri" size="14.0" />
+                                </font></Label>
+                     <JFXButton fx:id="shakedown" text="Shake down" style="-fx-background-color: black;" textFill="#12cdf4"/> 
+                </VBox>
+                <Label fx:id="TextLabel" > <font>
+                                    <Font name="Calibri" size="14.0" />
+                                </font></Label>
+                
+                    
+                        <Label fx:id="userLabel" > <font>
+                                    <Font name="Calibri" size="14.0" />
+                        </font>
+                        </Label>
+                        <Label fx:id="dateLabel"> <font>
+                                    <Font name="Calibri" size="14.0" />
+                        </font>
+                        </Label>   
+                        <JFXButton fx:id="modifierCommentaire" text="Modifier" style="-fx-background-color: black;" textFill="#12cdf4"/> 
+                        <JFXButton fx:id="supprimerCommentaire" text="Supprimer" style="-fx-background-color: black;" textFill="#12cdf4"/>     
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </graphic>
+</fx:root>
+
+
+        
+

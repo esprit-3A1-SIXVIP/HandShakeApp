@@ -90,7 +90,16 @@ public class ServiceUser {
         }
         return arr;
     }
+    public User getUser(int id) throws SQLException {
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
+        if (rs.next()) {
+            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+            return U;
+        }
 
+        return null;
+    }
     public int getIdUser(User u) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where email='" + u.getEmail() + "' and  password='" + u.getPassword() + "'");
