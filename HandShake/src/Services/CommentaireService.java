@@ -15,6 +15,8 @@ import java.util.List;
 import java.sql.*;
 import Utils.DataBase;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 /**
@@ -61,8 +63,9 @@ public class CommentaireService implements IService<Commentaire> {
        String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire() + "', `dateCommentaire` = '" +t.getDateCommentaire()+"' WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
        return(ste.execute(requeteUpdate)); 
     }
-    public List<Commentaire> readAll(Question Q) throws SQLException {
-    List<Commentaire> arr=new ArrayList<>();
+    
+    public ObservableList<Commentaire> readAll(Question Q) throws SQLException {
+    ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
     ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"'");
      while (rs.next()) {
@@ -87,7 +90,9 @@ public class CommentaireService implements IService<Commentaire> {
     }   
 
     @Override
-    public List<Commentaire> readAll() throws SQLException {
+    public ObservableList<Commentaire> readAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
 }
