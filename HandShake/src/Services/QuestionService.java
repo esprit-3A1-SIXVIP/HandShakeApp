@@ -14,6 +14,8 @@ import java.util.List;
 import java.sql.*;
 import Utils.DataBase;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -37,9 +39,9 @@ import java.util.ArrayList;
     public boolean checkQuestionHasComments(List<Commentaire> commentList, Question t) {
         return (commentList.stream().anyMatch((c) -> ((c.getUser().getUserId())==(t.getUser().getUserId()))));
     }
-    @Override
-    public List<Question> readAll() throws SQLException {
-        List<Question> arr=new ArrayList<>();
+    
+    public ObservableList<Question> readAll() throws SQLException {
+        ObservableList<Question> arr=FXCollections.observableArrayList();
         ste=con.createStatement();
         ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,U.userId,U.login,U.password,U.email,U.role from question Q join user U where Q.userId=U.userId");
          while (rs.next()) {                
