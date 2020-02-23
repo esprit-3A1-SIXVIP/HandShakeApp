@@ -67,15 +67,19 @@ public class CommentaireService implements IService<Commentaire> {
     public ObservableList<Commentaire> readAll(Question Q) throws SQLException {
     ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"'");
+    ServiceUser us=new ServiceUser();
+    ResultSet rs=ste.executeQuery("select c.userId,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId());
      while (rs.next()) {
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");
-               Commentaire p=new Commentaire(Q.getUser(), Q, texteCommentaire, dateCommentaire);               
+               int userId= rs.getInt("userId");  
+               int score=rs.getInt("score");
+               Commentaire p=new Commentaire(us.getUser(userId), Q, texteCommentaire, dateCommentaire, score);               
                arr.add(p);
      }
-    return arr;
-    }
+     return arr;
+     }
+    
     public List<Commentaire> search(String S,Question Q) throws SQLException {
      List<Commentaire> arr=new ArrayList<>();
     ste=con.createStatement();

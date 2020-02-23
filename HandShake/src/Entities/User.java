@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author steph
@@ -24,6 +26,7 @@ public class User {
    String rue ;
    String pays ;
    String role ;
+   boolean accesShakeHub;
    
     public User(int userId, String login, String password, String email, String role) {
         this.userId = userId;
@@ -160,6 +163,50 @@ public class User {
     @Override
     public String toString() {
         return "\nUser{"+",login=" + login + ", password=" + password + ", nomUser=" + nomUser + ", prenomUser=" + prenomUser + ", email=" + email + ", telephone=" + telephone + ", ville=" + ville + ", rue=" + rue + ", pays=" + pays + ", role=" + role + '}';
+    }
+
+    public boolean isAccesShakeHub() {
+        return accesShakeHub;
+    }
+
+    public void setAccesShakeHub(boolean accesShakeHub) {
+        this.accesShakeHub = accesShakeHub;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.userId != other.userId) {
+            return false;
+        }
+        if (!Objects.equals(this.login, other.login)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.role, other.role)) {
+            return false;
+        }
+        return true;
     }
    
     

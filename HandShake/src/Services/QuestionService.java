@@ -43,13 +43,14 @@ import javafx.collections.ObservableList;
     public ObservableList<Question> readAll() throws SQLException {
         ObservableList<Question> arr=FXCollections.observableArrayList();
         ste=con.createStatement();
-        ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,U.userId,U.login,U.password,U.email,U.role from question Q join user U where Q.userId=U.userId");
+        ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,Q.score,U.userId,U.login,U.password,U.email,U.role from question Q join user U where Q.userId=U.userId");
          while (rs.next()) {                
                    int questionId=rs.getInt("questionId");
                    String texteQuestion=rs.getString("texteQuestion");
                    Date dateQuestion=rs.getDate("dateQuestion");
+                   int score=rs.getInt("score");
                    User user=new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
-                   Question p=new Question(questionId, texteQuestion, dateQuestion,user);
+                   Question p=new Question(questionId, texteQuestion, dateQuestion,score,user);
          arr.add(p);
          }
         return arr;
@@ -58,7 +59,7 @@ import javafx.collections.ObservableList;
     @Override
     public void ajouter(Question t) throws SQLException {
         ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `handshake`.`question` (`questionId`, `texteQuestion`, `dateQuestion`,`userId`) VALUES (NULL, '" + t.getTexteQuestion() + "', '" +t.getDateQuestion()+"','" + t.getUser().getUserId() + "');";
+        String requeteInsert = "INSERT INTO `handshake`.`question` (`questionId`, `texteQuestion`, `dateQuestion`,`userId`) VALUES (NULL, '" + t.getTexteQuestion() + "', '" +t.getDateQuestion()+"'," + t.getUser().getUserId() + ");";
         ste.executeUpdate(requeteInsert);
     }
     public void ajouter1(Question p) throws SQLException
@@ -74,15 +75,10 @@ import javafx.collections.ObservableList;
     @Override
     public boolean delete(Question t) throws SQLException {
        CommentaireService CDB= new CommentaireService();
-       if (this.checkQuestionHasComments(CDB.readAll(), t)){   
+         
        ste = con.createStatement();
        String requeteDelete = "DELETE FROM `handshake`.`question` WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
        return(ste.execute(requeteDelete));
-       }
-       else {
-           System.out.println("Vous ne pouvez pas supprimer cette question car elle a des commentaires associés.");
-           return false;
-    }
     }
     @Override
     public boolean update(Question t) throws SQLException {
