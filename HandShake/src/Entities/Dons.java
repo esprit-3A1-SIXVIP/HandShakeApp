@@ -18,14 +18,19 @@ public  class  Dons {
     
     private int donId;
     private String cibleDon;
-    private String typeDon;
-     
+    private String typeDon; 
     private Date dateDon = new Date();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
- String dat = dateFormat.format(dateDon);
+    String dat = dateFormat.format(dateDon);
     private int userI;
 
     public Dons() {
+    }
+
+    public Dons(int donId, String typeDon, int userI) {
+        this.donId = donId;
+        this.typeDon = typeDon;
+        this.userI = userI;
     }
 
     public Dons(int donId, String typeDon, String cibleDon ,int id) {

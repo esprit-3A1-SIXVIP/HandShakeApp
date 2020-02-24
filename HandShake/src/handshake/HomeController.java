@@ -72,10 +72,10 @@ public class HomeController implements Initializable {
 
             ButtonType buttonTypeOne = new ButtonType("Don en Especes");
             ButtonType buttonTypeTwo = new ButtonType("Don en Nature");
-           
+            ButtonType buttonTypeThree = new ButtonType("Don Refuge");
             
            
-            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo,buttonTypeThree);
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeOne) {
@@ -84,6 +84,10 @@ public class HomeController implements Initializable {
             } else if (result.get() == buttonTypeTwo) {
                 
                 loadStage("FormulaireDonNature.fxml");
+            }
+            else if(result.get()==buttonTypeThree)
+            {
+            loadStage("FormRefuge.fxml");
             }
 
         }
