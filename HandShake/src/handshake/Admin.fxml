@@ -48,7 +48,9 @@
                               <Insets />
                            </opaqueInsets>
                         </Hyperlink>
+ 
                         <Hyperlink alignment="TOP_CENTER" layoutX="-2.0" layoutY="273.0" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textAlignment="CENTER" textFill="#fb9d4a">
+ 
                            <font>
                               <Font size="30.0" />
                            </font>
