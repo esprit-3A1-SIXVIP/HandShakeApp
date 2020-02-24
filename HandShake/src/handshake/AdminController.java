@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,9 +18,17 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.event.ActionListener;
+import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -40,6 +47,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -49,6 +62,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javax.swing.SwingUtilities;
+import handshake.NetworkConnection;
+import javafx.application.Platform;
 
 /**
  * FXML Controller class
@@ -60,50 +78,85 @@ public class AdminController implements Initializable {
     /**
      * Initializes the controller class.
      */
-   private Connection con;
+    private Connection con;
     private Statement ste;
     private FileChooser fc;
-    public static final String chemin="C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
+    
+    @FXML
+    private JFXTextField input;
+    
+   
+    
+    
+
+    final static String nature = "Nature";
+    final static String espece = "Espece";
+
+    public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
     @FXML
     private AnchorPane rootPane;
 
-    
+    @FXML
+    private JFXButton supprimerD;
+
+    @FXML
+    private JFXButton buttonPdf;
+
     @FXML
     private JFXButton Statistique;
     
+    
+
     @FXML
     private JFXTextField rechercheD;
 
+    @FXML
     private Label emailU;
 
+    @FXML
     private TableColumn<Dons, Integer> donId;
 
+    @FXML
     private TableColumn<Dons, String> typeD;
 
+    @FXML
     private TableColumn<Dons, String> cibleD;
 
+    @FXML
     private TableColumn<Dons, Integer> montantD;
 
+    @FXML
     private TableColumn<Dons, String> libelleD;
 
+    @FXML
     private TableColumn<Dons, String> categorieD;
+    @FXML
     private TableColumn<Dons, Integer> quantiteD;
 
+    @FXML
     private TableColumn<Dons, Date> dateD;
 
     @FXML
     private TableView<Dons> tableDon;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
+    
+     private boolean isServer = true;
+    
+     @FXML
+    private JFXTextArea messages = new JFXTextArea();
+     
+    private NetworkConnection connection = isServer ? createServer() : createClient();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         con = DataBase.getInstance().getConnection();
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
+        String login = UserSession.getInstance().getLogin();
         emailU.setText(email);
         try {
             donList = (ObservableList<Dons>) SU.readAllDonAdmin();
@@ -124,36 +177,59 @@ public class AdminController implements Initializable {
 
         tableDon.setItems(donList);
         
+        //* Debut Partie Filtre *//
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
-        rechercheD.textProperty().addListener((observable,oldValue,newValue) ->{
-            
-            filteredData.setPredicate( (Dons don) -> {
-                
-                if(newValue == null || newValue.isEmpty())
-                {
+        rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            filteredData.setPredicate((Dons don) -> {
+
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                    
-                    if(don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1)
-                    {
-                        return true;
-                    }else if(don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1)
-                    {
-                        return true;
-                    }else
-                        return false;
-                
+
+                if (don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
             });
-            
+
         });
-        
+
         SortedList<Dons> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
-        
+
         tableDon.setItems(sortedData);
+        //* Debut Partie Filtre *//
         
+        //* Debut Partie Chat *//
+        input.setOnAction(event -> {
+            String message = isServer ? ""+login+"(Admin) : " : "Client : ";
+            message += input.getText();
+            input.clear();
+            
+            messages.appendText(message + "\n");
+            
+            try{
+                connection.send(message);
+            }
+            catch(Exception e){
+                messages.appendText("Failed to send\n");
+            }
+        });
         
+        try {
+            connection.startConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //* Fin Partie Chat *//
+        
+       
 
     }
 
@@ -167,7 +243,8 @@ public class AdminController implements Initializable {
             ex.printStackTrace();
         }
     }
-
+    
+    
     
 
     public void SupprimerDonU(ActionEvent action) throws SQLException {
@@ -178,8 +255,7 @@ public class AdminController implements Initializable {
         ButtonType buttonTypeOne = new ButtonType("Confirm");
         ButtonType buttonTypeOne1 = new ButtonType("Cancel");
 
-        alert.getButtonTypes().setAll(buttonTypeOne,buttonTypeOne1);
-        
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne) {
@@ -188,29 +264,23 @@ public class AdminController implements Initializable {
 //            allDon = tableDon.getItems();
 //            donSelected = tableDon.getSelectionModel().getSelectedItems();
 //            donSelected.forEach(allDon::remove);
-
-            
-            
             int index = tableDon.getSelectionModel().getSelectedIndex();
             String type = typeD.getCellData(index);
             System.out.println(type);
-            if(type.equals("Nature"))
-            {
+            if (type.equals("Nature")) {
                 int id = donId.getCellData(index);
-                
+
                 ServiceDonNature SN = new ServiceDonNature();
                 SN.delete(id);
                 donList.removeAll(tableDon.getSelectionModel().getSelectedItems());
-            tableDon.getSelectionModel().clearSelection();
-            }
-            else
-            {
+                tableDon.getSelectionModel().clearSelection();
+            } else {
                 int id = donId.getCellData(index);
-                
+
                 ServiceDonEspeces SE = new ServiceDonEspeces();
                 SE.delete(id);
                 donList.removeAll(tableDon.getSelectionModel().getSelectedItems());
-            tableDon.getSelectionModel().clearSelection();
+                tableDon.getSelectionModel().clearSelection();
             }
 
         } else {
@@ -219,47 +289,37 @@ public class AdminController implements Initializable {
 
     }
 
-    
-    
-    public void Imprimer(ActionEvent action) 
-    {
-        
-        
-        Document document = new Document();
-    try 
-    {
-      PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
-      document.open();
-      
-      document.add(new Paragraph("Historique de Don\n\n"));
-      document.add(premierTableau());
+    public void Imprimer(ActionEvent action) {
 
-    } catch (DocumentException | IOException de) {
-      de.printStackTrace();
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
+            document.open();
+
+            document.add(new Paragraph("Historique de Don\n\n"));
+            document.add(premierTableau());
+
+        } catch (DocumentException | IOException de) {
+            de.printStackTrace();
+        }
+
+        document.close();
+
     }
-   
-    document.close();
-         
-        
-    }
-    
-    public static PdfPTable premierTableau()
-  {
-      //On créer un objet table dans lequel on intialise ça taille.
-      PdfPTable table = new PdfPTable(7);
-      
-      //On créer l'objet cellule.
-      table.addCell("Type");
-      table.addCell("Cible");
-      table.addCell("Montant");
-      table.addCell("Libelle");
-      table.addCell("Categorie");
-      table.addCell("Quantité");
-      table.addCell("Date");
-      
-      
-      
-      
+
+    public static PdfPTable premierTableau() {
+        //On créer un objet table dans lequel on intialise ça taille.
+        PdfPTable table = new PdfPTable(7);
+
+        //On créer l'objet cellule.
+        table.addCell("Type");
+        table.addCell("Cible");
+        table.addCell("Montant");
+        table.addCell("Libelle");
+        table.addCell("Categorie");
+        table.addCell("Quantité");
+        table.addCell("Date");
+
 //      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
 //      cell.setColspan(3);
 //      table.addCell(cell);
@@ -274,11 +334,77 @@ public class AdminController implements Initializable {
 //      table.addCell("Colonne 2; Cellule 1");
 //      table.addCell("Colonne 2; Cellule 2");
 //      
-      return table;  
-  }
+        return table;
+    }
 
     @FXML
-    private void addQuestion(ActionEvent event) {
+    public void Statistique(ActionEvent action) throws IOException, SQLException {
+        ServiceUser SU = new ServiceUser();
+        ServiceDonNature SDN = new ServiceDonNature();
+        ServiceDonEspeces SDE = new ServiceDonEspeces();
+        Stage stage = new Stage();
+        stage.setTitle("Statistique Don");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String, Number> bc
+                = new BarChart<String, Number>(xAxis, yAxis);
+        bc.setTitle("Don");
+        xAxis.setLabel("Type");
+        yAxis.setLabel("Value");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Nombre Don");
+        series1.getData().add(new XYChart.Data(nature, SU.NombreDonNature()));
+        series1.getData().add(new XYChart.Data(espece, SU.NombreDonEspece()));
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("MDN Alimentaire");
+        series2.getData().add(new XYChart.Data(nature, SDN.moyenneA()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series3 = new XYChart.Series();
+        series3.setName("MDN Vestimentaire");
+        series3.getData().add(new XYChart.Data(nature, SDN.moyenneV()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series4 = new XYChart.Series();
+        series4.setName("MDN Autres");
+        series4.getData().add(new XYChart.Data(nature, SDN.moyenneAutre()));
+        
+         XYChart.Series series5 = new XYChart.Series();
+        series5.setName("MDE Montant");
+        series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
+        
+        Scene scene = new Scene(bc, 800, 600);
+        bc.getData().addAll(series1, series2,series3,series4,series5);
+        stage.setScene(scene);
+        stage.show();
+
+//           Parent root = FXMLLoader.load(getClass().getResource("StatistiqueDon.fxml"));
+//           Stage stage = new Stage();
+//           stage.setScene(new Scene(root));
+//           stage.initModality(Modality.APPLICATION_MODAL);
+//           stage.show();
     }
     
+    //* Debut Partie Chat *//
+    private Server createServer() {
+        return new Server(55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    
+    private Client createClient() {
+        return new Client("127.0.0.1",55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    //* Fin Partie Chat *//
+    
+
+
 }
