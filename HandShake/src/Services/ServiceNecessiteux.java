@@ -19,9 +19,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Entities.Necessiteux;
 import Entities.Refugie;
+import IServices.IServiceAide;
 
 
-public class ServiceNecessiteux implements IService<Necessiteux>{
+public class ServiceNecessiteux implements IServiceAide<Necessiteux>{
     
     private Connection con;
     private Statement ste;
