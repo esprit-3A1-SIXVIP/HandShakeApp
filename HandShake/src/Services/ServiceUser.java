@@ -58,6 +58,17 @@ public class ServiceUser {
         String requeteInsert = "INSERT INTO `handshake`.`user` ( `login`, `password`, `nomUser`, `prenomUser`, `email`, `telephone`, `ville`, `rue`, `pays`, `role`)  VALUES ( '" + u.getLogin() + "', '" + u.getPassword() + "', '" + u.getNomUser() + "', '" + u.getPrenomUser() + "', '" + u.getEmail() + "', '" + u.getTelephone() + "', '" + u.getVille() + "', '" + u.getRue() + "', '" + u.getPays() + "', '" + u.getRole() + "');";
         ste.executeUpdate(requeteInsert);
     }
+    
+    public User getUser(int id) throws SQLException {
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
+        if (rs.next()) {
+            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+            return U;
+        }
+
+        return null;
+    }
 
     public void supprimer(User u) throws SQLException {
         ste = con.createStatement();
@@ -90,16 +101,7 @@ public class ServiceUser {
         }
         return arr;
     }
-    public User getUser(int id) throws SQLException {
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
-        if (rs.next()) {
-            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
-            return U;
-        }
 
-        return null;
-    }
     public int getIdUser(User u) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where email='" + u.getEmail() + "' and  password='" + u.getPassword() + "'");
@@ -125,6 +127,16 @@ public class ServiceUser {
         ResultSet rs = ste.executeQuery("select * from user where userId="+a);
         if (rs.next()) {
             return rs.getString("role");
+        }
+
+        return null;
+    }
+     
+     public String getLogin(int a) throws SQLException {
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from user where userId="+a);
+        if (rs.next()) {
+            return rs.getString("login");
         }
 
         return null;
@@ -213,23 +225,29 @@ public class ServiceUser {
         return arr;
 
     }
-     public ObservableList<User> readOrganisation() throws SQLException {
-        ObservableList<User> arr =FXCollections.observableArrayList();
-        ste=con.createStatement();
-        ResultSet rs=ste.executeQuery("select nomOrganisation,pays,ville,domaine,email from user\n" +
-"where type=\"organisation\";");
-        while(rs.next()){
-            
-            String nomOrganisation= rs.getString("nomOrganisation");
-            String ville= rs.getString("ville");
-           String pays= rs.getString("pays");
-           String domaine= rs.getString("domaine");
-           String email= rs.getString("email");
-          
-           User u = new User(nomOrganisation,ville,domaine,pays,email);
-            arr.add(u);
+    
+    public int NombreDonNature() throws SQLException
+    {
+        int i=0;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don where typeDon='Nature'");
+        while(rs.next())
+        {
+            i++;
         }
-        return arr;
+        return i;
+    }
+    
+    public int NombreDonEspece() throws SQLException
+    {
+        int i=0;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don where typeDon='Especes'");
+        while(rs.next())
+        {
+            i++;
+        }
+        return i;
     }
 
 //    public List<Dons> recherche(String type, String cible) throws SQLException
