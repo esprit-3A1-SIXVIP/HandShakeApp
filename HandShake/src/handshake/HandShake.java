@@ -33,7 +33,7 @@ public class HandShake extends Application{
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Maps.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Handshake.fxml"));
         
         Scene scene = new Scene(root);
         

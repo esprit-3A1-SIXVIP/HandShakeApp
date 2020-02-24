@@ -1,6 +1,9 @@
 package handshake;
 
 
+import Entities.Refuge;
+import Entities.User;
+import Services.ServiceRefuge;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
@@ -14,9 +17,12 @@ import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javax.mail.Service;
 
 
 public class MapsController implements Initializable, MapComponentInitializedListener {
@@ -28,7 +34,7 @@ public class MapsController implements Initializable, MapComponentInitializedLis
     private GoogleMapView mapView;
     
     private GoogleMap map;
-    
+      ObservableList<Refuge> listU = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
@@ -96,7 +102,14 @@ public class MapsController implements Initializable, MapComponentInitializedLis
     }   
     public void allRefugeonMap()
     {
-    
+        ServiceRefuge ser=new ServiceRefuge() ;
+        Refuge r=new Refuge();
+        
+        
+        
+        
+        
+    LatLong joeSmithLocation = new LatLong(33.918534, 8.122933);
     
     }
 }

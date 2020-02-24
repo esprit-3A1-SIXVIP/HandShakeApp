@@ -13,10 +13,13 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -122,5 +125,31 @@ public class ServiceRefuge {
 
         }
         return arr;
+    }
+    public ObservableList<Refuge> gps() throws SQLException, ParseException {
+        ObservableList<Refuge> arr = FXCollections.observableArrayList();
+        ste = con.createStatement();
+             ResultSet rs = ste.executeQuery("select * from don where typeDon='Refuge'");
+
+     while (rs.next()) {
+            int donId = rs.getInt(1);
+            String rueRefuge = rs.getString("rueRefuge");
+            String villeRefuge = rs.getString("villeRefuge");
+            String paysRefuge = rs.getString("paysRefuge");
+            int disponibiliteRefuge = rs.getInt("disponibiliteRefuge");
+            Date datd = java.sql.Date.valueOf(rs.getString("dateDebutRefuge"));
+            Date datf = java.sql.Date.valueOf(rs.getString("dateFinRefuge"));
+            int capaciteRefuge = rs.getInt("capaciteRefuge");
+            Double longitude = rs.getDouble("longitude");
+            Double latitude = rs.getDouble("latitude");
+            Refuge p = new Refuge(rueRefuge, villeRefuge, paysRefuge, capaciteRefuge, datd.toLocalDate(), datf.toLocalDate(), longitude, latitude, donId, paysRefuge, donId);
+            arr.add(p);
+
+        }
+
+        
+
+        return arr;
+
     }
 }

@@ -102,12 +102,7 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableColumn<Dons, Date> dateD;
-
-    @FXML
-    private TableView<Dons> tableDon;
-
-    ObservableList<Dons> donList = FXCollections.observableArrayList();
-    @FXML
+@FXML
     private AnchorPane AnchorPane;
     @FXML
     private Circle profile_admin;
@@ -130,6 +125,11 @@ public class AdminController implements Initializable {
     @FXML
     private JFXButton buttonPdf;
 
+    @FXML
+    private TableView<Dons> tableDon;
+
+    ObservableList<Dons> donList = FXCollections.observableArrayList();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -160,7 +160,7 @@ public class AdminController implements Initializable {
         date_debut.setCellValueFactory(new PropertyValueFactory<>("dateDebutRefuge"));
         date_fin.setCellValueFactory(new PropertyValueFactory<>("dateFinRefuge"));
         tableDon.setItems(donList);
-            scrollbar(tableDon);
+        
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
         rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
 

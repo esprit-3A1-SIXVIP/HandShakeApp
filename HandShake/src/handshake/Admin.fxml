@@ -49,7 +49,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="731.0" prefWidth="739.0" style="-fx-background-color: f1f1f0;">
                      <children>
-                        <TableView fx:id="tableDon" editable="true" layoutX="2.0" layoutY="1.0" prefHeight="484.0" prefWidth="737.0" tableMenuButtonVisible="true">
+                        <TableView fx:id="tableDon" editable="true" layoutY="1.0" prefHeight="484.0" prefWidth="739.0" tableMenuButtonVisible="true">
                           <columns>
                             <TableColumn fx:id="typeD" prefWidth="100.0" text="Type" />
                             <TableColumn fx:id="cibleD" prefWidth="128.0" text="Cible" />
