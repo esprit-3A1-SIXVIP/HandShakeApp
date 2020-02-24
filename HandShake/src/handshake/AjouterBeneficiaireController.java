@@ -45,6 +45,10 @@ import Services.ServiceAide;
 import Services.ServiceBeneficiaire;
 import Services.ServiceNecessiteux;
 import Services.ServiceRefugie;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -96,6 +100,10 @@ public class AjouterBeneficiaireController implements Initializable {
     private TextField tfbesoin;
     @FXML
     private TextField tfnationalite;
+    @FXML
+    private ImageView home1;
+    @FXML
+    private AnchorPane rootPane;
 
 
     private boolean Validchamp(TextField T){
@@ -207,6 +215,23 @@ public class AjouterBeneficiaireController implements Initializable {
             }
         }
         return is;
+    }
+       
+       
+        private void loadStage(String fxml) {
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+
+            rootPane.getChildren().setAll(pane);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void home(MouseEvent event) {
+        loadStage("Home.fxml");
     }
     
 }

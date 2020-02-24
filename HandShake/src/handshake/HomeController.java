@@ -51,7 +51,7 @@ public class HomeController implements Initializable {
     @FXML
     private Circle cercledon1;
     @FXML
-    private Hyperlink fairedon1;
+    private Hyperlink appel_aide;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,6 +104,30 @@ public class HomeController implements Initializable {
 
     @FXML
     private void interbenif(ActionEvent event) {
+        if (event.getSource() == appel_aide) {
+
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Aide ou Beneficiaire");
+            alert.setHeaderText("Que voulez vous? ");
+            alert.setContentText("Choisir votre option.");
+
+            ButtonType buttonTypeOne = new ButtonType("Aide");
+            ButtonType buttonTypeTwo = new ButtonType("Beneficaire");
+           
+            
+           
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeOne) {
+                loadStage("AjouterAide.fxml");
+                
+            } else if (result.get() == buttonTypeTwo) {
+                
+                loadStage("AjouterBeneficiaire.fxml");
+            }
+
+        }
         
     }
 

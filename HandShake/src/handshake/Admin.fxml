@@ -48,16 +48,11 @@
                               <Insets />
                            </opaqueInsets>
                         </Hyperlink>
- 
-                        <Hyperlink alignment="TOP_CENTER" layoutX="-2.0" layoutY="273.0" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textAlignment="CENTER" textFill="#fb9d4a">
- 
+                        <JFXButton fx:id="benef" buttonType="RAISED" layoutX="1.0" layoutY="289.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textFill="#12cdf4">
                            <font>
-                              <Font size="30.0" />
+                              <Font size="18.0" />
                            </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Hyperlink>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="731.0" prefWidth="739.0" style="-fx-background-color: f1f1f0;">

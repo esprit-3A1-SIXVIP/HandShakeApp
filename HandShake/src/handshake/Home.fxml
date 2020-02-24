@@ -37,7 +37,7 @@
                </font>
             </Hyperlink>
             <Circle fx:id="cercledon1" layoutX="311.0" layoutY="712.0" opacity="0.72" radius="66.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />
-            <Hyperlink fx:id="fairedon1" layoutX="279.0" layoutY="695.0" onAction="#interbenif" scaleShape="false" text="A l'aide">
+            <Hyperlink fx:id="appel_aide" layoutX="279.0" layoutY="695.0" onAction="#interbenif" scaleShape="false" text="A l'aide">
                <font>
                   <Font size="17.0" />
                </font>

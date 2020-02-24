@@ -39,6 +39,10 @@ import Entities.SendMail;
 import Services.ServiceBeneficiaire;
 import Services.ServiceNecessiteux;
 import Services.ServiceRefugie;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -122,6 +126,10 @@ public class InterBeneficiaireController implements Initializable {
     private Button Supprimer1;
     @FXML
     PieChart bookChart;
+    @FXML
+    private ImageView home1;
+    @FXML
+    private AnchorPane rootPane;
       public void Aff(){
                         try {
                         cls.clear();
@@ -437,6 +445,23 @@ public class InterBeneficiaireController implements Initializable {
              SingleDemandes.forEach(allDemandes::remove);
              Aff1();
              RechercheAV1();
+    }
+    
+    
+      private void loadStage(String fxml) {
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+
+            rootPane.getChildren().setAll(pane);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void home(MouseEvent event) {
+        loadStage("Admin.fxml");
     }
 
 

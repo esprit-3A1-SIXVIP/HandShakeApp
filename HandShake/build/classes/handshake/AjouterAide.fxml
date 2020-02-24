@@ -11,16 +11,16 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.Test.Interface.AjouterAideController">
+<AnchorPane fx:id="rootPane" id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.AjouterAideController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true">
          <image>
-            <Image url="@../../Images/main1.jpg" />
+            <Image url="@images/main1.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="85.0" fitWidth="347.0" pickOnBounds="true">
          <image>
-            <Image url="@../../Images/logoH.png" />
+            <Image url="@images/logoH.png" />
          </image>
       </ImageView>
       <AnchorPane layoutX="119.0" layoutY="76.0" opacity="0.71" prefHeight="684.0" prefWidth="842.0" style="-fx-background-color: f1f1f0;">
@@ -65,6 +65,11 @@
                   <Font size="15.0" />
                </font>
             </Button>
+            <ImageView fx:id="home1" fitHeight="85.0" fitWidth="90.0" layoutX="731.0" layoutY="22.0" onMouseClicked="#home">
+               <image>
+                  <Image url="@images/home3.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

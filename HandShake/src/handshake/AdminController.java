@@ -47,6 +47,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -121,6 +122,8 @@ public class AdminController implements Initializable {
     private TableView<Dons> tableDon;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
+    @FXML
+    private JFXButton benef;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -189,6 +192,7 @@ public class AdminController implements Initializable {
         }
     }
 
+    @FXML
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -231,6 +235,7 @@ public class AdminController implements Initializable {
 
     }
 
+    @FXML
     public void Imprimer(ActionEvent action) {
 
         Document document = new Document();
@@ -312,6 +317,11 @@ public class AdminController implements Initializable {
 //           stage.setScene(new Scene(root));
 //           stage.initModality(Modality.APPLICATION_MODAL);
 //           stage.show();
+    }
+
+    @FXML
+    private void beneficiaire(ActionEvent event) {
+        loadStage("InterBeneficiaire.fxml");
     }
 
 }

@@ -34,6 +34,11 @@ import Utils.DataBase;
 import Entities.Aide;
 import Entities.Pdf;
 import Services.ServiceAide;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -60,13 +65,21 @@ public class AjouterAideController implements Initializable {
     @FXML
     private TableColumn<Aide, String> categorietab;
     @FXML
-    private Button Supprimer;
-    @FXML
     private TextField recherche;
     private final ObservableList<Aide> data = FXCollections.observableArrayList();
         ServiceAide SA = new ServiceAide(); 
     @FXML
     private Button AjouterAide;
+    @FXML
+    private Circle cercledon;
+    @FXML
+    private Circle cercledon1;
+    @FXML
+    private Button AjouterAide1;
+    @FXML
+    private ImageView home1;
+    @FXML
+    private AnchorPane rootPane;
         private boolean Validchamp(TextField T){
         return !T.getText().isEmpty() && T.getLength() > 3;
     }
@@ -206,6 +219,24 @@ public class AjouterAideController implements Initializable {
              SingleDemandes.forEach(allDemandes::remove);
              RechercheAV();
 
+    }
+    
+    
+    
+    private void loadStage(String fxml) {
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+
+            rootPane.getChildren().setAll(pane);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void home(MouseEvent event) {
+        loadStage("Home.fxml");
     }
 
     
