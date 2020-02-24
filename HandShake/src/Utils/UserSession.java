@@ -5,6 +5,10 @@
  */
 package Utils;
 
+import Entities.User;
+import Services.ServiceUser;
+import java.sql.SQLException;
+
 /**
  *
  * @author steph
@@ -17,18 +21,23 @@ public final class UserSession {
     private String email;
     private int id;
     private String role;
+    private String login;
+    private static User U= new User(22,"Malek","1234","malek.taktak@esprit.tn","admin");
+    private static ServiceUser us= new ServiceUser();
     
     private UserSession()
     {
         email = getEmail();
         id = getId();
         role = getRole();
+        login = getLogin();
     }
 
-    private UserSession(String email, int id,String role) {
+    private UserSession(String email, int id,String role,String login) {
         this.email = email;
         this.id = id;
         this.role = role;
+        this.login = login;
     }
     
     public static UserSession getInstance() {
@@ -38,9 +47,10 @@ public final class UserSession {
         return instance;
     }
 
-    public static UserSession getInstace(String email, int id,String role) {
+    public static UserSession getInstace(String email, int id,String role,String login) throws SQLException {
         if(instance == null) {
-            instance = new UserSession(email, id,role);
+            instance = new UserSession(email, id,role,login);
+            U=us.getUser(id);
         }
         return instance;
     }
@@ -57,16 +67,26 @@ public final class UserSession {
         return id;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
     public void cleanUserSession() {
         email = "";// or null
         id = -1;// or null
+        U=null;
     }
 
+    public static User getU() {
+        return U;
+    }
+
+    public static void setU(User U) {
+        UserSession.U = U;
+    }
+    
     @Override
     public String toString() {
-        return "UserSession{" +
-                "Email ='" + email + '\'' +
-                ", Id =" + id +
-                '}';
+        return U.toString();
     }
 }

@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -77,17 +75,18 @@ public class HandshakeController implements Initializable {
                  {
                      int id = SU.getIdUser1(email, Password);
                      String role = SU.getRole(id);
+                     String login = SU.getLogin(id);
                      if(id != -1)
                      {
                          if(role.equals("admin"))
                          {
-                             UserSession.getInstace(email, id,role);
+                             UserSession.getInstace(email, id,role,login);
                          
                          loadStage("Admin.fxml");
                          }
                          else
                          {
-                             UserSession.getInstace(email, id,role);
+                             UserSession.getInstace(email, id,role,login);
                          
                          loadStage("Home.fxml");
                          }

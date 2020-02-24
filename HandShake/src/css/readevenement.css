@@ -1,0 +1,52 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.button{
+    -fx-background-color: #F0EDE5;
+    
+}
+.button:hover
+{
+    -fx-background-color: #E7E4DD;
+}
+.button:pressed{
+    -fx-background-color: #E7E4DD;
+}
+.table-view.colum-header,
+.table-view.colum-header-background.filler{
+    -fx-cell-size: 20;
+    -fx-background-color:#0C9AE0;
+    -fx-background-fills: #0000000;
+}
+.table-view.colum-header.label{
+    -fx-text-fill: #000000;
+   
+    -fx-alignment: CENTER_LEFT;
+}
+.table-view.cell{
+    -fx-cell-size: 40;
+    -fx-alignment: center-left;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+.table-row-cell:selected{
+    -fx-background-color: #E7E4DD;
+
+}
+.table-view.scroll-bar:horizontal.track,
+.table-view.scroll-bar:vertical.track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(#2D75E8,80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+.table-view.scroll-bar:horizontal.thumb,
+.table-view.scroll-bar:vertical.thumb{
+    -fx-background-color: derive(#2D75E8,90%);
+    -fx-background-insets: 2,0,0;
+    -fx-background-radius: 2em;
+}

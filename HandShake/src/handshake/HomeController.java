@@ -1,3 +1,5 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,6 +9,7 @@ package handshake;
 
 import Services.ServiceUser;
 import Utils.UserSession;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -49,8 +52,8 @@ public class HomeController implements Initializable {
     @FXML
     private Circle cercledon;
     @FXML
-    private Circle cercledon1;
-    @FXML
+    private JFXButton btn;
+     @FXML
     private Hyperlink appel_aide;
     
     @Override
@@ -90,7 +93,11 @@ public class HomeController implements Initializable {
     private void handleImageUser() {
         loadStage("User.fxml");
     }
-
+    
+    @FXML
+    private void handleShakeHub() {
+        loadStage("ShakeHub.fxml");
+    }
     private void loadStage(String fxml) {
         try {
              AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
@@ -103,6 +110,22 @@ public class HomeController implements Initializable {
     }
 
     @FXML
+    private void GoToEvenement(ActionEvent event) {
+        
+        try {
+                    FXMLLoader top=new FXMLLoader(getClass().getResource("evenement.fxml"));
+
+            Parent root =top.load();
+                    EvenementController dpc=top.getController();
+                    
+                    
+                   btn.getScene().setRoot(root);
+
+        } catch (IOException ex) {
+        System.out.println(ex.getMessage());
+        }
+    }
+   @FXML
     private void interbenif(ActionEvent event) {
         if (event.getSource() == appel_aide) {
 
@@ -130,5 +153,5 @@ public class HomeController implements Initializable {
         }
         
     }
-
 }
+

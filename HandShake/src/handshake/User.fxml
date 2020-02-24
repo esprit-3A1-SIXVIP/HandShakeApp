@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
@@ -12,11 +13,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.UserController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.UserController">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: black;">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true">
+            <ImageView fitHeight="820.0" fitWidth="1020.0" pickOnBounds="true">
                <image>
                   <Image url="@images/main1.jpg" />
                </image>
@@ -26,7 +27,7 @@
                   <Image url="@images/logoH.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutY="69.0" opacity="0.5" prefHeight="731.0" prefWidth="260.0" style="-fx-background-color: #12cdf4;">
+            <AnchorPane layoutY="69.0" opacity="0.5" prefHeight="751.0" prefWidth="260.0" style="-fx-background-color: #12cdf4;">
                <children>
                   <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="106.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -48,9 +49,9 @@
                   </Hyperlink>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="731.0" prefWidth="739.0" style="-fx-background-color: f1f1f0;">
+            <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="751.0" prefWidth="761.0" style="-fx-background-color: f1f1f0;">
                <children>
-                  <TableView fx:id="tableDon" layoutY="1.0" prefHeight="465.0" prefWidth="739.0">
+                  <TableView fx:id="tableDon" layoutY="1.0" prefHeight="465.0" prefWidth="761.0">
                     <columns>
                       <TableColumn fx:id="typeD" prefWidth="100.0" text="Type" />
                       <TableColumn fx:id="cibleD" prefWidth="128.0" text="Cible" />
@@ -58,8 +59,8 @@
                         <TableColumn fx:id="libelleD" minWidth="0.0" prefWidth="134.0" text="Libelle" />
                         <TableColumn fx:id="categorieD" prefWidth="115.0" text="Categorie" />
                         <TableColumn fx:id="quantiteD" prefWidth="66.0" text="Quantité" />
-                        <TableColumn fx:id="dateD" prefWidth="125.0" text="Date" />
-                        <TableColumn fx:id="donId" prefWidth="100.0" text="id" />
+                        <TableColumn fx:id="dateD" prefWidth="150.0" text="Date" />
+                        <TableColumn fx:id="donId" prefWidth="75.0" text="id" />
                     </columns>
                   </TableView>
                   <JFXButton fx:id="supprimerD" buttonType="RAISED" layoutX="55.0" layoutY="499.0" onAction="#SupprimerDonU" style="-fx-background-color: black;" text="Supprimer Don" textFill="#12cdf4">
@@ -72,7 +73,7 @@
                         <Font size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="rechercheD" focusColor="#12cdf4" layoutX="415.0" layoutY="499.0" prefHeight="39.0" prefWidth="294.0" promptText="Recherche Don(Type ou Cible)">
+                  <JFXTextField fx:id="rechercheD" focusColor="#12cdf4" layoutX="415.0" layoutY="470.0" prefHeight="39.0" prefWidth="294.0" promptText="Recherche Don(Type ou Cible)">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -82,6 +83,12 @@
                         <Font size="18.0" />
                      </font>
                   </JFXButton>
+                  <JFXTextArea fx:id="messages" editable="false" focusColor="#12cdf4" layoutX="289.0" layoutY="518.0" prefHeight="147.0" prefWidth="444.0" style="-fx-border-color: #12cdf4;" />
+                  <JFXTextField fx:id="input" focusColor="#12cdf4" layoutX="426.0" layoutY="690.0" promptText="Votre message">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXTextField>
                </children>
             </AnchorPane>
             <ImageView fx:id="home" fitHeight="57.0" fitWidth="74.0" layoutX="910.0" layoutY="5.0" onMousePressed="#Home" pickOnBounds="true" preserveRatio="true">

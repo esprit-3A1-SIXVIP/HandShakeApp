@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,9 +19,17 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.event.ActionListener;
+import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -47,7 +56,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,6 +65,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.SwingUtilities;
+import handshake.NetworkConnection;
+import javafx.application.Platform;
 
 /**
  * FXML Controller class
@@ -71,6 +82,13 @@ public class AdminController implements Initializable {
     private Connection con;
     private Statement ste;
     private FileChooser fc;
+    
+    @FXML
+    private JFXTextField input;
+    
+   
+    
+    
 
     final static String nature = "Nature";
     final static String espece = "Espece";
@@ -88,6 +106,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private JFXButton Statistique;
+    
+    
 
     @FXML
     private JFXTextField rechercheD;
@@ -120,10 +140,18 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableView<Dons> tableDon;
-
-    ObservableList<Dons> donList = FXCollections.observableArrayList();
+  
     @FXML
     private JFXButton benef;
+
+    ObservableList<Dons> donList = FXCollections.observableArrayList();
+    
+     private boolean isServer = true;
+    
+     @FXML
+    private JFXTextArea messages = new JFXTextArea();
+     
+    private NetworkConnection connection = isServer ? createServer() : createClient();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -132,6 +160,7 @@ public class AdminController implements Initializable {
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
+        String login = UserSession.getInstance().getLogin();
         emailU.setText(email);
         try {
             donList = (ObservableList<Dons>) SU.readAllDonAdmin();
@@ -151,7 +180,8 @@ public class AdminController implements Initializable {
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
 
         tableDon.setItems(donList);
-
+        
+        //* Debut Partie Filtre *//
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
         rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -178,6 +208,32 @@ public class AdminController implements Initializable {
         sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
 
         tableDon.setItems(sortedData);
+        //* Debut Partie Filtre *//
+        
+        //* Debut Partie Chat *//
+        input.setOnAction(event -> {
+            String message = isServer ? ""+login+"(Admin) : " : "Client : ";
+            message += input.getText();
+            input.clear();
+            
+            messages.appendText(message + "\n");
+            
+            try{
+                connection.send(message);
+            }
+            catch(Exception e){
+                messages.appendText("Failed to send\n");
+            }
+        });
+        
+        try {
+            connection.startConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //* Fin Partie Chat *//
+        
+       
 
     }
 
@@ -191,8 +247,10 @@ public class AdminController implements Initializable {
             ex.printStackTrace();
         }
     }
+    
+    
+    
 
-    @FXML
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -235,7 +293,6 @@ public class AdminController implements Initializable {
 
     }
 
-    @FXML
     public void Imprimer(ActionEvent action) {
 
         Document document = new Document();
@@ -287,6 +344,8 @@ public class AdminController implements Initializable {
     @FXML
     public void Statistique(ActionEvent action) throws IOException, SQLException {
         ServiceUser SU = new ServiceUser();
+        ServiceDonNature SDN = new ServiceDonNature();
+        ServiceDonEspeces SDE = new ServiceDonEspeces();
         Stage stage = new Stage();
         stage.setTitle("Statistique Don");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -299,16 +358,29 @@ public class AdminController implements Initializable {
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Nombre Don");
-        series1.getData().add(new XYChart.Data("Nature", SU.NombreDonNature()));
-        series1.getData().add(new XYChart.Data("Espece", SU.NombreDonEspece()));
+        series1.getData().add(new XYChart.Data(nature, SU.NombreDonNature()));
+        series1.getData().add(new XYChart.Data(espece, SU.NombreDonEspece()));
 
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(nature, 12));
-        series2.getData().add(new XYChart.Data(espece, 9));
-
+        series2.setName("MDN Alimentaire");
+        series2.getData().add(new XYChart.Data(nature, SDN.moyenneA()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series3 = new XYChart.Series();
+        series3.setName("MDN Vestimentaire");
+        series3.getData().add(new XYChart.Data(nature, SDN.moyenneV()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series4 = new XYChart.Series();
+        series4.setName("MDN Autres");
+        series4.getData().add(new XYChart.Data(nature, SDN.moyenneAutre()));
+        
+         XYChart.Series series5 = new XYChart.Series();
+        series5.setName("MDE Montant");
+        series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
+        
         Scene scene = new Scene(bc, 800, 600);
-        bc.getData().addAll(series1, series2);
+        bc.getData().addAll(series1, series2,series3,series4,series5);
         stage.setScene(scene);
         stage.show();
 
@@ -318,10 +390,30 @@ public class AdminController implements Initializable {
 //           stage.initModality(Modality.APPLICATION_MODAL);
 //           stage.show();
     }
-
-    @FXML
+    
+    //* Debut Partie Chat *//
+    private Server createServer() {
+        return new Server(55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    
+    private Client createClient() {
+        return new Client("127.0.0.1",55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    //* Fin Partie Chat *//
+   @FXML
     private void beneficiaire(ActionEvent event) {
         loadStage("InterBeneficiaire.fxml");
     }
+    
+
 
 }
+

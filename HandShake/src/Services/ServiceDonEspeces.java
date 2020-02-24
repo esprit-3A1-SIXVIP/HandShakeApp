@@ -101,12 +101,32 @@ public class ServiceDonEspeces implements InterfaceDon<DonEspeces>{
           
      }
      
+     
+     
     return arr;
     
     }
     
     
-    
+    public double moyenneM() throws SQLException
+    {
+        double i=0 , j=0;
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select * from don where typeDon='Especes'");
+        
+        while(rs.next())
+        {
+            
+                i += rs.getInt("montantDon");
+                j++;
+            
+        }
+        if(j !=0)
+        {
+             return i/j;
+        }
+       return 0;
+    }
     
     
 }
