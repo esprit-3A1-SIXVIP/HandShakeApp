@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.List;
 import Entities.Aide;
 import IServices.IService;
+import IServices.IServiceAide;
+import IServices.InterfaceDon;
 import Utils.DataBase;
 
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ServiceAide implements IService<Aide> {
+public class ServiceAide implements IServiceAide<Aide> {
 
     private Connection con;
     private Statement ste;
@@ -137,5 +139,7 @@ public class ServiceAide implements IService<Aide> {
         return a ;
         
     }
+
+    
     
 }
