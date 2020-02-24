@@ -6,6 +6,7 @@
 package IServices;
 
 
+
 import Entities.Evenement;
 import Entities.User;
 import java.sql.SQLException;
@@ -23,7 +24,5 @@ public interface IService<T> {
     boolean update(T t) throws SQLException;
 
     ObservableList<T>  readAll() throws SQLException;
-   
-    
 }
 

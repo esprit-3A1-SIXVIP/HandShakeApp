@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -139,6 +140,9 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableView<Dons> tableDon;
+  
+    @FXML
+    private JFXButton benef;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
     
@@ -404,7 +408,12 @@ public class AdminController implements Initializable {
         });
     }
     //* Fin Partie Chat *//
+   @FXML
+    private void beneficiaire(ActionEvent event) {
+        loadStage("InterBeneficiaire.fxml");
+    }
     
 
 
 }
+
