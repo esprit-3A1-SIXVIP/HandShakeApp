@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -43,11 +44,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 /**
@@ -60,46 +63,76 @@ public class AdminController implements Initializable {
     /**
      * Initializes the controller class.
      */
-   private Connection con;
+    private Connection con;
     private Statement ste;
     private FileChooser fc;
-    public static final String chemin="C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
+    public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
     @FXML
     private AnchorPane rootPane;
 
-    
     @FXML
     private JFXButton Statistique;
-    
+
     @FXML
     private JFXTextField rechercheD;
 
+    @FXML
     private Label emailU;
 
+    @FXML
     private TableColumn<Dons, Integer> donId;
 
+    @FXML
     private TableColumn<Dons, String> typeD;
 
+    @FXML
     private TableColumn<Dons, String> cibleD;
 
+    @FXML
     private TableColumn<Dons, Integer> montantD;
 
+    @FXML
     private TableColumn<Dons, String> libelleD;
 
+    @FXML
     private TableColumn<Dons, String> categorieD;
+    @FXML
     private TableColumn<Dons, Integer> quantiteD;
 
+    @FXML
     private TableColumn<Dons, Date> dateD;
 
     @FXML
     private TableView<Dons> tableDon;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane AnchorPane;
+    @FXML
+    private Circle profile_admin;
+    @FXML
+    private TableColumn<Dons, String> cap;
+    @FXML
+    private TableColumn<Dons, String> ville;
+    @FXML
+    private TableColumn<Dons, String> pays;
+    @FXML
+    private TableColumn<Dons, LocalDate> date_debut;
+    @FXML
+    private TableColumn<Dons, LocalDate> date_fin;
+    @FXML
+    private TableColumn<Dons, Double> longitude;
+    @FXML
+    private TableColumn<Dons, Double> latitude;
+    @FXML
+    private JFXButton supprimerD;
+    @FXML
+    private JFXButton buttonPdf;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         con = DataBase.getInstance().getConnection();
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
@@ -107,9 +140,7 @@ public class AdminController implements Initializable {
         emailU.setText(email);
         try {
             donList = (ObservableList<Dons>) SU.readAllDonAdmin();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -121,42 +152,55 @@ public class AdminController implements Initializable {
         categorieD.setCellValueFactory(new PropertyValueFactory<>("categorieDonNature"));
         quantiteD.setCellValueFactory(new PropertyValueFactory<>("quantiteDonNature"));
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
-
+        cap.setCellValueFactory(new PropertyValueFactory<>("capacite"));
+        pays.setCellValueFactory(new PropertyValueFactory<>("pays"));
+        ville.setCellValueFactory(new PropertyValueFactory<>("ville"));
+        longitude.setCellValueFactory(new PropertyValueFactory<>("longitude"));
+        latitude.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        date_debut.setCellValueFactory(new PropertyValueFactory<>("dateDebutRefuge"));
+        date_fin.setCellValueFactory(new PropertyValueFactory<>("dateFinRefuge"));
         tableDon.setItems(donList);
-        
+            scrollbar(tableDon);
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
-        rechercheD.textProperty().addListener((observable,oldValue,newValue) ->{
-            
-            filteredData.setPredicate( (Dons don) -> {
-                
-                if(newValue == null || newValue.isEmpty())
-                {
+        rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            filteredData.setPredicate((Dons don) -> {
+
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                    
-                    if(don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1)
-                    {
-                        return true;
-                    }else if(don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1)
-                    {
-                        return true;
-                    }else
-                        return false;
-                
+
+                if (don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
             });
-            
+
         });
-        
+
         SortedList<Dons> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
-        
+
         tableDon.setItems(sortedData);
-        
-        
 
     }
+    public void scrollbar(TableView table) {
+        ScrollPane sp = new ScrollPane(table);
+        sp.setContent(table);
+        sp.setPrefSize(2000, 2000);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sp.setFitToHeight(true);
+        sp.setHmax(3);
+        sp.setHvalue(0);
+        sp.setDisable(true);
 
+    }
     private void loadStage(String fxml) {
         try {
             AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
@@ -168,8 +212,7 @@ public class AdminController implements Initializable {
         }
     }
 
-    
-
+    @FXML
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -178,8 +221,7 @@ public class AdminController implements Initializable {
         ButtonType buttonTypeOne = new ButtonType("Confirm");
         ButtonType buttonTypeOne1 = new ButtonType("Cancel");
 
-        alert.getButtonTypes().setAll(buttonTypeOne,buttonTypeOne1);
-        
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne) {
@@ -188,29 +230,23 @@ public class AdminController implements Initializable {
 //            allDon = tableDon.getItems();
 //            donSelected = tableDon.getSelectionModel().getSelectedItems();
 //            donSelected.forEach(allDon::remove);
-
-            
-            
             int index = tableDon.getSelectionModel().getSelectedIndex();
             String type = typeD.getCellData(index);
             System.out.println(type);
-            if(type.equals("Nature"))
-            {
+            if (type.equals("Nature")) {
                 int id = donId.getCellData(index);
-                
+
                 ServiceDonNature SN = new ServiceDonNature();
                 SN.delete(id);
                 donList.removeAll(tableDon.getSelectionModel().getSelectedItems());
-            tableDon.getSelectionModel().clearSelection();
-            }
-            else
-            {
+                tableDon.getSelectionModel().clearSelection();
+            } else {
                 int id = donId.getCellData(index);
-                
+
                 ServiceDonEspeces SE = new ServiceDonEspeces();
                 SE.delete(id);
                 donList.removeAll(tableDon.getSelectionModel().getSelectedItems());
-            tableDon.getSelectionModel().clearSelection();
+                tableDon.getSelectionModel().clearSelection();
             }
 
         } else {
@@ -219,47 +255,38 @@ public class AdminController implements Initializable {
 
     }
 
-    
-    
-    public void Imprimer(ActionEvent action) 
-    {
-        
-        
-        Document document = new Document();
-    try 
-    {
-      PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
-      document.open();
-      
-      document.add(new Paragraph("Historique de Don\n\n"));
-      document.add(premierTableau());
+    @FXML
+    public void Imprimer(ActionEvent action) {
 
-    } catch (DocumentException | IOException de) {
-      de.printStackTrace();
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
+            document.open();
+
+            document.add(new Paragraph("Historique de Don\n\n"));
+            document.add(premierTableau());
+
+        } catch (DocumentException | IOException de) {
+            de.printStackTrace();
+        }
+
+        document.close();
+
     }
-   
-    document.close();
-         
-        
-    }
-    
-    public static PdfPTable premierTableau()
-  {
-      //On créer un objet table dans lequel on intialise ça taille.
-      PdfPTable table = new PdfPTable(7);
-      
-      //On créer l'objet cellule.
-      table.addCell("Type");
-      table.addCell("Cible");
-      table.addCell("Montant");
-      table.addCell("Libelle");
-      table.addCell("Categorie");
-      table.addCell("Quantité");
-      table.addCell("Date");
-      
-      
-      
-      
+
+    public static PdfPTable premierTableau() {
+        //On créer un objet table dans lequel on intialise ça taille.
+        PdfPTable table = new PdfPTable(7);
+
+        //On créer l'objet cellule.
+        table.addCell("Type");
+        table.addCell("Cible");
+        table.addCell("Montant");
+        table.addCell("Libelle");
+        table.addCell("Categorie");
+        table.addCell("Quantité");
+        table.addCell("Date");
+
 //      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
 //      cell.setColspan(3);
 //      table.addCell(cell);
@@ -274,11 +301,11 @@ public class AdminController implements Initializable {
 //      table.addCell("Colonne 2; Cellule 1");
 //      table.addCell("Colonne 2; Cellule 2");
 //      
-      return table;  
-  }
+        return table;
+    }
 
     @FXML
-    private void addQuestion(ActionEvent event) {
+    private void Statistique(ActionEvent event) {
     }
-    
+
 }
