@@ -25,24 +25,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import static com.sun.javafx.fxml.expression.Expression.add;
-import static handshake.AdminController.chemin;
-import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Date;
-//import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -64,15 +54,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import java.io.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
+
 import java.sql.ResultSet;
 import javafx.application.Platform;
-import javafx.event.EventType;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+
 
 /**
  * FXML Controller class
