@@ -45,6 +45,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
@@ -74,6 +76,23 @@ public class ShakeHubController implements Initializable {
     private JFXButton shakestatsButton;
     @FXML
     private JFXTextArea questionTA;
+
+    @FXML
+    private void userinterface(MouseEvent event) {
+    }
+
+    @FXML
+    private void recherche(KeyEvent event) {
+        try {
+            Callback<ListView<Question>, ListCell<Question>> cellFactory = (param) -> {
+                return new QCell();
+            };
+            tableQuestions.setCellFactory(cellFactory);
+            tableQuestions.setItems(QS.search(rechercheD.getText()));
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     public class CCell extends ListCell<Commentaire> {
 
@@ -515,7 +534,6 @@ public class ShakeHubController implements Initializable {
             A.showAndWait();
         }
     }
-
     @FXML
     private void home(ActionEvent event) {
         if (UserSession.getInstance().getRole().equals("admin")) {
@@ -525,7 +543,6 @@ public class ShakeHubController implements Initializable {
         }
     }
 
-    @FXML
     private void userinterface(ActionEvent event) {
         loadStage("User.fxml");
     }

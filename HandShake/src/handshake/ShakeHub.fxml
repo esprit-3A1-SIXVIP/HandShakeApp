@@ -19,7 +19,7 @@
                   <Image url="@images/Dark-Grey-Background-89.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="userImage" fitHeight="38.0" fitWidth="35.0" layoutX="219.0" layoutY="78.0" pickOnBounds="true" onMouseClicked="#userinterface" preserveRatio="true">
+            <ImageView fx:id="userImage" fitHeight="38.0" fitWidth="35.0" layoutX="219.0" layoutY="78.0" onMouseClicked="#userinterface" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/user1.png" />
                </image>
@@ -64,20 +64,17 @@
                </font>
             </JFXButton>
             <JFXListView fx:id="tableQuestions" layoutX="15.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="717.0" />
-            <JFXTextField fx:id="rechercheD" focusColor="#12cdf4" labelFloat="true" layoutX="438.0" layoutY="14.0" prefHeight="39.0" prefWidth="294.0" promptText="Recherche Questions" unFocusColor="#12cdf4">
+            <JFXTextField fx:id="rechercheD" focusColor="#12cdf4" labelFloat="true" layoutX="438.0" layoutY="14.0" onKeyPressed="#recherche" prefHeight="39.0" prefWidth="294.0" promptText="Recherche Questions" unFocusColor="#12cdf4">
                <font>
                   <Font name="Calibri" size="18.0" />
                </font>
             </JFXTextField>
-            <AnchorPane layoutX="22.0" layoutY="659.0" style="-fx-background-color: white;">
-               <children>
-                  <JFXTextArea fx:id="questionTA" focusColor="#12cdf4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="521.0" promptText="Votre Question ici (minimum 150 caractères) Soyez respectueux(se), civil(e) et constructif(ve). Après un avertissement, les contrevenant(e)s seront banni(e)s.">
-                     <font>
-                        <Font name="Calibri" size="18.0" />
-                     </font>
-                  </JFXTextArea>
-               </children>
-            </AnchorPane>
+            <AnchorPane layoutX="22.0" layoutY="659.0" style="-fx-background-color: white;" />
+            <JFXTextArea fx:id="questionTA" focusColor="#12cdf4" layoutX="22.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="521.0" promptText="Votre Question ici (minimum 50 caractères) Soyez respectueux(se), civil(e) et constructif(ve). Après un avertissement, les contrevenant(e)s seront banni(e)s.">
+               <font>
+                  <Font name="Calibri" size="18.0" />
+               </font>
+            </JFXTextArea>
          </children>
       </AnchorPane>
    </children>

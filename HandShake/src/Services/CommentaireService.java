@@ -69,7 +69,7 @@ public class CommentaireService implements IService<Commentaire> {
     ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
     ServiceUser us=new ServiceUser();
-    ResultSet rs=ste.executeQuery("select c.userId,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId());
+    ResultSet rs=ste.executeQuery("select c.userId,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId()+" ORDER BY dateCommentaire DESC");
      while (rs.next()) {
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");
@@ -89,10 +89,10 @@ public class CommentaireService implements IService<Commentaire> {
         return C;
     }
     
-    public List<Commentaire> search(String S,Question Q) throws SQLException {
-     List<Commentaire> arr=new ArrayList<>();
+    public ObservableList<Commentaire> search(String S,Question Q) throws SQLException {
+     ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"' and 'texteCommentaire' like '%"+S+"%';");
+    ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where c.questionId=q.questionId and q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"' and 'texteCommentaire' like '%"+S+"%';");
      while (rs.next()) {                
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");
