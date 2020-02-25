@@ -5,6 +5,7 @@
  */
 package Services;
 
+import Entities.Commentaire;
 import Entities.DonEspeces;
 import Entities.DonNature;
 import Entities.Dons;
@@ -121,6 +122,7 @@ public class ServiceUser {
 
         return -1;
     }
+    
      
      public String getRole(int a) throws SQLException {
         ste = con.createStatement();
@@ -163,7 +165,7 @@ public class ServiceUser {
                 int quantite = rs.getInt("quantiteDonNature");
                 String cible = rs.getString("cibleDon");
                 
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 DonNature dn = new DonNature(libelle, categorie, quantite, id, type, cible, date1, user);
 
                 arr.add(dn);
@@ -174,7 +176,7 @@ public class ServiceUser {
                 String type = rs.getString("typeDon");
                 int montant = rs.getInt("montantDon");
                  
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 int user = rs.getInt("userId");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 
@@ -202,7 +204,7 @@ public class ServiceUser {
                 int quantite = rs.getInt("quantiteDonNature");
                 String cible = rs.getString("cibleDon");
                 
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 DonNature dn = new DonNature(libelle, categorie, quantite, id, type, cible, date1, user);
 
                 arr.add(dn);
@@ -213,7 +215,7 @@ public class ServiceUser {
                 String type = rs.getString("typeDon");
                 int montant = rs.getInt("montantDon");
                  
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 int user = rs.getInt("userId");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 
@@ -225,7 +227,11 @@ public class ServiceUser {
         return arr;
 
     }
-    
+    public boolean setAccessShakeHub(User U) throws SQLException {
+       ste = con.createStatement();
+       String requeteUpdate = "UPDATE `handshake`.`user` SET `accesShakeHub` = '" + U.isAccesShakeHub() + "' WHERE `userId`= '" + U.getUserId() + "';";
+       return(ste.execute(requeteUpdate)); 
+    }
     public int NombreDonNature() throws SQLException
     {
         int i=0;

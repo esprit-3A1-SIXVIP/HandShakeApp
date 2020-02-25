@@ -22,7 +22,7 @@ public final class UserSession {
     private int id;
     private String role;
     private String login;
-    private static User U= new User(22,"Malek","1234","malek.taktak@esprit.tn","admin");
+    private static User U;
     private static ServiceUser us= new ServiceUser();
     
     private UserSession()
@@ -82,7 +82,7 @@ public final class UserSession {
     }
 
     public static void setU(User U) {
-        UserSession.U = U;
+        UserSession.U = new User(U.getUserId(),U.getLogin(),U.getPassword(),U.getEmail(),U.getRole());
     }
     
     @Override

@@ -22,13 +22,18 @@
                   <Image url="@images/main1.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="347.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logoH.png" />
                </image>
             </ImageView>
             <AnchorPane layoutY="69.0" opacity="0.5" prefHeight="751.0" prefWidth="260.0" style="-fx-background-color: #12cdf4;">
                <children>
+                  <ImageView fitHeight="751.0" fitWidth="260.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@images/Dark-Grey-Background-89.png" />
+                     </image>
+                  </ImageView>
                   <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="106.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/user1.png" />

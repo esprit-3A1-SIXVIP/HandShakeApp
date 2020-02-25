@@ -69,7 +69,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.SwingUtilities;
 import handshake.NetworkConnection;
-import java.net.MalformedURLException;
 import java.sql.ResultSet;
 import javafx.application.Platform;
 
@@ -156,6 +155,8 @@ public class AdminController implements Initializable {
     private JFXTextArea messages = new JFXTextArea();
      
     private NetworkConnection connection = isServer ? createServer() : createClient();
+    @FXML
+    private JFXButton ShakeHub;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -255,6 +256,7 @@ public class AdminController implements Initializable {
     
     
 
+    @FXML
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -297,6 +299,7 @@ public class AdminController implements Initializable {
 
     }
 
+    @FXML
    public void Imprimer(ActionEvent action) throws SQLException{
 
         Document document = new Document();
@@ -474,7 +477,10 @@ public class AdminController implements Initializable {
     private void beneficiaire(ActionEvent event) {
         loadStage("InterBeneficiaire.fxml");
     }
-    
+    @FXML
+    private void shakehub(ActionEvent event) {
+        loadStage("ShakeHub.fxml");
+    }
 
 
 }
