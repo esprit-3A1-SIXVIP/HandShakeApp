@@ -19,7 +19,7 @@
                   <Image url="@images/Dark-Grey-Background-89.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="userImage" fitHeight="38.0" fitWidth="35.0" layoutX="219.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="userImage" fitHeight="38.0" fitWidth="35.0" layoutX="219.0" layoutY="78.0" pickOnBounds="true" onMouseClicked="#userinterface" preserveRatio="true">
                <image>
                   <Image url="@images/user1.png" />
                </image>

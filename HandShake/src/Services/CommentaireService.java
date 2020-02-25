@@ -60,7 +60,7 @@ public class CommentaireService implements IService<Commentaire> {
     @Override
     public boolean update(Commentaire t) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire() + "', `dateCommentaire` = '" +t.getDateCommentaire()+"' WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
        return(ste.execute(requeteUpdate)); 
     }
     

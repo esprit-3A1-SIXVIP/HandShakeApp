@@ -41,7 +41,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Hyperlink alignment="TOP_CENTER" layoutY="185.0" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Don" textAlignment="CENTER" textFill="#fb9d4a">
+                        <Hyperlink alignment="TOP_CENTER" layoutX="-2.0" layoutY="210.0" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="Dons" textAlignment="CENTER" textFill="#fb9d4a">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -49,7 +49,12 @@
                               <Insets />
                            </opaqueInsets>
                         </Hyperlink>
-                        <JFXButton fx:id="benef" buttonType="RAISED" layoutX="1.0" layoutY="289.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textFill="#12cdf4">
+                        <JFXButton fx:id="benef" buttonType="RAISED" layoutX="-6.0" layoutY="291.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="Aides/Beneficiaires" textFill="#12cdf4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="ShakeHub" buttonType="RAISED" layoutX="-6.0" layoutY="366.0" onAction="#shakehub" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="ShakeHub" textFill="#12cdf4">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -85,7 +90,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="Statistique" buttonType="RAISED" layoutX="52.0" layoutY="581.0" onAction="#Statistique" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: black;" text="Satistiques" textFill="#12cdf4">
+                        <JFXButton fx:id="Statistique" buttonType="RAISED" layoutX="52.0" layoutY="581.0" onAction="#Statistique" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: black;" text="Statistiques" textFill="#12cdf4">
                            <font>
                               <Font size="18.0" />
                            </font>
