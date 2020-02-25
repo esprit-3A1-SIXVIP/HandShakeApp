@@ -64,7 +64,7 @@ public class ServiceUser {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
         if (rs.next()) {
-            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"),rs.getInt("accesShakeHub"));
             return U;
         }
 

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +9,7 @@ package handshake;
 import Entities.Commentaire;
 import Entities.Evenement;
 import Entities.Question;
+import Entities.SendMail;
 import Entities.User;
 import Services.CommentaireService;
 import Services.QuestionService;
@@ -22,8 +24,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -101,6 +101,7 @@ public class ShakeHubController implements Initializable {
         private JFXButton ban;
         int click = 0;
         private CommentaireService sc = new CommentaireService();
+        private ServiceUser us = new ServiceUser();
 
         public CCell() {
             loadFXML();
@@ -193,6 +194,11 @@ public class ShakeHubController implements Initializable {
                             shakeup.setVisible(false);
                         }
                         shakedown.setVisible(true);
+                        try {
+                            sc.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     }
                 });
                 shakedown.setOnAction(new EventHandler<ActionEvent>() {
@@ -208,9 +214,39 @@ public class ShakeHubController implements Initializable {
                         if (init > item.getScore()) {
                             shakedown.setVisible(false);
                         }
+                        try {
+                            sc.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     }
                 });
+                if (UserSession.getU().getRole().equals("admin") && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                    ban.setVisible(true);
+                    ban.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Alert A = new Alert(Alert.AlertType.CONFIRMATION);
+                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getLogin() + "'?");
+                            ButtonType buttonTypeOne = new ButtonType("Bannir");
+                            ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+                            A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
+                            A.showAndWait();
+                            if (A.getResult() == buttonTypeOne) {
+                                item.getUser().setAccesShakeHub(0);
+                                try {
+                                    us.setAccessShakeHub(item.getUser());
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
+                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getLogin()+"\n Vous avez été banni du ShakeHub car votre Commentaire '"+item.getTexteCommentaire()+"' publiée le "+item.getDateCommentaire()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
+                            
+                            }
+                        }
+                    });
+                }
                 setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
             }
         }
     }
@@ -283,10 +319,10 @@ public class ShakeHubController implements Initializable {
                 this.TextLabel.setText(item.getTexteQuestion());
                 this.userLabel.setText(" Par '" + item.getUser().getLogin() + "'");
                 this.dateLabel.setText(" Le '" + item.getDateQuestion().toString() + "'");
-                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getU().getRole().equals("admin"))) {
+                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getInstance().getRole().equals("admin"))) {
                     modifierQuestion.setVisible(true);
-                    
-                    if ((this.commentlist.isEmpty()) || (UserSession.getU().getRole().equals("admin"))) {
+
+                    if ((this.commentlist.isEmpty()) || (UserSession.getInstance().getRole().equals("admin"))) {
                         supprimerQuestion.setVisible(true);
                     } else {
                         supprimerQuestion.setVisible(false);
@@ -341,16 +377,29 @@ public class ShakeHubController implements Initializable {
                     supprimerQuestion.setVisible(false);
 
                 }
-                if (UserSession.getU().getRole().equals("admin")&&(!item.getUser().getRole().equals("admin")))
-                {ban.setVisible(true);
-                ban.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        
-                        item.getUser().setAccesShakeHub(false);
-                    }
-                });
-                 
+                if ((UserSession.getInstance().getRole().equals("admin")) && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                    ban.setVisible(true);
+                    ban.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Alert A = new Alert(Alert.AlertType.CONFIRMATION);
+                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getLogin() + "'?");
+                            ButtonType buttonTypeOne = new ButtonType("Bannir");
+                            ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+                            A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
+                            A.showAndWait();
+                            if (A.getResult() == buttonTypeOne) {
+                                item.getUser().setAccesShakeHub(0);
+                                try {
+                                    us.setAccessShakeHub(item.getUser());
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
+                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getLogin()+"\n Vous avez été banni du ShakeHub car votre Question '"+item.getTexteQuestion()+"' publiée le "+item.getDateQuestion()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
+                            }
+                        }
+                    });
+
                 }
                 int init = item.getScore();
                 shakeup.setOnAction(new EventHandler<ActionEvent>() {
@@ -367,6 +416,11 @@ public class ShakeHubController implements Initializable {
                             shakeup.setVisible(false);
                         }
                         shakedown.setVisible(true);
+                        try {
+                            QS.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     }
                 });
                 shakedown.setOnAction(new EventHandler<ActionEvent>() {
@@ -381,6 +435,11 @@ public class ShakeHubController implements Initializable {
                         shakeup.setVisible(true);
                         if (init > item.getScore()) {
                             shakedown.setVisible(false);
+                        }
+                        try {
+                            QS.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
                         }
                     }
                 });
@@ -459,7 +518,16 @@ public class ShakeHubController implements Initializable {
 
     @FXML
     private void home(ActionEvent event) {
-        loadStage("Home.fxml");
+        if (UserSession.getInstance().getRole().equals("admin")) {
+            loadStage("Admin.fxml");
+        } else {
+            loadStage("Home.fxml");
+        }
+    }
+
+    @FXML
+    private void userinterface(ActionEvent event) {
+        loadStage("User.fxml");
     }
 
     private void loadStage(String fxml) {

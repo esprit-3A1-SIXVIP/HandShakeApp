@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -83,7 +84,7 @@ import javafx.collections.ObservableList;
     @Override
     public boolean update(Question t) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`question` SET `texteQuestion` = '" + t.getTexteQuestion() + "' WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`question` SET `texteQuestion` = '" + t.getTexteQuestion().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
        return(ste.execute(requeteUpdate)); 
     }
     public List<Question> search(String S) throws SQLException {
@@ -112,4 +113,3 @@ import javafx.collections.ObservableList;
         return null;
     }
 }
-
