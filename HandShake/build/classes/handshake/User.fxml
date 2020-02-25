@@ -22,7 +22,7 @@
                   <Image url="@images/main1.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="347.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logoH.png" />
                </image>
@@ -39,7 +39,7 @@
                         <Image url="@images/user1.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="emailU" layoutX="-2.0" layoutY="66.0" prefHeight="47.0" prefWidth="260.0">
+                  <Label fx:id="emailU" layoutX="-2.0" layoutY="66.0" prefHeight="47.0" prefWidth="260.0" textFill="#12cdf4">
                      <font>
                         <Font size="30.0" />
                      </font>

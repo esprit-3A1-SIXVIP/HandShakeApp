@@ -86,7 +86,6 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
     private GoogleMap map;
     @FXML
     private Circle cercledon1;
-    @FXML
     private Circle profil;
     @FXML
     private JFXButton btn1;
@@ -94,6 +93,8 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
     private JFXButton btn11;
     @FXML
     private Label logout;
+    @FXML
+    private JFXButton btn2;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -301,7 +302,6 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
     }
 
 
-    @FXML
     private void Monprofil(MouseEvent event) {
         loadStage("profilUser.fxml");
     }

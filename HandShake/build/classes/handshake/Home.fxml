@@ -12,70 +12,81 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.HomeController">
-    <children>
-        <AnchorPane id="AnchorPane" style="-fx-background-color: black;">
-            <children>
-                <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true">
-                    <image>
-                        <Image url="@images/main1.jpg" />
-                    </image>
-                </ImageView>
-                <GoogleMapView fx:id="mapView" layoutX="-1.0" layoutY="1.0" prefHeight="800.0" prefWidth="1000.0" />
-                <Circle fx:id="cercledon1" layoutX="443.0" layoutY="758.0" opacity="0.72" radius="59.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />
-                <Hyperlink fx:id="appel_aide" layoutX="410.0" layoutY="747.0" onAction="#interbenif" scaleShape="false" text="A l'aide">
-                    <font><Font size="17.0"/></font>
-                </Hyperlink>
-                <Circle fx:id="cercledon" layoutX="648.0" layoutY="755.0" opacity="0.72" radius="57.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />
-                <Hyperlink fx:id="fairedon" layoutX="588.0" layoutY="742.0" onAction="#handleButtonFairedon" prefHeight="36.0" prefWidth="114.0" scaleShape="false" text="Faire un don">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                </Hyperlink>
-                <ImageView fitHeight="85.0" fitWidth="347.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@images/logoH.png" />
-                        </image>
-                    </ImageView>
-                    <Pane layoutX="767.0" prefHeight="801.0" prefWidth="237.0">
-                        <children>
-                            <Circle fx:id="profil" fill="DODGERBLUE" layoutX="52.0" layoutY="57.0" onMouseClicked="#Monprofil" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
-                            <ImageView fx:id="usericon" fitHeight="38.0" fitWidth="35.0" layoutX="142.0" layoutY="79.0" onMousePressed="#handleImageUser" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@images/user1.png" />
-                                </image>
-                            </ImageView>
-                            <ImageView fx:id="shakehub" fitHeight="38.0" fitWidth="35.0" layoutX="142.0" layoutY="141.0" onMouseClicked="#handleShakeHub" onMousePressed="#handleShakeHub" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@images/shakehub.png" />
-                                </image>
-                            </ImageView>
-                            <JFXButton fx:id="btn" layoutX="-14.0" layoutY="199.0" onAction="#GoToEvenement" prefHeight="43.0" prefWidth="223.0" text="Mes évènements">
-                                <font>
-                                    <Font size="22.0" />
-                                </font>
-                            </JFXButton>
-                            <JFXButton fx:id="btn1" layoutX="-5.0" layoutY="266.0" onAction="#GoToEvenement" prefHeight="57.0" prefWidth="204.0" text="Rubrique Articles">
-                                <font>
-                                    <Font size="22.0" />
-                                </font>
-                            </JFXButton>
-                            <JFXButton fx:id="btn11" layoutX="10.0" layoutY="339.0" onAction="#GoToEvenement" prefHeight="36.0" prefWidth="167.0" text="Mes Refuges">
-                                <font>
-                                    <Font size="22.0" />
-                                </font>
-                            </JFXButton>
-                            <Label fx:id="logout" layoutX="102.0" layoutY="6.0" text="Se deconnecter">
-                                <graphic>
-                                    <ImageView fitHeight="51.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../images/icons8_Exit_32px.png" />
-                                        </image>
-                                    </ImageView>
-                                </graphic>
-                            </Label>
-                        </children>
-                    </Pane>
-            </children>
-        </AnchorPane>
-    </children>
+   <children>
+      <AnchorPane id="AnchorPane" style="-fx-background-color: black;">
+         <children>
+            <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true">
+               <image>
+                  <Image url="@images/main1.jpg" />
+               </image>
+            </ImageView>
+ <GoogleMapView fx:id="mapView" layoutX="-1.0" layoutY="69.0" prefHeight="732.0" prefWidth="1000.0" />
+            <Circle fx:id="cercledon1" layoutX="377.0" layoutY="739.0" opacity="0.72" radius="59.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />
+            <Hyperlink fx:id="appel_aide" layoutX="342.0" layoutY="724.0" onAction="#interbenif" scaleShape="false" text="A l'aide">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Hyperlink>
+            <Circle fx:id="cercledon" layoutX="565.0" layoutY="738.0" opacity="0.72" radius="57.0" stroke="#ffaa00" strokeType="INSIDE" strokeWidth="5.0" />
+            <Hyperlink fx:id="fairedon" layoutX="511.0" layoutY="722.0" onAction="#handleButtonFairedon" prefHeight="36.0" prefWidth="114.0" scaleShape="false" text="Faire un don">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Hyperlink>
+            <ImageView fitHeight="85.0" fitWidth="347.0" layoutX="-3.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logoH.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Pane layoutX="745.0" prefHeight="801.0" prefWidth="259.0">
+         <children>
+            <ImageView fitHeight="801.0" fitWidth="260.0" layoutX="-1.0" opacity="0.7" pickOnBounds="true">
+               <image>
+                  <Image url="@images/Dark-Grey-Background-89.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="usericon" fitHeight="38.0" fitWidth="35.0" layoutX="201.0" layoutY="79.0" onMousePressed="#handleImageUser" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/user1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="shakehub" fitHeight="38.0" fitWidth="35.0" layoutX="202.0" layoutY="144.0" onMouseClicked="#handleShakeHub" onMousePressed="#handleShakeHub" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/shakehub.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="btn" buttonType="RAISED" layoutX="-1.0" layoutY="215.0" onAction="#GoToEvenement" prefHeight="48.0" prefWidth="206.0" style="-fx-background-color: #12cdf4;" text="Mes évènements">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn1" layoutY="305.0" onAction="#GoToEvenement" prefHeight="48.0" prefWidth="199.0" style="-fx-background-color: #12cdf4;" text="Rubrique Articles">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn11" layoutY="401.0" onAction="#GoToEvenement" prefHeight="48.0" prefWidth="177.0" style="-fx-background-color: #12cdf4;" text="Mes Refuges">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="logout" layoutX="102.0" layoutY="6.0" text="Se deconnecter">
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Exit_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <JFXButton fx:id="btn2" buttonType="RAISED" layoutX="-1.0" layoutY="130.0" onAction="#GoToEvenement" prefHeight="48.0" prefWidth="191.0" style="-fx-background-color: #12cdf4;" text="ShakeHub">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

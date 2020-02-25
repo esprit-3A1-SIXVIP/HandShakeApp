@@ -55,7 +55,6 @@ public class Login2Controller {
 
     private Connection con;
     private Statement ste;
-    @FXML
     private AnchorPane interfaceprincipale;
 
     @FXML
@@ -78,7 +77,6 @@ public class Login2Controller {
     @FXML
     private Label lc2;
 
-    @FXML
     private Label lc3;
 
     @FXML
@@ -93,8 +91,6 @@ public class Login2Controller {
     @FXML
     private JFXButton btncx;
 
-    @FXML
-    private ImageView ic;
 
     @FXML
     private Pane paneinscription;
@@ -149,7 +145,6 @@ public class Login2Controller {
     @FXML
     private JFXButton btni2;
 
-    @FXML
     private ImageView close;
 
     @FXML
@@ -165,19 +160,13 @@ public class Login2Controller {
     private Label ti2;
     private IntegerStringConverter quant = new IntegerStringConverter();
     @FXML
-    private ToggleButton btnadminform;
-    @FXML
     private ToggleButton btnaddorg;
     @FXML
     private ToggleButton btnadduser;
     @FXML
-    private ToggleButton btnuserform;
-    @FXML
-    private FontAwesomeIconView btnminus1;
-    @FXML
-    private FontAwesomeIconView btnfull1;
-    @FXML
     private BorderPane layout;
+    @FXML
+    private AnchorPane rootPane;
 
     public void initialize(URL url, ResourceBundle rb) {
         con = db.getInstance().getConnection();
@@ -289,7 +278,6 @@ public class Login2Controller {
         }));
     }
 
-    @FXML
     private void closebtn(MouseEvent event) {
         Stage stage = (Stage) close.getScene().getWindow();
         // do what you have to do
@@ -327,7 +315,6 @@ public class Login2Controller {
             ServiceUser SU = new ServiceUser();
             String email = tcl.getText();
             String Password = tcp.getText();
-            if (lc3.getText().equals("sign in to continue")) {
 
                 try {
 
@@ -338,52 +325,38 @@ public class Login2Controller {
                     UserSession.setU(new User(id, login, Password, email, role, SU.getUser(id).isAccesShakeHub()));
                     if (id != -1) {
                         UserSession.getInstance(email, id, Password, role, login);
-                        
-                        loadStage("Home.fxml");
-
-                    }
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            } else if (lc3.getText().equals("Administrator")) {
-
-                try {
-                    int id = SU.getIdUser1(email, Password);
-                    String role = SU.getRole(id);
-
-                    String login = SU.getLogin(id);
-                    UserSession.setU(new User(id, login, Password, email, role, SU.getUser(id).isAccesShakeHub()));
-                    if (id != -1) {
-                        UserSession.getInstance(email, id, Password, role, login);
                         if (role.equals("admin")) {
                             loadStage("gestionnaire.fxml");
                         }
-
+                        else
+                        {
+                            loadStage("Home.fxml");
+                        }
                     }
 
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                 }
-            }
+   
+
+            
+            
         }
 
     }
 
-    private void loadStage(String fxml) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            stage.show();
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+    private void loadStage(String fxml)
+        {
+            try
+            {
+                AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+                
+               rootPane.getChildren().setAll(pane);
+                
+            } catch (IOException ex) {
+            ex.printStackTrace();
         }
-    }
+        }
 
     @FXML
 
@@ -455,12 +428,10 @@ public class Login2Controller {
         }
     }
 
-    @FXML
     private void btnuserform(MouseEvent event) {
         lc3.setText("sign in to continue");
     }
 
-    @FXML
     private void btnadminform(MouseEvent event) {
         lc3.setText("Administrator");
     }
@@ -478,13 +449,11 @@ public class Login2Controller {
         tidog.setVisible(false);
     }
 
-    @FXML
     private void btnminus1(MouseEvent event) {
         Stage s = (Stage) (interfaceprincipale).getScene().getWindow();
         s.setIconified(true);
     }
 
-    @FXML
     private void btnfull1(MouseEvent event) {
         Stage s = (Stage) (interfaceprincipale).getScene().getWindow();
         s.setFullScreen(true);

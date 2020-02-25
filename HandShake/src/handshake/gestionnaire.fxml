@@ -17,23 +17,33 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="intUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="801.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.GestionnaireController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="801.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.GestionnaireController">
    <children>
-      <ImageView fitHeight="727.0" fitWidth="240.0" layoutY="73.0" pickOnBounds="true" smooth="false">
+      <ImageView fitHeight="801.0" fitWidth="1000.0" opacity="0.5" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../images/main1.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="727.0" fitWidth="240.0" layoutY="73.0" opacity="0.5" pickOnBounds="true" smooth="false">
          <image>
             <Image url="@images/Dark-Grey-Background-89.png" />
          </image>
       </ImageView>
-      <Pane layoutX="239.0" layoutY="74.0" prefHeight="178.0" prefWidth="762.0" style="-fx-background-color: #0c9ae0;">
+      <ImageView fitHeight="74.0" fitWidth="240.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="239.0" layoutY="74.0" prefHeight="178.0" prefWidth="762.0">
          <children>
-            <ImageView fitHeight="119.0" fitWidth="558.0" layoutX="208.0" layoutY="58.0" pickOnBounds="true" smooth="false">
+            <ImageView fitHeight="178.0" fitWidth="760.0" opacity="0.71" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../images/main1.jpg" />
+                  <Image url="@images/Dark-Grey-Background-89.png" />
                </image>
             </ImageView>
-            <Label layoutX="221.0" layoutY="9.0" text="Gestion des Utilisateurs Simples" textFill="#fcf9f9">
+            <Label layoutX="156.0" layoutY="48.0" text="Gestion des Utilisateurs Simples" textFill="#fcf9f9">
                <font>
-                  <Font size="30.0" />
+                  <Font name="System Bold" size="30.0" />
                </font>
             </Label>
             <BorderPane fx:id="cadre2" layoutX="-2.0" layoutY="7.0" prefHeight="171.0" prefWidth="207.0">
@@ -41,15 +51,6 @@
                   <ImageView fx:id="lireprofil" fitHeight="159.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
-         </children>
-      </Pane>
-      <Pane prefHeight="79.0" prefWidth="236.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <ImageView fitHeight="104.0" fitWidth="224.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logo.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
       <TableView fx:id="tableau" editable="true" layoutX="241.0" layoutY="292.0" prefHeight="276.0" prefWidth="760.0" style="-fx-background-color: rgba(0,0,0,0.3);" tableMenuButtonVisible="true">
@@ -72,7 +73,7 @@
       <JFXTextField fx:id="tabRecherche" layoutX="571.0" layoutY="258.0" prefHeight="25.0" prefWidth="424.0" />
       <ToggleButtonGroup layoutX="260.0" layoutY="27.0" selectionType="SINGLE">
           <toggles>
-              <ToggleButton fx:id="btnlistOrg1" onMouseClicked="#btnlistOrg1" style="-fx-background-color: #0c9ae0;" text="Organisation">
+              <ToggleButton fx:id="btnlistOrg1" onAction="#btnlistOrg1" onMouseClicked="#btnlistOrg1" style="-fx-background-color: #0c9ae0;" text="Organisation">
                   <graphic>
                       <Icon content="WORK" prefHeight="20.0" prefWidth="33.0" />
                   </graphic>
@@ -97,7 +98,7 @@
       </ToggleButtonGroup>
       <JFXButton fx:id="btnsupp" layoutX="634.0" layoutY="698.0" onMouseClicked="#btnsupuser" prefHeight="37.0" prefWidth="168.0" style="-fx-background-color: #0c9ae0;" text="SUPPRIMER" />
       <JFXButton fx:id="btnbloquer" layoutX="825.0" layoutY="699.0" prefHeight="37.0" prefWidth="155.0" style="-fx-background-color: #0c9ae0;" text="BLOQUER" />
-      <Label fx:id="btnlogout" layoutX="854.0" layoutY="40.0" onMouseClicked="#logout" text="Se deconnecter">
+      <Label fx:id="btnlogout" layoutX="858.0" layoutY="19.0" onMouseClicked="#logout" text="Se deconnecter">
          <graphic>
             <ImageView fitHeight="51.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -116,7 +117,7 @@
       <JFXTextField fx:id="lirePays" layoutX="837.0" layoutY="627.0" prefHeight="25.0" prefWidth="135.0" />
       <AnchorPane fx:id="tablebord" layoutY="74.0" pickOnBounds="false" prefHeight="727.0" prefWidth="229.0" style="-fx-background-color: rgba(0,0,0,0.5);">
          <children>
-            <JFXButton fx:id="btnmaguser" layoutX="-3.0" layoutY="193.0" prefHeight="59.0" prefWidth="241.0" style="-fx-background-color: #0c9ae0;" text="Gestion Utilisateurs" textFill="#f8f8f7">
+            <JFXButton fx:id="btnmaguser" layoutX="-3.0" layoutY="193.0" onAction="#btnsupuser" prefHeight="59.0" prefWidth="241.0" style="-fx-background-color: #0c9ae0;" text="Gestion Utilisateurs" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -125,7 +126,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnmdon" layoutX="-4.0" layoutY="270.0" onMouseClicked="#btnmdon" prefHeight="59.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
+            <JFXButton fx:id="btnmdon" layoutX="-2.0" layoutY="270.0" onAction="#btnmdon" prefHeight="59.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -134,7 +135,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="-1.0" layoutY="350.0" prefHeight="59.0" prefWidth="238.0" style="-fx-background-color: #0c9ae0;" text="Gestions des Articles" textFill="#f8f8f7">
+            <JFXButton fx:id="btnArticles" layoutX="-1.0" layoutY="350.0" prefHeight="59.0" prefWidth="238.0" style="-fx-background-color: #0c9ae0;" text="Gestions des Articles" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -143,21 +144,18 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="33.0" layoutY="141.0" text="Tableau de bord" textFill="#fcf9f9">
+            <Label layoutX="19.0" layoutY="141.0" text="Tableau de bord" textFill="#fcf9f9">
                <font>
                   <Font name="Bookman Old Style Bold" size="24.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnstat" layoutX="-3.0" layoutY="433.0" prefHeight="52.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Statistiques" textFill="#f8f8f7">
-               <graphic>
-                  <ImageView fitHeight="47.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/up_grafik_business_ideas_company_strategy0-512.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
+            <JFXButton fx:id="btnshakehub" layoutX="-3.0" layoutY="433.0" onAction="#btnshake" prefHeight="52.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="ShakeHub" textFill="#f8f8f7" />
             <Circle fx:id="profile_admin" fill="#7cc0ee5c" layoutX="117.0" layoutY="71.0" radius="51.0" stroke="#00000010" strokeType="INSIDE" />
+            <ImageView fitHeight="47.0" fitWidth="55.0" layoutX="45.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/download.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

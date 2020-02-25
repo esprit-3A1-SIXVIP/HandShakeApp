@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +61,6 @@ public class GestionnaireController implements Initializable {
     private Connection con;
     private Statement ste;
       ObservableList<User> listU = FXCollections.observableArrayList();
-    @FXML
     private AnchorPane intUser;
     @FXML
     private BorderPane cadre2;
@@ -70,8 +70,6 @@ public class GestionnaireController implements Initializable {
     private AnchorPane tablebord;
     @FXML
     private JFXButton btnmaguser;
-    @FXML
-    private JFXButton btnstat;
     @FXML
     private Circle profile_admin;
     @FXML
@@ -130,6 +128,12 @@ public class GestionnaireController implements Initializable {
     private JFXButton btnmdon;
     @FXML
     private Label btnlogout;
+    @FXML
+    private AnchorPane rootPane;
+    @FXML
+    private JFXButton btnshakehub;
+    @FXML
+    private JFXButton btnArticles;
 
     /**
      * Initializes the controller class.
@@ -294,7 +298,7 @@ public class GestionnaireController implements Initializable {
   
 
     @FXML
-    private void btnsupuser(MouseEvent event) throws SQLException {
+    private void btnsupuser(ActionEvent event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Suppression");
         alert.setContentText("Vous allez Supprimer un Don .\n\n Voulez vous vraiment effectuer cette action?  ");
@@ -318,13 +322,17 @@ public class GestionnaireController implements Initializable {
     }
 
     @FXML
-    private void btnlistOrg1(MouseEvent event) {
+    private void btnlistOrg1(ActionEvent event) {
          loadStage("gestionOrg.fxml");
     }
 
     @FXML
-    private void btnmdon(MouseEvent event) {
+    private void btnmdon(ActionEvent event) {
         loadStage("Admin.fxml");
+    }
+    @FXML
+    private void btnshake(ActionEvent event) {
+        loadStage("ShakeHub.fxml");
     }
 
     @FXML
@@ -332,5 +340,14 @@ public class GestionnaireController implements Initializable {
        UserSession.getInstance().cleanUserSession();
         loadStage("login2.fxml");
     }
+
+    @FXML
+    private void btnlistOrg1(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnsupuser(MouseEvent event) {
+    }
+
     
 }

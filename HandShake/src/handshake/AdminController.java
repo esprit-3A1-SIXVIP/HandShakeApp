@@ -190,7 +190,7 @@ public class AdminController implements Initializable {
     private NetworkConnection connection = isServer ? createServer() : createClient();
 
     @FXML
-    private JFXButton ShakeHub;
+    private Label btnlogout;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -541,14 +541,13 @@ public class AdminController implements Initializable {
         });
     }
     //* Fin Partie Chat *//
-   @FXML
+    @FXML
     private void beneficiaire(ActionEvent event) {
         loadStage("InterBeneficiaire.fxml");
     }
 
     
 
-     @FXML
     private void shakehub(ActionEvent event) {
         loadStage("ShakeHub.fxml");
 

@@ -253,6 +253,7 @@ public class UserController  implements Initializable{
         loadStage("Home.fxml");
     }
 
+    @FXML
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -295,6 +296,7 @@ public class UserController  implements Initializable{
 
     }
 
+    @FXML
     public void ModifierDonU(ActionEvent action) throws SQLException {
 //        ObservableList<Dons> donSelected,allDon;
 //        allDon = tableDon.getItems();
