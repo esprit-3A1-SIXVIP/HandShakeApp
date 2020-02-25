@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,8 +16,6 @@ import Utils.UserSession;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
@@ -68,8 +67,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.SwingUtilities;
 import handshake.NetworkConnection;
-import java.net.MalformedURLException;
-import java.sql.ResultSet;
 import javafx.application.Platform;
 
 /**
@@ -85,9 +82,13 @@ public class AdminController implements Initializable {
     private Connection con;
     private Statement ste;
     private FileChooser fc;
-
+    
     @FXML
     private JFXTextField input;
+    
+   
+    
+    
 
     final static String nature = "Nature";
     final static String espece = "Espece";
@@ -105,6 +106,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private JFXButton Statistique;
+    
+    
 
     @FXML
     private JFXTextField rechercheD;
@@ -137,14 +140,17 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableView<Dons> tableDon;
+  
+    @FXML
+    private JFXButton benef;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
-
-    private boolean isServer = true;
-
-    @FXML
+    
+     private boolean isServer = true;
+    
+     @FXML
     private JFXTextArea messages = new JFXTextArea();
-
+     
     private NetworkConnection connection = isServer ? createServer() : createClient();
 
     @Override
@@ -174,7 +180,7 @@ public class AdminController implements Initializable {
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
 
         tableDon.setItems(donList);
-
+        
         //* Debut Partie Filtre *//
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
         rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -203,28 +209,31 @@ public class AdminController implements Initializable {
 
         tableDon.setItems(sortedData);
         //* Debut Partie Filtre *//
-
+        
         //* Debut Partie Chat *//
         input.setOnAction(event -> {
-            String message = isServer ? "" + login + "(Admin) : " : "Client : ";
+            String message = isServer ? ""+login+"(Admin) : " : "Client : ";
             message += input.getText();
             input.clear();
-
+            
             messages.appendText(message + "\n");
-
-            try {
+            
+            try{
                 connection.send(message);
-            } catch (Exception e) {
+            }
+            catch(Exception e){
                 messages.appendText("Failed to send\n");
             }
         });
-
+        
         try {
             connection.startConnection();
         } catch (Exception ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
         //* Fin Partie Chat *//
+        
+       
 
     }
 
@@ -238,6 +247,9 @@ public class AdminController implements Initializable {
             ex.printStackTrace();
         }
     }
+    
+    
+    
 
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
@@ -281,21 +293,15 @@ public class AdminController implements Initializable {
 
     }
 
-    public void Imprimer(ActionEvent action) throws SQLException, MalformedURLException {
+    public void Imprimer(ActionEvent action) {
 
         Document document = new Document();
-        
         try {
             PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
             document.open();
-            
-            document.addAuthor("HandShake");
-            document.add(new Paragraph("                                                              Historique de Don\n\n\n\n\n\n"));
-            document.add(new Paragraph("                                                              Don Nature\n\n"));
+
+            document.add(new Paragraph("Historique de Don\n\n"));
             document.add(premierTableau());
-            document.add(new Paragraph("\n\n\n\n\n                                                              Don Espece\n\n"));
-            document.add(premierTableau1());
-            document.addCreationDate();
 
         } catch (DocumentException | IOException de) {
             de.printStackTrace();
@@ -305,85 +311,33 @@ public class AdminController implements Initializable {
 
     }
 
-    public PdfPTable premierTableau() throws SQLException {
-
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from don ");
+    public static PdfPTable premierTableau() {
         //On créer un objet table dans lequel on intialise ça taille.
-        PdfPTable table = new PdfPTable(5);
-        
-        //On créer l'objet cellule.
-        table.addCell("Type");
-        table.addCell("Cible");
-        table.addCell("Libelle");
-        table.addCell("Categorie");
-        table.addCell("Quantité");
-
-        PdfPCell table_cell;
-
-        while (rs.next()) {
-
-            if (rs.getString("typeDon").equals("Nature")) {
-                String type = rs.getString("typeDon");
-                table_cell = new PdfPCell(new Phrase(type));
-                table.addCell(table_cell);
-                String cible = rs.getString("cibleDon");
-                table_cell = new PdfPCell(new Phrase(cible));
-                table.addCell(table_cell);
-                String libelle = rs.getString("libelleDonNature");
-                table_cell = new PdfPCell(new Phrase(libelle));
-                table.addCell(table_cell);
-                String categorie = rs.getString("categorieDonNature");
-                table_cell = new PdfPCell(new Phrase(categorie));
-                table.addCell(table_cell);
-                int quantite = rs.getInt("quantiteDonNature");
-                String quant =""+quantite+"";
-                table_cell = new PdfPCell(new Phrase(quant));
-                table.addCell(table_cell);
-
-                
-            }
-           
-        }
-
-
-        return table;
-    }
-    
-    public PdfPTable premierTableau1() throws SQLException {
-
-        ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from don ");
-        //On créer un objet table dans lequel on intialise ça taille.
-        PdfPTable table = new PdfPTable(3);
+        PdfPTable table = new PdfPTable(7);
 
         //On créer l'objet cellule.
         table.addCell("Type");
         table.addCell("Cible");
         table.addCell("Montant");
-        
+        table.addCell("Libelle");
+        table.addCell("Categorie");
+        table.addCell("Quantité");
+        table.addCell("Date");
 
-        PdfPCell table_cell;
-
-        while (rs.next()) {
-
-            if (rs.getString("typeDon").equals("Especes")) {
-               
-                 String type = rs.getString("typeDon");
-                table_cell = new PdfPCell(new Phrase(type));
-                table.addCell(table_cell);
-                String cible = rs.getString("cibleDon");
-                table_cell = new PdfPCell(new Phrase(cible));
-                table.addCell(table_cell);
-                int montant = rs.getInt("montantDon");
-                String mont = ""+montant+"";
-                table_cell = new PdfPCell(new Phrase(mont));
-                table.addCell(table_cell);
-                
-            }
-           
-        }
-
+//      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
+//      cell.setColspan(3);
+//      table.addCell(cell);
+// 
+//      cell = new PdfPCell(new Phrase("Fusion de 2 cellules de la première colonne"));
+//      cell.setRowspan(2);
+//      table.addCell(cell);
+// 
+//      //contenu du tableau.
+//      table.addCell("Colonne 1; Cellule 1");
+//      table.addCell("Colonne 1; Cellule 2");
+//      table.addCell("Colonne 2; Cellule 1");
+//      table.addCell("Colonne 2; Cellule 2");
+//      
         return table;
     }
 
@@ -411,22 +365,22 @@ public class AdminController implements Initializable {
         series2.setName("MDN Alimentaire");
         series2.getData().add(new XYChart.Data(nature, SDN.moyenneA()));
         //series2.getData().add(new XYChart.Data(espece, 9));
-
-        XYChart.Series series3 = new XYChart.Series();
+        
+         XYChart.Series series3 = new XYChart.Series();
         series3.setName("MDN Vestimentaire");
         series3.getData().add(new XYChart.Data(nature, SDN.moyenneV()));
         //series2.getData().add(new XYChart.Data(espece, 9));
-
-        XYChart.Series series4 = new XYChart.Series();
+        
+         XYChart.Series series4 = new XYChart.Series();
         series4.setName("MDN Autres");
         series4.getData().add(new XYChart.Data(nature, SDN.moyenneAutre()));
-
-        XYChart.Series series5 = new XYChart.Series();
+        
+         XYChart.Series series5 = new XYChart.Series();
         series5.setName("MDE Montant");
         series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
-
+        
         Scene scene = new Scene(bc, 800, 600);
-        bc.getData().addAll(series1, series2, series3, series4, series5);
+        bc.getData().addAll(series1, series2,series3,series4,series5);
         stage.setScene(scene);
         stage.show();
 
@@ -436,7 +390,7 @@ public class AdminController implements Initializable {
 //           stage.initModality(Modality.APPLICATION_MODAL);
 //           stage.show();
     }
-
+    
     //* Debut Partie Chat *//
     private Server createServer() {
         return new Server(55555, data -> {
@@ -445,14 +399,21 @@ public class AdminController implements Initializable {
             });
         });
     }
-
+    
     private Client createClient() {
-        return new Client("127.0.0.1", 55555, data -> {
+        return new Client("127.0.0.1",55555, data -> {
             Platform.runLater(() -> {
                 messages.appendText(data.toString() + "\n");
             });
         });
     }
     //* Fin Partie Chat *//
+   @FXML
+    private void beneficiaire(ActionEvent event) {
+        loadStage("InterBeneficiaire.fxml");
+    }
+    
+
 
 }
+

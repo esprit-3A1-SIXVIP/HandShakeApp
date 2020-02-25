@@ -39,7 +39,6 @@ public class HandShake extends Application{
         
         stage.setScene(scene);
         stage.show();
-        stage.setResizable(false);
         
     }
 

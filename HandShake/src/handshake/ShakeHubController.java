@@ -288,7 +288,7 @@ public class ShakeHubController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         try {
             Callback<ListView<Question>, ListCell<Question>> cellFactory = (param) -> {
                 return new QCell();

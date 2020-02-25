@@ -49,6 +49,11 @@
                               <Insets />
                            </opaqueInsets>
                         </Hyperlink>
+                        <JFXButton fx:id="benef" buttonType="RAISED" layoutX="1.0" layoutY="289.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textFill="#12cdf4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="750.0" prefWidth="760.0" style="-fx-background-color: f1f1f0;">
