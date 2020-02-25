@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="682.0" prefWidth="748.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.ArticleAddController">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="prin" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #fff;">
+         <children>
+            <AnchorPane prefHeight="806.0" prefWidth="237.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <Pane prefHeight="214.0" prefWidth="245.0">
+                     <children>
+                        <ImageView fx:id="imgrot" fitHeight="296.0" fitWidth="431.0" layoutX="-19.0" layoutY="-54.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/67285598-idée-verte-et-icônes-écologiques-autour-de-la-forme-du-cercle-design-coloré-illustration-vectorielle%20(1).jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="77.0" fitWidth="79.0" layoutX="97.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/download.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="603.0" fitWidth="256.0" layoutX="-5.0" layoutY="203.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="203.0">
+                     <image>
+                        <Image url="@images/Dark-Grey-Background-89.png" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnaffsc2" layoutY="258.0" prefHeight="32.0" prefWidth="263.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="ajouter article" textFill="WHITE" AnchorPane.topAnchor="264.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnaffsc3" layoutY="301.0" prefHeight="32.0" prefWidth="263.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="stat" textFill="WHITE" AnchorPane.topAnchor="314.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="265.0" prefHeight="806.0" prefWidth="746.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="806.0" fitWidth="746.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <image>
+                        <Image url="@images/main1.jpg" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D height="1000.0" width="1000.0" />
+                     </viewport>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="p1" layoutX="258.0" layoutY="169.0" prefHeight="637.0" prefWidth="743.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="257.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="169.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e3f1ff" height="200.0" layoutX="181.0" layoutY="372.0" stroke="BLACK" strokeType="INSIDE" width="369.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="284.0" layoutY="3.0" prefHeight="38.0" prefWidth="195.0" text="Article" textFill="#db8127">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <JFXTextArea fx:id="desc" layoutX="84.0" layoutY="171.0" prefHeight="175.0" prefWidth="580.0" />
+            <JFXTextField fx:id="titre" layoutX="82.0" layoutY="103.0" prefHeight="31.0" prefWidth="580.0" promptText="Titre article" />
+            <JFXTextField fx:id="auth" layoutX="84.0" layoutY="41.0" prefHeight="31.0" prefWidth="580.0" promptText="Auteur" />
+            <ImageView fx:id="drag" fitHeight="200.0" fitWidth="369.0" layoutX="181.0" layoutY="372.0" onDragDropped="#dradrop" onDragOver="#drov" pickOnBounds="true" preserveRatio="true">
+           </ImageView>
+            <Label layoutX="52.0" layoutY="462.0" text="drag image ici --&gt;" />
+            <JFXButton layoutX="181.0" layoutY="586.0" onMouseClicked="#quit" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #0c9ae0;" text="retour" textFill="WHITE" />
+            <JFXButton layoutX="317.0" layoutY="586.0" onMouseClicked="#save" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #0c9ae0;" text="enregistrer" textFill="WHITE" />
+            <JFXTextField fx:id="msg" layoutX="494.0" layoutY="596.0" prefHeight="31.0" prefWidth="204.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

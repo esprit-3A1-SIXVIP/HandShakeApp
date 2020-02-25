@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +23,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,6 +47,10 @@ public class HomeController implements Initializable {
     
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private ImageView shakehub;
+    @FXML
+    private Circle cercledon;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,6 +90,18 @@ public class HomeController implements Initializable {
         loadStage("User.fxml");
     }
 
+  private void GoToActualite(ActionEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("article.fxml"));
+      Parent root = loader.<Parent>load();
+      ArticleController dpc = loader.<ArticleController>getController();
+      this.btn.getScene().setRoot(root);
+    } catch (IOException ex) {
+      System.out.println(ex.getMessage());
+      ex.printStackTrace();
+    } 
+  }
+    
     private void loadStage(String fxml) {
         try {
              AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
@@ -93,5 +112,10 @@ public class HomeController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleShakeHub(MouseEvent event) {
+    }
+    
 
 }
