@@ -1,0 +1,11 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.vbox{
+ -fx-border-image-width: 100%;
+-fx-background-image:url("@images\Dark-Grey-Background-89.png");
+}
