@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="intOrg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.GestionOrgController">
+   <children>
+      <ImageView fitHeight="742.0" fitWidth="236.0" layoutX="-2.0" layoutY="74.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@images/Dark-Grey-Background-89.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableau1" editable="true" layoutX="233.0" layoutY="340.0" prefHeight="250.0" prefWidth="776.0" style="-fx-background-color: rgba(0,0,0,0.3);" tableMenuButtonVisible="true">
+         <columns>
+            <TableColumn fx:id="tabnom1" prefWidth="128.0" text="nom" />
+            <TableColumn fx:id="tabprenom1" prefWidth="70.0" text="prenom" />
+            <TableColumn fx:id="tablogin1" minWidth="0.0" prefWidth="134.0" text="login" />
+            <TableColumn fx:id="tabemail1" prefWidth="115.0" text="email" />
+            <TableColumn fx:id="tabrole1" prefWidth="66.0" text="role" />
+            <TableColumn fx:id="tabtel1" prefWidth="125.0" text="telephone" />
+            <TableColumn fx:id="tabprofil1" prefWidth="75.0" text="profil" />
+            <TableColumn fx:id="tabrue1" prefWidth="75.0" text="rue" />
+            <TableColumn fx:id="tabville1" prefWidth="75.0" text="ville" />
+            <TableColumn fx:id="tpays1" prefWidth="75.0" text="pays" />
+            <TableColumn fx:id="taborg1" prefWidth="75.0" text="nom_organisation" />
+            <TableColumn fx:id="tabdom1" prefWidth="75.0" text="domaine" />
+         </columns>
+      </TableView>
+      <FontAwesomeIconView fx:id="search" glyphName="SEARCH" layoutX="641.0" layoutY="314.0" size="20" text="" />
+      <JFXTextField fx:id="lireNon1" layoutX="264.0" layoutY="598.0" prefHeight="25.0" prefWidth="171.0" />
+      <JFXTextField fx:id="lirePrenom1" layoutX="497.0" layoutY="602.0" prefHeight="25.0" prefWidth="150.0" />
+      <JFXTextField fx:id="lireRue1" layoutX="684.0" layoutY="675.0" prefHeight="25.0" prefWidth="168.0" />
+      <JFXTextField fx:id="lireTel1" layoutX="493.0" layoutY="676.0" prefHeight="25.0" prefWidth="158.0" />
+      <JFXTextField fx:id="lireEmail1" layoutX="265.0" layoutY="675.0" prefHeight="25.0" prefWidth="150.0" />
+      <JFXTextField fx:id="lireLogin1" layoutX="694.0" layoutY="600.0" prefHeight="25.0" prefWidth="143.0" />
+      <JFXTextField fx:id="lireVille1" layoutX="270.0" layoutY="747.0" prefHeight="25.0" prefWidth="141.0" />
+      <JFXTextField fx:id="lirePays1" layoutX="875.0" layoutY="601.0" prefHeight="25.0" prefWidth="113.0" />
+      <JFXTextField fx:id="lireOrg1" layoutX="889.0" layoutY="676.0" prefHeight="25.0" prefWidth="90.0" />
+      <JFXTextField fx:id="lireDomaine1" layoutX="449.0" layoutY="760.0" prefHeight="25.0" prefWidth="101.0" />
+      <JFXTextField fx:id="tabRecherche1" layoutX="661.0" layoutY="293.0" prefHeight="25.0" prefWidth="312.0" />
+      <JFXButton fx:id="btnsupp" layoutX="611.0" layoutY="741.0" onMouseClicked="#Supprimerorg1" prefHeight="44.0" prefWidth="159.0" style="-fx-background-color: #0c9ae0;" text="SUPPRIMER" />
+      <JFXButton fx:id="btnbloquer" layoutX="803.0" layoutY="740.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: #0c9ae0;" text="BLOQUER" />
+      <AnchorPane fx:id="tablebord" layoutX="-15.0" layoutY="75.0" pickOnBounds="false" prefHeight="733.0" prefWidth="249.0" style="-fx-background-color: rgba(0,0,0,0.3);">
+         <children>
+            <JFXButton fx:id="btnmaguser" layoutX="-3.0" layoutY="193.0" onMouseClicked="#btnmaguser" prefHeight="59.0" prefWidth="241.0" style="-fx-background-color: #0c9ae0;" text="Gestion Utilisateurs" textFill="#f8f8f7">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_User_Groups_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnmeDon" layoutX="3.0" layoutY="270.0" onMouseClicked="#btnmeDon" prefHeight="59.0" prefWidth="228.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Donate_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="-1.0" layoutY="350.0" prefHeight="59.0" prefWidth="238.0" style="-fx-background-color: #0c9ae0;" text="Gestions des Articles" textFill="#f8f8f7">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/1024px-OOjs_UI_icon_articles-ltr-progressive.svg.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label layoutX="38.0" layoutY="142.0" text="Tableau de bord" textFill="#f8f5f5">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="24.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnstat" layoutX="-3.0" layoutY="433.0" prefHeight="52.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Statistiques" textFill="#f8f8f7">
+               <graphic>
+                  <ImageView fitHeight="47.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/up_grafik_business_ideas_company_strategy0-512.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Circle fx:id="profile_admin" fill="#7cc0ee5c" layoutX="117.0" layoutY="71.0" radius="51.0" stroke="#00000010" strokeType="INSIDE" />
+         </children>
+      </AnchorPane>
+      <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="79.0" prefWidth="236.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <ImageView fitHeight="104.0" fitWidth="224.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label fx:id="btnlogout" layoutX="859.0" layoutY="22.0" onMouseClicked="#logout" text="Se deconnecter">
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_Exit_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Label>
+      <Pane layoutX="234.0" layoutY="80.0" prefHeight="195.0" prefWidth="767.0" style="-fx-background-color: #0c9ae0;">
+         <children>
+            <BorderPane fx:id="cadre3" layoutX="25.0" layoutY="11.0" prefHeight="100.0" prefWidth="151.0">
+               <center>
+                  <ImageView fx:id="lireprofil1" fitHeight="159.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true" visible="false" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <Label layoutX="348.0" layoutY="75.0" text="Gestion des Organisations" textFill="#f2ebeb">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
