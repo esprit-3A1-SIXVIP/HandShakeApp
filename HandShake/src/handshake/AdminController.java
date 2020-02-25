@@ -16,6 +16,8 @@ import Utils.UserSession;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
@@ -67,6 +69,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.SwingUtilities;
 import handshake.NetworkConnection;
+import java.net.MalformedURLException;
+import java.sql.ResultSet;
 import javafx.application.Platform;
 
 /**
@@ -293,15 +297,21 @@ public class AdminController implements Initializable {
 
     }
 
-    public void Imprimer(ActionEvent action) {
+   public void Imprimer(ActionEvent action) throws SQLException{
 
         Document document = new Document();
+
         try {
             PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(chemin));
             document.open();
 
-            document.add(new Paragraph("Historique de Don\n\n"));
+            document.addAuthor("HandShake");
+            document.add(new Paragraph("                                                              Historique de Don\n\n\n\n\n\n"));
+            document.add(new Paragraph("                                                              Don Nature\n\n"));
             document.add(premierTableau());
+            document.add(new Paragraph("\n\n\n\n\n                                                              Don Espece\n\n"));
+            document.add(premierTableau1());
+            document.addCreationDate();
 
         } catch (DocumentException | IOException de) {
             de.printStackTrace();
@@ -311,33 +321,85 @@ public class AdminController implements Initializable {
 
     }
 
-    public static PdfPTable premierTableau() {
+    public PdfPTable premierTableau() throws SQLException {
+
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don ");
         //On créer un objet table dans lequel on intialise ça taille.
-        PdfPTable table = new PdfPTable(7);
+        PdfPTable table = new PdfPTable(5);
+
+        //On créer l'objet cellule.
+        table.addCell("Type");
+        table.addCell("Cible");
+        table.addCell("Libelle");
+        table.addCell("Categorie");
+        table.addCell("Quantité");
+
+        PdfPCell table_cell;
+
+        while (rs.next()) {
+
+            if (rs.getString("typeDon").equals("Nature")) {
+                String type = rs.getString("typeDon");
+                table_cell = new PdfPCell(new Phrase(type));
+                table.addCell(table_cell);
+                String cible = rs.getString("cibleDon");
+                table_cell = new PdfPCell(new Phrase(cible));
+                table.addCell(table_cell);
+                String libelle = rs.getString("libelleDonNature");
+                table_cell = new PdfPCell(new Phrase(libelle));
+                table.addCell(table_cell);
+                String categorie = rs.getString("categorieDonNature");
+                table_cell = new PdfPCell(new Phrase(categorie));
+                table.addCell(table_cell);
+                int quantite = rs.getInt("quantiteDonNature");
+                String quant =""+quantite+"";
+                table_cell = new PdfPCell(new Phrase(quant));
+                table.addCell(table_cell);
+
+
+            }
+
+        }
+
+
+        return table;
+    }
+
+    public PdfPTable premierTableau1() throws SQLException {
+
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don ");
+        //On créer un objet table dans lequel on intialise ça taille.
+        PdfPTable table = new PdfPTable(3);
 
         //On créer l'objet cellule.
         table.addCell("Type");
         table.addCell("Cible");
         table.addCell("Montant");
-        table.addCell("Libelle");
-        table.addCell("Categorie");
-        table.addCell("Quantité");
-        table.addCell("Date");
 
-//      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
-//      cell.setColspan(3);
-//      table.addCell(cell);
-// 
-//      cell = new PdfPCell(new Phrase("Fusion de 2 cellules de la première colonne"));
-//      cell.setRowspan(2);
-//      table.addCell(cell);
-// 
-//      //contenu du tableau.
-//      table.addCell("Colonne 1; Cellule 1");
-//      table.addCell("Colonne 1; Cellule 2");
-//      table.addCell("Colonne 2; Cellule 1");
-//      table.addCell("Colonne 2; Cellule 2");
-//      
+
+        PdfPCell table_cell;
+
+        while (rs.next()) {
+
+            if (rs.getString("typeDon").equals("Especes")) {
+
+                 String type = rs.getString("typeDon");
+                table_cell = new PdfPCell(new Phrase(type));
+                table.addCell(table_cell);
+                String cible = rs.getString("cibleDon");
+                table_cell = new PdfPCell(new Phrase(cible));
+                table.addCell(table_cell);
+                int montant = rs.getInt("montantDon");
+                String mont = ""+montant+"";
+                table_cell = new PdfPCell(new Phrase(mont));
+                table.addCell(table_cell);
+
+            }
+
+        }
+
         return table;
     }
 
