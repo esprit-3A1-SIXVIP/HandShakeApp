@@ -17,12 +17,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -75,17 +71,18 @@ public class HandshakeController implements Initializable {
                  {
                      int id = SU.getIdUser1(email, Password);
                      String role = SU.getRole(id);
+                     String login = SU.getLogin(id);
                      if(id != -1)
                      {
                          if(role.equals("admin"))
                          {
-                             UserSession.getInstance(email, id,role);
+                             UserSession.getInstace(email, id,role,login);
                          
                          loadStage("Admin.fxml");
                          }
                          else
                          {
-                             UserSession.getInstance(email, id,role);
+                             UserSession.getInstace(email, id,role,login);
                          
                          loadStage("Home.fxml");
                          }

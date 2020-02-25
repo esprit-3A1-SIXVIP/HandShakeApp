@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,23 +56,21 @@ public class ServiceUser {
         return x;
     }
 
-   
-
-    /**
-     *
-     * @return @throws SQLException
-     */
-   
     public User getUser(int id) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
+        ResultSet rs = ste.executeQuery("select * from user where userId=" + id);
         if (rs.next()) {
-            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+            User U = new User(rs.getInt("userId"), rs.getString("login"), rs.getString("password"), rs.getString("email"), rs.getString("role"));
             return U;
         }
 
         return null;
     }
+
+    /**
+     *
+     * @return @throws SQLException
+     */
     public int getIdUser(User u) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where email='" + u.getEmail() + "' and  password='" + u.getPassword() + "'");
@@ -80,8 +80,8 @@ public class ServiceUser {
 
         return -1;
     }
-    
-     public int getIdUser1(String a1 , String a2) throws SQLException {
+
+    public int getIdUser1(String a1, String a2) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where email='" + a1 + "' and  password='" + a2 + "'");
         if (rs.next()) {
@@ -90,10 +90,10 @@ public class ServiceUser {
 
         return -1;
     }
-     
-     public String getRole(int a) throws SQLException {
+
+    public String getRole(int a) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId="+a);
+        ResultSet rs = ste.executeQuery("select * from user where userId=" + a);
         if (rs.next()) {
             return rs.getString("role");
         }
@@ -121,40 +121,37 @@ public class ServiceUser {
                 String categorie = rs.getString("categorieDonNature");
                 int quantite = rs.getInt("quantiteDonNature");
                 String cible = rs.getString("cibleDon");
-                
+
                 Date date1 = rs.getDate("dateDon");
                 DonNature dn = new DonNature(libelle, categorie, quantite, id, type, cible, date1, user);
 
                 arr.add(dn);
-            } else  if(rs.getString("typeDon").equals("Especes"))
-                    {
+            } else if (rs.getString("typeDon").equals("Especes")) {
                 int id = rs.getInt(1);
 
                 String cible = rs.getString("cibleDon");
                 String type = rs.getString("typeDon");
                 int montant = rs.getInt("montantDon");
-                 
+
                 Date date1 = rs.getDate("dateDon");
                 int user = rs.getInt("userId");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 
                 arr.add(de);
-            }
-            else
-            {
-                 int id = rs.getInt("donId");
+            } else {
+                int id = rs.getInt("donId");
                 int user = rs.getInt("userId");
-            String rueRefuge = rs.getString("rueRefuge");
-            String villeRefuge = rs.getString("villeRefuge");
-            String paysRefuge = rs.getString("paysRefuge");
-            int disponibiliteRefuge = rs.getInt("disponibiliteRefuge");
-            java.sql.Date datd=java.sql.Date.valueOf(rs.getString("dateDebutRefuge"));
-            java.sql.Date datf=java.sql.Date.valueOf(rs.getString("dateFinRefuge"));
-            int capaciteRefuge = rs.getInt("capaciteRefuge");
-            Double longitude=rs.getDouble("longitude");
-            Double latitude=rs.getDouble("latitude");
-            Refuge p = new Refuge(rueRefuge, villeRefuge, paysRefuge, capaciteRefuge, datd.toLocalDate(), datf.toLocalDate(), longitude, latitude, id, paysRefuge, user);
-            arr.add(p);
+                String rueRefuge = rs.getString("rueRefuge");
+                String villeRefuge = rs.getString("villeRefuge");
+                String paysRefuge = rs.getString("paysRefuge");
+                int disponibiliteRefuge = rs.getInt("disponibiliteRefuge");
+                java.sql.Date datd = java.sql.Date.valueOf(rs.getString("dateDebutRefuge"));
+                java.sql.Date datf = java.sql.Date.valueOf(rs.getString("dateFinRefuge"));
+                int capaciteRefuge = rs.getInt("capaciteRefuge");
+                Double longitude = rs.getDouble("longitude");
+                Double latitude = rs.getDouble("latitude");
+                Refuge p = new Refuge(rueRefuge, villeRefuge, paysRefuge, capaciteRefuge, datd.toLocalDate(), datf.toLocalDate(), longitude, latitude, id, paysRefuge, user);
+                arr.add(p);
             }
 
         }
@@ -162,15 +159,14 @@ public class ServiceUser {
         return arr;
 
     }
-    
+
     public ObservableList<Dons> readAllDonAdmin() throws SQLException, ParseException {
         ObservableList<Dons> arr = FXCollections.observableArrayList();
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from don ");
 
         while (rs.next()) {
-            if (rs.getString("typeDon").equals("Nature")) 
-            {
+            if (rs.getString("typeDon").equals("Nature")) {
                 int id = rs.getInt("donId");
                 int user = rs.getInt("userId");
                 String libelle = rs.getString("libelleDonNature");
@@ -178,51 +174,48 @@ public class ServiceUser {
                 String categorie = rs.getString("categorieDonNature");
                 int quantite = rs.getInt("quantiteDonNature");
                 String cible = rs.getString("cibleDon");
-                
+
                 Date date1 = rs.getDate("dateDon");
                 DonNature dn = new DonNature(libelle, categorie, quantite, id, type, cible, date1, user);
 
                 arr.add(dn);
-            
-                 }
-             else  if(rs.getString("typeDon").equals("Especes"))
-            {
+
+            } else if (rs.getString("typeDon").equals("Especes")) {
                 int id = rs.getInt(1);
 
                 String cible = rs.getString("cibleDon");
                 String type = rs.getString("typeDon");
                 int montant = rs.getInt("montantDon");
-                 
+
                 Date date1 = rs.getDate("dateDon");
                 int user = rs.getInt("userId");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
                 arr.add(de);
-            }
-            else
-            {
-                 int id = rs.getInt("donId");
+            } else {
+                int id = rs.getInt("donId");
                 int user = rs.getInt("userId");
-            String rueRefuge = rs.getString("rueRefuge");
-            String villeRefuge = rs.getString("villeRefuge");
-            String paysRefuge = rs.getString("paysRefuge");
-            int disponibiliteRefuge = rs.getInt("disponibiliteRefuge");
-            java.sql.Date datd=java.sql.Date.valueOf(rs.getString("dateDebutRefuge"));
-            java.sql.Date datf=java.sql.Date.valueOf(rs.getString("dateFinRefuge"));
-            int capaciteRefuge = rs.getInt("capaciteRefuge");
-            Double longitude=rs.getDouble("longituge");
-            Double latitude=rs.getDouble("latitude");
-            Refuge p = new Refuge(rueRefuge, villeRefuge, paysRefuge, capaciteRefuge, datd.toLocalDate(), datf.toLocalDate(), longitude, latitude, id, paysRefuge, user);
-            arr.add(p);
+                String type = rs.getString("typeDon");
+                String cible = rs.getString("cibleDon");
+                String rueRefuge = rs.getString("rueRefuge");
+                String villeRefuge = rs.getString("villeRefuge");
+                String paysRefuge = rs.getString("paysRefuge");
+                int disponibiliteRefuge = rs.getInt("disponibiliteRefuge");
+                java.sql.Date datd = java.sql.Date.valueOf(rs.getString("dateDebutRefuge"));
+                java.sql.Date datf = java.sql.Date.valueOf(rs.getString("dateFinRefuge"));
+                int capaciteRefuge = rs.getInt("capaciteRefuge");
+                Double longitude = rs.getDouble("longitude");
+                Double latitude = rs.getDouble("latitude");
+                Refuge p = new Refuge(rueRefuge, villeRefuge, paysRefuge, disponibiliteRefuge, capaciteRefuge, datd.toLocalDate(), datf.toLocalDate(), longitude, latitude, id, type, cible, user);
+                arr.add(p);
             }
 
         }
 
-        
-
         return arr;
 
     }
-/*     public ObservableList<User> readOrganisation() throws SQLException {
+
+    /*     public ObservableList<User> readOrganisation() throws SQLException {
         ObservableList<User> arr =FXCollections.observableArrayList();
         ste=con.createStatement();
         ResultSet rs=ste.executeQuery("select nomOrganisation,pays,ville,domaine,email from user\n" +
@@ -240,7 +233,7 @@ public class ServiceUser {
         }
         return arr;
     }*/
-public void ajouter(User u) throws SQLException {
+    public void ajouter(User u) throws SQLException {
 
         ste = con.createStatement();
         String requeteInsert = "INSERT INTO `handshake`.`user` ( `userId`,`login`, `password`, `nomUser`, `prenomUser`, `email`, `telephone`, `ville`, `rue`, `pays`,`profil`, `role`)  VALUES ( '" + u.getUserId() + "','" + u.getLogin() + "', '" + u.getPassword() + "', '" + u.getNomUser() + "', '" + u.getPrenomUser() + "', '" + u.getEmail() + "', '" + u.getTelephone() + "', '" + u.getVille() + "', '" + u.getRue() + "', '" + u.getPays() + "', '" + u.getProfil() + "','User Simple');";
@@ -259,6 +252,7 @@ public void ajouter(User u) throws SQLException {
         return id;
     }
 //attention pour connnexion login au lieu d'email
+
     public int getIdUser2(String a1, String a2) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where login='" + a1 + "' and  password='" + a2 + "'");
@@ -312,6 +306,22 @@ public void ajouter(User u) throws SQLException {
         ste = con.createStatement();
         String sql = "Update user set profil ='" + image + "' Where role='User Simple' and userId=" + chercher(u);
         ste.executeUpdate(sql);
+    }
+
+    public boolean update(int id, String nom, String prenom, String email, String rue, String ville, String profil, String login, String pays) throws SQLException {
+        ste = con.createStatement();
+        String requeteInsert = "UPDATE user SET ville='" + ville
+                + "',nomUser=" + nom
+                + ",prenomUser=" + prenom
+                + ",email=" + email
+                + ",login=" + login
+                + ",rue=" + rue
+                + ",pays=" + pays
+                + ",profil=" + profil
+                + " WHERE userId=" + id;
+        ste.executeUpdate(requeteInsert);
+        System.out.println("Modification effectuer");
+        return true;
     }
 
     /**
@@ -398,6 +408,69 @@ public void ajouter(User u) throws SQLException {
 
         return arr;
 
+    }
+
+    public String getLogin(int a) throws SQLException {
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from user where userId=" + a);
+        if (rs.next()) {
+            return rs.getString("login");
+        }
+
+        return null;
+    }
+
+    public int NombreDonNature() throws SQLException {
+        int i = 0;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don where typeDon='Nature'");
+        while (rs.next()) {
+            i++;
+        }
+        return i;
+    }
+
+    public int NombreDonRefuge() throws SQLException {
+        int i = 0;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don where typeDon='Refuge'");
+        while (rs.next()) {
+            i++;
+        }
+        return i;
+    }
+
+    public User chercherUser(int id) throws SQLException {
+        User p = null;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from user where role='User Simple' and userId='" + id + "'");
+        while (rs.next()) {
+            int userId = rs.getInt(1);
+            String login = rs.getString("login");
+            String password = rs.getString("password");
+            String nomUser = rs.getString("nomUser");
+            String prenomUser = rs.getString("prenomUser");
+            String email = rs.getString("email");
+            int telephone = rs.getInt("telephone");
+            String ville = rs.getString("ville");
+            String rue = rs.getString("rue");
+            String pays = rs.getString("pays");
+            String role = rs.getString("role");
+            String profil = rs.getString("profil");
+            p = new User(userId, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+
+        }
+        return p;
+    }
+
+    public int NombreDonEspece() throws SQLException {
+        int i = 0;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from don where typeDon='Especes'");
+        while (rs.next()) {
+            i++;
+        }
+        return i;
     }
 
 //    public List<Dons> recherche(String type, String cible) throws SQLException

@@ -9,9 +9,9 @@ package handshake;
 import Entities.Dons;
 import Services.ServiceDonEspeces;
 import Services.ServiceDonNature;
+import Services.ServiceRefuge;
 import Services.ServiceUser;
 import Utils.DataBase;
-import Utils.ModifSession;
 import Utils.UserSession;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -19,6 +19,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,6 +42,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -48,10 +54,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.application.Platform;
 
 /**
  * FXML Controller class
@@ -66,13 +73,34 @@ public class AdminController implements Initializable {
     private Connection con;
     private Statement ste;
     private FileChooser fc;
+
+    
+    @FXML
+    private JFXTextField input;
+    
+   
+    
+    
+
+    final static String nature = "Nature";
+    final static String espece = "Espece";
+    final static String refuge= "Refuge";
+
     public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
     @FXML
     private AnchorPane rootPane;
 
+
+  
+
     @FXML
     private JFXButton Statistique;
+    
+    
+
+    private JFXButton Statistiqueref;
+
 
     @FXML
     private JFXTextField rechercheD;
@@ -127,9 +155,21 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableView<Dons> tableDon;
+  
+    @FXML
+    private JFXButton benef;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
     
+
+     private boolean isServer = true;
+    
+     @FXML
+    private JFXTextArea messages = new JFXTextArea();
+     
+    private NetworkConnection connection = isServer ? createServer() : createClient();
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -137,6 +177,7 @@ public class AdminController implements Initializable {
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
+        String login = UserSession.getInstance().getLogin();
         emailU.setText(email);
         try {
             donList = (ObservableList<Dons>) SU.readAllDonAdmin();
@@ -152,15 +193,16 @@ public class AdminController implements Initializable {
         categorieD.setCellValueFactory(new PropertyValueFactory<>("categorieDonNature"));
         quantiteD.setCellValueFactory(new PropertyValueFactory<>("quantiteDonNature"));
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
-        cap.setCellValueFactory(new PropertyValueFactory<>("capacite"));
-        pays.setCellValueFactory(new PropertyValueFactory<>("pays"));
-        ville.setCellValueFactory(new PropertyValueFactory<>("ville"));
+        cap.setCellValueFactory(new PropertyValueFactory<>("capaciteRefuge"));
+        pays.setCellValueFactory(new PropertyValueFactory<>("paysRefuge"));
+        ville.setCellValueFactory(new PropertyValueFactory<>("villeRefuge"));
         longitude.setCellValueFactory(new PropertyValueFactory<>("longitude"));
         latitude.setCellValueFactory(new PropertyValueFactory<>("latitude"));
-        date_debut.setCellValueFactory(new PropertyValueFactory<>("dateDebutRefuge"));
-        date_fin.setCellValueFactory(new PropertyValueFactory<>("dateFinRefuge"));
+        date_debut.setCellValueFactory(new PropertyValueFactory<Dons,LocalDate>("dateDebutRefuge"));
+        date_fin.setCellValueFactory(new PropertyValueFactory<Dons,LocalDate>("dateFinRefuge"));
         tableDon.setItems(donList);
         
+        //* Debut Partie Filtre *//
         FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
         rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -188,6 +230,34 @@ public class AdminController implements Initializable {
 
         tableDon.setItems(sortedData);
 
+        //* Debut Partie Filtre *//
+        
+        //* Debut Partie Chat *//
+        input.setOnAction(event -> {
+            String message = isServer ? ""+login+"(Admin) : " : "Client : ";
+            message += input.getText();
+            input.clear();
+            
+            messages.appendText(message + "\n");
+            
+            try{
+                connection.send(message);
+            }
+            catch(Exception e){
+                messages.appendText("Failed to send\n");
+            }
+        });
+        
+        try {
+            connection.startConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //* Fin Partie Chat *//
+        
+       
+
+
     }
     public void scrollbar(TableView table) {
         ScrollPane sp = new ScrollPane(table);
@@ -208,11 +278,14 @@ public class AdminController implements Initializable {
             rootPane.getChildren().setAll(pane);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
-    @FXML
+    
+    
+    
+
+
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -255,7 +328,7 @@ public class AdminController implements Initializable {
 
     }
 
-    @FXML
+
     public void Imprimer(ActionEvent action) {
 
         Document document = new Document();
@@ -305,7 +378,89 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void Statistique(ActionEvent event) {
+
+    public void Statistique(ActionEvent action) throws IOException, SQLException {
+        ServiceUser SU = new ServiceUser();
+        ServiceDonNature SDN = new ServiceDonNature();
+        ServiceDonEspeces SDE = new ServiceDonEspeces();
+        ServiceRefuge SDR=new ServiceRefuge();
+        Stage stage = new Stage();
+        stage.setTitle("Statistique Don");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String, Number> bc
+                = new BarChart<String, Number>(xAxis, yAxis);
+        bc.setTitle("Don");
+        xAxis.setLabel("Type");
+        yAxis.setLabel("Value");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Nombre Don");
+        series1.getData().add(new XYChart.Data(nature, SU.NombreDonNature()));
+        series1.getData().add(new XYChart.Data(espece, SU.NombreDonEspece()));
+         series1.getData().add(new XYChart.Data(refuge, SU.NombreDonRefuge()));
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("MDN Alimentaire");
+        series2.getData().add(new XYChart.Data(nature, SDN.moyenneA()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series3 = new XYChart.Series();
+        series3.setName("MDN Vestimentaire");
+        series3.getData().add(new XYChart.Data(nature, SDN.moyenneV()));
+        //series2.getData().add(new XYChart.Data(espece, 9));
+        
+         XYChart.Series series4 = new XYChart.Series();
+        series4.setName("MDN Autres");
+        series4.getData().add(new XYChart.Data(nature, SDN.moyenneAutre()));
+        
+         XYChart.Series series5 = new XYChart.Series();
+        series5.setName("MDE Montant");
+        series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
+        
+        XYChart.Series series6 = new XYChart.Series();
+        series5.setName("NBR Refuge");
+        series5.getData().add(new XYChart.Data(refuge, SDR.moyenneR()));
+        
+        Scene scene = new Scene(bc, 800, 600);
+        bc.getData().addAll(series1, series2,series3,series4,series5,series6);
+        stage.setScene(scene);
+        stage.show();
+
+//           Parent root = FXMLLoader.load(getClass().getResource("StatistiqueDon.fxml"));
+//           Stage stage = new Stage();
+//           stage.setScene(new Scene(root));
+//           stage.initModality(Modality.APPLICATION_MODAL);
+//           stage.show();
+    }
+    
+    //* Debut Partie Chat *//
+    private Server createServer() {
+        return new Server(55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    
+    private Client createClient() {
+        return new Client("127.0.0.1",55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    //* Fin Partie Chat *//
+   @FXML
+    private void beneficiaire(ActionEvent event) {
+        loadStage("InterBeneficiaire.fxml");
+    }
+    
+
+
+    private void Statistiqueref(ActionEvent event) {
     }
 
+
 }
+

@@ -23,11 +23,19 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import static com.sun.javafx.fxml.expression.Expression.add;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -56,13 +64,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import java.io.*;
+import java.net.*;
+import java.awt.*;
+import java.awt.event.*;
+import javafx.application.Platform;
+import javafx.event.EventType;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * FXML Controller class
  *
  * @author steph
  */
-public class UserController implements Initializable {
+public class UserController  implements Initializable{
 
     /**
      * Initializes the controller class.
@@ -71,6 +87,18 @@ public class UserController implements Initializable {
     private Statement ste;
     private FileChooser fc;
     public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
+    
+    @FXML
+    private JFXTextField input;
+    
+    private boolean isServer = false;
+    
+     @FXML
+    private JFXTextArea messages = new JFXTextArea();
+     
+    private NetworkConnection connection = isServer ? createServer() : createClient();
+    
+	
 
     @FXML
     private AnchorPane rootPane;
@@ -83,6 +111,8 @@ public class UserController implements Initializable {
 
     @FXML
     private JFXButton modifierD;
+    
+    
 
     @FXML
     private JFXButton buttonPdf;
@@ -123,11 +153,13 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+       
+        
         con = DataBase.getInstance().getConnection();
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
+        String login = UserSession.getInstance().getLogin();
         emailU.setText(email);
         try {
             donList = (ObservableList<Dons>) SU.readAllDon(us);
@@ -174,6 +206,32 @@ public class UserController implements Initializable {
         sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
 
         tableDon.setItems(sortedData);
+        
+        //* Debut Partie Chat *//
+        input.setOnAction(event -> {
+            String message = isServer ? "Admin : " : ""+login+" : ";
+            message += input.getText();
+            input.clear();
+            
+            messages.appendText(message + "\n");
+            
+            try{
+                connection.send(message);
+            }
+            catch(Exception e){
+                messages.appendText("Failed to send\n");
+                
+            }
+        });
+        
+        try {
+            messages.appendText("Attempting connection... \n");
+            connection.startConnection();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //* Fin Partie Chat *//
 
     }
 
@@ -187,6 +245,8 @@ public class UserController implements Initializable {
             ex.printStackTrace();
         }
     }
+    
+    
 
     @FXML
     private void Home() {
@@ -310,5 +370,23 @@ public class UserController implements Initializable {
 //      
         return table;
     }
+    
+    //* Debut Partie Chat *//
+    private Server createServer() {
+        return new Server(55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    
+    private Client createClient() {
+        return new Client("127.0.0.1",55555, data -> {
+            Platform.runLater(() -> {
+                messages.appendText(data.toString() + "\n");
+            });
+        });
+    }
+    //* Fin Partie Chat *//
 
 }

@@ -70,7 +70,7 @@ public void modifpassword(String password,int id) throws SQLException{
     }
         public int getIdAdmin(String a1 , String a2) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='Administrateur' and  login='" + a1 + "' and  password='" + a2 + "'");
+        ResultSet rs = ste.executeQuery("select * from user where role='Administrateur' and  email='" + a1 + "' and  password='" + a2 + "'");
         if (rs.next()) {
             return rs.getInt("userId");
         }

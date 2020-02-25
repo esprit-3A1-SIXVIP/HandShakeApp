@@ -5,21 +5,10 @@
  */
 package handshake;
 
-import Entities.DonEspeces;
-import Entities.DonNature;
-import Entities.Dons;
-import Entities.User;
-import Services.ServiceDonEspeces;
-import Services.ServiceDonNature;
-import Services.ServiceUser;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,14 +21,17 @@ import javafx.stage.Stage;
 public class HandShake extends Application{
     
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Handshake.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
-        stage.setResizable(false);
+    public void start(Stage stage) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("login2.fxml"));
+            Scene scene = new Scene(root);
+           
+            stage.setScene(scene);
+            
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(HandShake.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
