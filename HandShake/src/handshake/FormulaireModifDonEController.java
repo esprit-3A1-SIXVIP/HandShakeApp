@@ -72,7 +72,6 @@ public class FormulaireModifDonEController implements Initializable {
 //                String email = UserSession.getInstance().getEmail();
                 int id = ModifSession.getInstance().getId();
                 ServiceDonEspeces SE = new ServiceDonEspeces();
-                
                 SE.update(id, cible, montant);
                 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -83,7 +82,8 @@ public class FormulaireModifDonEController implements Initializable {
             alert.getButtonTypes().setAll(buttonTypeOne);
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonTypeOne) {
+            if (result.get() == buttonTypeOne) 
+            {
 //                SendEmailTLS S = new SendEmailTLS();
 //                S.sendMail(email);
                 loadStage("User.fxml");

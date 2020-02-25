@@ -2,6 +2,7 @@
 /HandShake/build/
 /HandShake/dist/
 HandShake/nbproject/project.properties
+Librairie/
 
 HandShake/build/built-jar.properties
 HandShake/dist/lib/itextpdf-5.4.2.jar

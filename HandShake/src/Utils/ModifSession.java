@@ -11,7 +11,7 @@ package Utils;
  */
 public class ModifSession {
     
-        private static ModifSession instance;
+    private static ModifSession instance;
     
     private int id;
     private String cible;
