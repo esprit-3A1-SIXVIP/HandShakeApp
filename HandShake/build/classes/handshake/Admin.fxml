@@ -78,6 +78,13 @@
                               <TableColumn fx:id="quantiteD" prefWidth="66.0" text="Quantité" />
                               <TableColumn fx:id="dateD" prefWidth="148.0" text="Date" />
                               <TableColumn fx:id="donId" prefWidth="77.0" text="id" />
+                              <TableColumn fx:id="cap" prefWidth="75.0" text="capacite" />
+                              <TableColumn fx:id="ville" prefWidth="75.0" text="ville" />
+                              <TableColumn fx:id="pays" prefWidth="75.0" text="pays" />
+                              <TableColumn fx:id="date_debut" prefWidth="75.0" text="date_debut" />
+                              <TableColumn fx:id="date_fin" prefWidth="75.0" text="date_fin" />
+                              <TableColumn fx:id="longitude" prefWidth="75.0" text="longituge" />
+                              <TableColumn fx:id="latitude" prefWidth="75.0" text="latitude" />
                           </columns>
                         </TableView>
                         <JFXButton fx:id="supprimerD" buttonType="RAISED" layoutX="55.0" layoutY="499.0" onAction="#SupprimerDonU" style="-fx-background-color: black;" text="Supprimer Don" textFill="#12cdf4">
