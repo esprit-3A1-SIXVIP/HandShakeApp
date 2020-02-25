@@ -68,6 +68,19 @@ public class Refuge extends Dons {
         this.latitude = latitude;
     }
 
+    public Refuge(String rueRefuge, String villeRefuge, String paysRefuge, int disponibiliteRefuge, int capaciteRefuge, LocalDate date_debut, LocalDate date_fin, Double longitude, Double latitude, int donId, String typeDon, String cibleDon, int id) {
+        super(donId, typeDon, cibleDon, id);
+        this.rueRefuge = rueRefuge;
+        this.villeRefuge = villeRefuge;
+        this.paysRefuge = paysRefuge;
+        this.disponibiliteRefuge = disponibiliteRefuge;
+        this.capaciteRefuge = capaciteRefuge;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
     public LocalDate getDate_debut() {
         return date_debut;
     }

@@ -45,24 +45,24 @@
                               <Insets />
                            </opaqueInsets>
                         </Hyperlink>
-<<<<<<< HEAD
+
                         <JFXButton fx:id="benef" buttonType="RAISED" layoutX="1.0" layoutY="289.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textFill="#12cdf4">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-=======
+
                         <Circle fx:id="profile_admin" fill="#7cc0ee5c" layoutX="126.0" layoutY="79.0" radius="51.0" stroke="#00000010" strokeType="INSIDE" />
->>>>>>> refs/remotes/origin/samyra
+
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="750.0" prefWidth="760.0" style="-fx-background-color: f1f1f0;">
                      <children>
-<<<<<<< HEAD
-                        <TableView fx:id="tableDon" layoutY="1.0" prefHeight="465.0" prefWidth="760.0">
-=======
+
+                     
+
                         <TableView fx:id="tableDon" editable="true" layoutY="1.0" prefHeight="484.0" prefWidth="739.0" tableMenuButtonVisible="true">
->>>>>>> refs/remotes/origin/samyra
+
                           <columns>
                             <TableColumn fx:id="typeD" prefWidth="100.0" text="Type" />
                             <TableColumn fx:id="cibleD" prefWidth="128.0" text="Cible" />
@@ -70,12 +70,11 @@
                               <TableColumn fx:id="libelleD" minWidth="0.0" prefWidth="134.0" text="Libelle" />
                               <TableColumn fx:id="categorieD" prefWidth="115.0" text="Categorie" />
                               <TableColumn fx:id="quantiteD" prefWidth="66.0" text="Quantité" />
-<<<<<<< HEAD
+
                               <TableColumn fx:id="dateD" prefWidth="148.0" text="Date" />
                               <TableColumn fx:id="donId" prefWidth="77.0" text="id" />
-=======
-                              <TableColumn fx:id="dateD" prefWidth="125.0" text="Date" />
-                              <TableColumn fx:id="donId" prefWidth="100.0" text="id" />
+
+                            
                               <TableColumn fx:id="cap" prefWidth="75.0" text="capacite" />
                               <TableColumn fx:id="ville" prefWidth="75.0" text="ville" />
                               <TableColumn fx:id="pays" prefWidth="75.0" text="pays" />
@@ -83,7 +82,7 @@
                               <TableColumn fx:id="date_fin" prefWidth="75.0" text="date_fin" />
                               <TableColumn fx:id="longitude" prefWidth="75.0" text="longituge" />
                               <TableColumn fx:id="latitude" prefWidth="75.0" text="latitude" />
->>>>>>> refs/remotes/origin/samyra
+
                           </columns>
                         </TableView>
                         <JFXButton fx:id="supprimerD" buttonType="RAISED" layoutX="55.0" layoutY="499.0" onAction="#SupprimerDonU" style="-fx-background-color: black;" text="Supprimer Don" textFill="#12cdf4">

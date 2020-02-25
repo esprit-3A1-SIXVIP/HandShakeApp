@@ -60,7 +60,25 @@ public class ServiceRefuge {
         }
         return id;
     }
-
+ public double moyenneR() throws SQLException
+    {
+        double i=0 , j=0;
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select * from don where typeDon='Refuge'");
+        
+        while(rs.next())
+        {
+            
+                i += rs.getInt("capaciteRefuge");
+                j++;
+            
+        }
+        if(j !=0)
+        {
+             return i/j;
+        }
+       return 0;
+    }
     public int chercherUser(int id) throws SQLException {
 
         int x = 0;
@@ -126,8 +144,8 @@ public class ServiceRefuge {
         }
         return arr;
     }
-    public ObservableList<Refuge> gps() throws SQLException, ParseException {
-        ObservableList<Refuge> arr = FXCollections.observableArrayList();
+    public List<Refuge> gps() throws SQLException {
+        List<Refuge> arr = new ArrayList<>();
         ste = con.createStatement();
              ResultSet rs = ste.executeQuery("select * from don where typeDon='Refuge'");
 

@@ -9,9 +9,9 @@ package handshake;
 import Entities.Dons;
 import Services.ServiceDonEspeces;
 import Services.ServiceDonNature;
+import Services.ServiceRefuge;
 import Services.ServiceUser;
 import Utils.DataBase;
-import Utils.ModifSession;
 import Utils.UserSession;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -21,15 +21,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.event.ActionListener;
-import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -49,7 +42,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -62,14 +54,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.swing.SwingUtilities;
-import handshake.NetworkConnection;
 import javafx.application.Platform;
 
 /**
@@ -96,7 +84,7 @@ public class AdminController implements Initializable {
 
     final static String nature = "Nature";
     final static String espece = "Espece";
-
+    final static String refuge= "Refuge";
 
     public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
@@ -104,7 +92,7 @@ public class AdminController implements Initializable {
     private AnchorPane rootPane;
 
 
-   
+  
 
     @FXML
     private JFXButton Statistique;
@@ -205,13 +193,13 @@ public class AdminController implements Initializable {
         categorieD.setCellValueFactory(new PropertyValueFactory<>("categorieDonNature"));
         quantiteD.setCellValueFactory(new PropertyValueFactory<>("quantiteDonNature"));
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
-        cap.setCellValueFactory(new PropertyValueFactory<>("capacite"));
-        pays.setCellValueFactory(new PropertyValueFactory<>("pays"));
-        ville.setCellValueFactory(new PropertyValueFactory<>("ville"));
+        cap.setCellValueFactory(new PropertyValueFactory<>("capaciteRefuge"));
+        pays.setCellValueFactory(new PropertyValueFactory<>("paysRefuge"));
+        ville.setCellValueFactory(new PropertyValueFactory<>("villeRefuge"));
         longitude.setCellValueFactory(new PropertyValueFactory<>("longitude"));
         latitude.setCellValueFactory(new PropertyValueFactory<>("latitude"));
-        date_debut.setCellValueFactory(new PropertyValueFactory<>("dateDebutRefuge"));
-        date_fin.setCellValueFactory(new PropertyValueFactory<>("dateFinRefuge"));
+        date_debut.setCellValueFactory(new PropertyValueFactory<Dons,LocalDate>("dateDebutRefuge"));
+        date_fin.setCellValueFactory(new PropertyValueFactory<Dons,LocalDate>("dateFinRefuge"));
         tableDon.setItems(donList);
         
         //* Debut Partie Filtre *//
@@ -290,7 +278,6 @@ public class AdminController implements Initializable {
             rootPane.getChildren().setAll(pane);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -396,6 +383,7 @@ public class AdminController implements Initializable {
         ServiceUser SU = new ServiceUser();
         ServiceDonNature SDN = new ServiceDonNature();
         ServiceDonEspeces SDE = new ServiceDonEspeces();
+        ServiceRefuge SDR=new ServiceRefuge();
         Stage stage = new Stage();
         stage.setTitle("Statistique Don");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -410,6 +398,7 @@ public class AdminController implements Initializable {
         series1.setName("Nombre Don");
         series1.getData().add(new XYChart.Data(nature, SU.NombreDonNature()));
         series1.getData().add(new XYChart.Data(espece, SU.NombreDonEspece()));
+         series1.getData().add(new XYChart.Data(refuge, SU.NombreDonRefuge()));
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("MDN Alimentaire");
@@ -429,8 +418,12 @@ public class AdminController implements Initializable {
         series5.setName("MDE Montant");
         series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
         
+        XYChart.Series series6 = new XYChart.Series();
+        series5.setName("NBR Refuge");
+        series5.getData().add(new XYChart.Data(refuge, SDR.moyenneR()));
+        
         Scene scene = new Scene(bc, 800, 600);
-        bc.getData().addAll(series1, series2,series3,series4,series5);
+        bc.getData().addAll(series1, series2,series3,series4,series5,series6);
         stage.setScene(scene);
         stage.show();
 
