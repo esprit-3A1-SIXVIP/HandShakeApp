@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -53,14 +54,14 @@ public class CommentaireService implements IService<Commentaire> {
     @Override
     public boolean delete(Commentaire t) throws SQLException {
        ste = con.createStatement();
-       String requeteDelete = "DELETE FROM `handshake`.`commentaire` WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
+       String requeteDelete = "DELETE FROM `handshake`.`commentaire` WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "' AND `dateCommentaire`='"+t.getDateCommentaire()+"';";
        return(ste.execute(requeteDelete));
     }
 
     @Override
     public boolean update(Commentaire t) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire() + "', `dateCommentaire` = '" +t.getDateCommentaire()+"' WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
        return(ste.execute(requeteUpdate)); 
     }
     
@@ -68,7 +69,7 @@ public class CommentaireService implements IService<Commentaire> {
     ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
     ServiceUser us=new ServiceUser();
-    ResultSet rs=ste.executeQuery("select c.userId,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId());
+    ResultSet rs=ste.executeQuery("select c.userId,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId()+" ORDER BY dateCommentaire DESC");
      while (rs.next()) {
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");
@@ -79,11 +80,19 @@ public class CommentaireService implements IService<Commentaire> {
      }
      return arr;
      }
+    public int countComments(Question Q) throws SQLException {
+        int C=0;
+        ste=con.createStatement();
+        ResultSet rs= ste.executeQuery("Select count(*) as c from commentaire where questionId="+Q.getQuestionId());
+        if (rs.next())
+            C=rs.getInt("c");
+        return C;
+    }
     
-    public List<Commentaire> search(String S,Question Q) throws SQLException {
-     List<Commentaire> arr=new ArrayList<>();
+    public ObservableList<Commentaire> search(String S,Question Q) throws SQLException {
+     ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"' and 'texteCommentaire' like '%"+S+"%';");
+    ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where c.questionId=q.questionId and q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"' and 'texteCommentaire' like '%"+S+"%';");
      while (rs.next()) {                
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");

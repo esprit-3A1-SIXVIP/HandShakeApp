@@ -23,44 +23,60 @@
         <VBox>
             <children>
                 <HBox>
-                <children>
-                <VBox>
-                    <JFXButton fx:id="shakeup" text="Shake up" style="-fx-background-color: black;" textFill="#12cdf4"/> 
-                    <Label fx:id="score" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;"> <font>
+                    <children>
+                        <VBox>
+                            <JFXButton fx:id="shakeup" text="Shake up" style="-fx-background-color: orange;" textFill="white"/> 
+                            <Label fx:id="score"> 
+                                <font>
                                     <Font name="Calibri" size="14.0" />
-                                </font></Label>
-                     <JFXButton fx:id="shakedown" text="Shake down" style="-fx-background-color: black;" textFill="#12cdf4"/> 
-                </VBox>
-                <Label fx:id="TextLabel" > <font>
+                                </font>
+                            </Label>
+                            <JFXButton fx:id="shakedown" text="Shake down" style="-fx-background-color: #0c9ae0;" textFill="white"/> 
+                        </VBox>
+                        <VBox>
+                            <Label fx:id="TextLabel" > 
+                                <font>
                                     <Font name="Calibri" size="14.0" />
-                                </font></Label>
+                                </font>
+                            </Label>
                 
-                    
-                        <Label fx:id="userLabel" > <font>
+                         
+                            <Label fx:id="userLabel" > 
+                                <font>
                                     <Font name="Calibri" size="14.0" />
-                                </font></Label>
-                                <Label fx:id="dateLabel"> <font>
+                                </font>
+                            </Label>
+                            <HBox>
+                            <Label fx:id="dateLabel"> 
+                                <font>
                                     <Font name="Calibri" size="14.0" />
-                                </font></Label>  
-                        <JFXButton fx:id="modifierQuestion" text="Modifier" style="-fx-background-color: black;" textFill="#12cdf4"/> 
-                        <JFXButton fx:id="supprimerQuestion" text="Supprimer" style="-fx-background-color: black;" textFill="#12cdf4"/>     
+                                </font>
+                            </Label>  
+                            
+                        <JFXButton fx:id="modifierQuestion" text="Modifier" style="-fx-background-color: green;" textFill="white"/> 
+                        <JFXButton fx:id="supprimerQuestion" text="Supprimer" style="-fx-background-color: red;" textFill="white"/> 
+                        <JFXButton fx:id="ban" text="Bannir" style="-fx-background-color: black;" visible="false" textFill="white"/> 
+                        </HBox>
+                        </VBox>
+     
                     </children>
                 </HBox>
                 <AnchorPane layoutX="-1.0" layoutY="183.0" prefHeight="300.0" prefWidth="746.0" style="-fx-background-color: #fff;">
                     <children>
-                        
+                        <VBox>
                         <ListView fx:id="list" layoutX="8.0" prefHeight="300.0" prefWidth="700.0" style="">
                              
                         </ListView>
                         
-                        <AnchorPane layoutX="10" layoutY="150" prefHeight="130" prefWidth="690" style="-fx-background-color: #fff;">
-                            <JFXTextArea fx:id="commentaireTA" focusColor="#12cdf4" layoutX="10" layoutY="0.0" prefHeight="100.0" prefWidth="300.0" promptText="Votre commentaire ici, faites preuve de respect!">
-                                <font>
-                                    <Font name="Calibri" size="14.0" />
-                                </font>
-                            </JFXTextArea>
-                            <JFXButton fx:id="postcomment" layoutX="350" layoutY="40" text="Publier Commentaire" style="-fx-background-color: black;" textFill="#12cdf4"/> 
-                        </AnchorPane>
+                        <HBox>
+                        <JFXTextArea fx:id="commentaireTA" focusColor="#12cdf4" layoutX="10" layoutY="0.0" prefHeight="100.0" prefWidth="300.0" promptText="Votre commentaire ici, faites preuve de respect!">
+                            <font>
+                                <Font name="Calibri" size="14.0" />
+                            </font>
+                        </JFXTextArea>
+                        <JFXButton fx:id="postcomment" layoutX="350" layoutY="40" text="Publier Commentaire" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" textFill="white"/> 
+                        </HBox>
+                        </VBox>
 
                     </children>
                 </AnchorPane>
@@ -69,7 +85,3 @@
         </VBox>
     </graphic>
 </fx:root>
-
-
-        
-

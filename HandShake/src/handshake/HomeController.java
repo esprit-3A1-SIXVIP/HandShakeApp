@@ -1,5 +1,4 @@
 
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -235,7 +234,15 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
     
     @FXML
     private void handleShakeHub() {
+        if (UserSession.getU().isAccesShakeHub()==1 ){
+           
         loadStage("ShakeHub.fxml");
+        }
+        else {              System.out.println(UserSession.getU().isAccesShakeHub());
+                            Alert A = new Alert(Alert.AlertType.ERROR);
+                            A.setContentText("Vous n'avez plus accès au Shakehub suite à votre transgression des règles de celui-ci.");
+                            A.showAndWait();
+        }
     }
     private void loadStage(String fxml) {
         try {
@@ -293,9 +300,9 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
         
     }
 
+
     @FXML
     private void Monprofil(MouseEvent event) {
         loadStage("profilUser.fxml");
     }
 }
-

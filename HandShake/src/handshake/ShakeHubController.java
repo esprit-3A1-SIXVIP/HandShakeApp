@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,9 +9,11 @@ package handshake;
 import Entities.Commentaire;
 import Entities.Evenement;
 import Entities.Question;
+import Entities.SendMail;
 import Entities.User;
 import Services.CommentaireService;
 import Services.QuestionService;
+import Services.ServiceUser;
 import Utils.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -24,6 +27,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +41,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
@@ -69,14 +77,32 @@ public class ShakeHubController implements Initializable {
     @FXML
     private JFXTextArea questionTA;
 
+    @FXML
+    private void userinterface(MouseEvent event) {
+    }
+
+    @FXML
+    private void recherche(KeyEvent event) {
+        try {
+            Callback<ListView<Question>, ListCell<Question>> cellFactory = (param) -> {
+                return new QCell();
+            };
+            tableQuestions.setCellFactory(cellFactory);
+            tableQuestions.setItems(QS.search(rechercheD.getText()));
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public class CCell extends ListCell<Commentaire> {
+
         @FXML
         private Label score;
         @FXML
         private JFXButton shakeup;
         @FXML
         private JFXButton shakedown;
-        
+
         @FXML
         private Label TextLabel;
 
@@ -90,7 +116,11 @@ public class ShakeHubController implements Initializable {
         private JFXButton modifierCommentaire;
         @FXML
         private JFXButton supprimerCommentaire;
-        private CommentaireService sc= new CommentaireService();
+        @FXML
+        private JFXButton ban;
+        int click = 0;
+        private CommentaireService sc = new CommentaireService();
+        private ServiceUser us = new ServiceUser();
 
         public CCell() {
             loadFXML();
@@ -115,17 +145,36 @@ public class ShakeHubController implements Initializable {
                 setText(null);
                 setContentDisplay(ContentDisplay.TEXT_ONLY);
             } else {
-                score.setText(""+item.getScore());
+                score.setText("" + item.getScore());
                 TextLabel.setText(item.getTexteCommentaire());
-                userLabel.setText(" Par '" + item.getUser().getLogin());
-                dateLabel.setText("' le '" + item.getDateCommentaire().toString() + "'");
-                if (UserSession.getU().equals(item.getUser())) {
+                userLabel.setText(" Par '" + item.getUser().getLogin() + "'");
+                dateLabel.setText(" Le '" + item.getDateCommentaire().toString() + "'");
+                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getU().getRole().equals("admin"))) {
                     modifierCommentaire.setVisible(true);
                     supprimerCommentaire.setVisible(true);
+                    TextArea TF = new TextArea(TextLabel.getText());
+                    TF.setVisible(false);
                     modifierCommentaire.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            if (click == 1) {
+                                item.setTexteCommentaire(TF.getText().replaceAll("'", "`"));
+                                try {
+                                    sc.update(item);
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
+                                TF.setVisible(false);
+                                TextLabel.setText(item.getTexteCommentaire());
+                                loadStage("ShakeHub.fxml");
+                            } else {
+                                click++;
+                            }
+                            TF.setVisible(true);
+                            TF.autosize();
+                            TextLabel.setGraphic(TF);
+                            TextLabel.setText("");
+
                         }
                     });
                     supprimerCommentaire.setOnAction(new EventHandler<ActionEvent>() {
@@ -149,25 +198,93 @@ public class ShakeHubController implements Initializable {
                     supprimerCommentaire.setVisible(false);
 
                 }
+                int init = item.getScore();
+                shakeup.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+
+                        item.setScore(item.getScore() + 1);
+                        if (init == item.getScore()) {
+                            score.setText("" + item.getScore());
+                        } else {
+                            score.setText("^" + item.getScore());
+                        }
+                        if (init < item.getScore()) {
+                            shakeup.setVisible(false);
+                        }
+                        shakedown.setVisible(true);
+                        try {
+                            sc.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                });
+                shakedown.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        item.setScore(item.getScore() - 1);
+                        if (init == item.getScore()) {
+                            score.setText("" + item.getScore());
+                        } else {
+                            score.setText("v" + item.getScore());
+                        }
+                        shakeup.setVisible(true);
+                        if (init > item.getScore()) {
+                            shakedown.setVisible(false);
+                        }
+                        try {
+                            sc.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                });
+                if (UserSession.getInstance().getRole().equals("admin") && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                    ban.setVisible(true);
+                    ban.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Alert A = new Alert(Alert.AlertType.CONFIRMATION);
+                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getLogin() + "'?");
+                            ButtonType buttonTypeOne = new ButtonType("Bannir");
+                            ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+                            A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
+                            A.showAndWait();
+                            if (A.getResult() == buttonTypeOne) {
+                                item.getUser().setAccesShakeHub(0);
+                                try {
+                                    us.setAccessShakeHub(item.getUser());
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
+                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getLogin()+"\n Vous avez été banni du ShakeHub car votre Commentaire '"+item.getTexteCommentaire()+"' publiée le "+item.getDateCommentaire()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
+                            
+                            }
+                        }
+                    });
+                }
                 setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
             }
         }
     }
 
     public class QCell extends ListCell<Question> {
-         @FXML
+
+        @FXML
         private Label score;
         @FXML
         private Label TextLabel;
 
         @FXML
         private Label userLabel;
-            
+
         @FXML
         private JFXButton shakeup;
         @FXML
         private JFXButton shakedown;
-        
+
         @FXML
         private Label dateLabel;
         @FXML
@@ -180,7 +297,11 @@ public class ShakeHubController implements Initializable {
         private JFXTextArea commentaireTA;
         @FXML
         private ListView list;
+        @FXML
+        private JFXButton ban;
+        int click = 0;
         ObservableList<Commentaire> commentlist = FXCollections.observableArrayList();
+        ServiceUser us = new ServiceUser();
         CommentaireService sc = new CommentaireService();
 
         public QCell() {
@@ -213,31 +334,53 @@ public class ShakeHubController implements Initializable {
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                 }
-                score.setText(""+item.getScore());
+                score.setText("" + item.getScore());
                 this.TextLabel.setText(item.getTexteQuestion());
-                this.userLabel.setText(" Par '" + item.getUser().getLogin());
-                this.dateLabel.setText("' Le '" + item.getDateQuestion().toString() + "'");
-                if (UserSession.getU().equals(item.getUser())) {
+                this.userLabel.setText(" Par '" + item.getUser().getLogin() + "'");
+                this.dateLabel.setText(" Le '" + item.getDateQuestion().toString() + "'");
+                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getInstance().getRole().equals("admin"))) {
                     modifierQuestion.setVisible(true);
 
-                    if (this.commentlist.isEmpty()) {
+                    if ((this.commentlist.isEmpty()) || (UserSession.getInstance().getRole().equals("admin"))) {
                         supprimerQuestion.setVisible(true);
                     } else {
                         supprimerQuestion.setVisible(false);
                     }
+                    TextArea TF = new TextArea(TextLabel.getText());
+                    TF.setVisible(false);
                     modifierQuestion.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            if (click == 1) {
+                                item.setTexteQuestion(TF.getText().replaceAll("'", "`"));
+                                try {
+                                    QS.update(item);
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
+                                TF.setVisible(false);
+                                TextLabel.setText(item.getTexteQuestion());
+                                loadStage("ShakeHub.fxml");
+                            } else {
+                                click++;
+                            }
+                            TF.setVisible(true);
+                            TF.autosize();
+                            TextLabel.setGraphic(TF);
+                            TextLabel.setText("");
+
                         }
                     });
                     supprimerQuestion.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            Alert A = new Alert(Alert.AlertType.CONFIRMATION, "Supprimer", ButtonType.APPLY);
+                            Alert A = new Alert(Alert.AlertType.CONFIRMATION);
                             A.setContentText("Voulez vous vraiment supprimer votre question?");
+                            ButtonType buttonTypeOne = new ButtonType("Supprimer");
+                            ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+                            A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
                             A.showAndWait();
-                            if (A.getResult() == ButtonType.APPLY) {
+                            if (A.getResult() == buttonTypeOne) {
                                 try {
                                     QS.delete(item);
                                 } catch (SQLException ex) {
@@ -253,7 +396,72 @@ public class ShakeHubController implements Initializable {
                     supprimerQuestion.setVisible(false);
 
                 }
+                if ((UserSession.getInstance().getRole().equals("admin")) && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                    ban.setVisible(true);
+                    ban.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Alert A = new Alert(Alert.AlertType.CONFIRMATION);
+                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getLogin() + "'?");
+                            ButtonType buttonTypeOne = new ButtonType("Bannir");
+                            ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+                            A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
+                            A.showAndWait();
+                            if (A.getResult() == buttonTypeOne) {
+                                item.getUser().setAccesShakeHub(0);
+                                try {
+                                    us.setAccessShakeHub(item.getUser());
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
+                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getLogin()+"\n Vous avez été banni du ShakeHub car votre Question '"+item.getTexteQuestion()+"' publiée le "+item.getDateQuestion()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
+                            }
+                        }
+                    });
 
+                }
+                int init = item.getScore();
+                shakeup.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+
+                        item.setScore(item.getScore() + 1);
+                        if (init == item.getScore()) {
+                            score.setText("" + item.getScore());
+                        } else {
+                            score.setText("^" + item.getScore());
+                        }
+                        if (init < item.getScore()) {
+                            shakeup.setVisible(false);
+                        }
+                        shakedown.setVisible(true);
+                        try {
+                            QS.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                });
+                shakedown.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        item.setScore(item.getScore() - 1);
+                        if (init == item.getScore()) {
+                            score.setText("" + item.getScore());
+                        } else {
+                            score.setText("v" + item.getScore());
+                        }
+                        shakeup.setVisible(true);
+                        if (init > item.getScore()) {
+                            shakedown.setVisible(false);
+                        }
+                        try {
+                            QS.update(item);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                });
                 Callback<ListView<Commentaire>, ListCell<Commentaire>> cellFactoryC = (param) -> {
                     return new CCell();
                 };
@@ -267,18 +475,21 @@ public class ShakeHubController implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         long millis = System.currentTimeMillis();
-            java.sql.Date date = new java.sql.Date(millis);
-            Alert A = new Alert(Alert.AlertType.CONFIRMATION, "Publier", ButtonType.APPLY);
-            A.setContentText("Voulez vous vraiment publier cette question? Merci de vérifier que votre question respecte nos règles avant de la publier!");
-            A.showAndWait();
-            if (A.getResult() == ButtonType.APPLY) {
+                        java.sql.Date date = new java.sql.Date(millis);
+                        Alert A = new Alert(Alert.AlertType.CONFIRMATION);
+                        ButtonType buttonTypeOne = new ButtonType("Publier");
+                        ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+                        A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
+                        A.setContentText("Voulez vous vraiment publier ce commentaire? Merci de vérifier que votre commentaire respecte nos règles avant de le publier!");
+                        A.showAndWait();
+                        if (A.getResult() == buttonTypeOne) {
                             try {
-                                sc.ajouter(new Commentaire(UserSession.getU(),item, commentaireTA.getText(), date ));
+                                sc.ajouter(new Commentaire(UserSession.getU(), item, commentaireTA.getText().replaceAll("'", "`"), date));
                             } catch (SQLException ex) {
                                 System.out.println(ex.getMessage());
                             }
-                loadStage("ShakeHub.fxml");
-            }
+                            loadStage("ShakeHub.fxml");
+                        }
                     }
                 });
                 setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -288,7 +499,7 @@ public class ShakeHubController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        username.setText(UserSession.getU().getLogin());
         try {
             Callback<ListView<Question>, ListCell<Question>> cellFactory = (param) -> {
                 return new QCell();
@@ -304,14 +515,17 @@ public class ShakeHubController implements Initializable {
 
     @FXML
     private void addQuestion(ActionEvent event) throws SQLException {
-        if (questionTA.getText().length() >= 15) {
+        if (questionTA.getText().length() >= 150) {
             long millis = System.currentTimeMillis();
             java.sql.Date date = new java.sql.Date(millis);
-            Alert A = new Alert(Alert.AlertType.CONFIRMATION, "Publier", ButtonType.APPLY);
+            Alert A = new Alert(Alert.AlertType.CONFIRMATION);
             A.setContentText("Voulez vous vraiment publier cette question? Merci de vérifier que votre question respecte nos règles avant de la publier!");
+            ButtonType buttonTypeOne = new ButtonType("Publier");
+            ButtonType buttonTypeOne1 = new ButtonType("Annuler");
+            A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
             A.showAndWait();
-            if (A.getResult() == ButtonType.APPLY) {
-                QS.ajouter(new Question(0, questionTA.getText(), date, UserSession.getU()));
+            if (A.getResult() == buttonTypeOne) {
+                QS.ajouter(new Question(0, questionTA.getText().replaceAll("'", "`"), date, UserSession.getU()));
                 loadStage("ShakeHub.fxml");
             }
         } else {
@@ -319,6 +533,18 @@ public class ShakeHubController implements Initializable {
             A.setContentText("Votre Question doit comporter 150 caractères minimum.");
             A.showAndWait();
         }
+    }
+    @FXML
+    private void home(ActionEvent event) {
+        if (UserSession.getInstance().getRole().equals("admin")) {
+            loadStage("Admin.fxml");
+        } else {
+            loadStage("Home.fxml");
+        }
+    }
+
+    private void userinterface(ActionEvent event) {
+        loadStage("User.fxml");
     }
 
     private void loadStage(String fxml) {

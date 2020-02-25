@@ -24,12 +24,13 @@
                 <HBox>
                     <children>
                 <VBox>
-                    <JFXButton fx:id="shakeup" text="Shake up" style="-fx-background-color: black;" textFill="#12cdf4"/> 
-                    <Label fx:id="score" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;"> <font>
+                    <JFXButton fx:id="shakeup" text="Shake up" style="-fx-background-color: orange;" textFill="white"/> 
+                    <Label fx:id="score"> <font>
                                     <Font name="Calibri" size="14.0" />
                                 </font></Label>
-                     <JFXButton fx:id="shakedown" text="Shake down" style="-fx-background-color: black;" textFill="#12cdf4"/> 
+                     <JFXButton fx:id="shakedown" text="Shake down" style="-fx-background-color: #0c9ae0;" textFill="white"/> 
                 </VBox>
+                <VBox>
                 <Label fx:id="TextLabel" > <font>
                                     <Font name="Calibri" size="14.0" />
                                 </font></Label>
@@ -39,19 +40,21 @@
                                     <Font name="Calibri" size="14.0" />
                         </font>
                         </Label>
+                        <HBox>
                         <Label fx:id="dateLabel"> <font>
                                     <Font name="Calibri" size="14.0" />
                         </font>
-                        </Label>   
-                        <JFXButton fx:id="modifierCommentaire" text="Modifier" style="-fx-background-color: black;" textFill="#12cdf4"/> 
-                        <JFXButton fx:id="supprimerCommentaire" text="Supprimer" style="-fx-background-color: black;" textFill="#12cdf4"/>     
+                        </Label>  
+                        
+                        <JFXButton fx:id="modifierCommentaire" text="Modifier" style="-fx-background-color: green;" textFill="white"/> 
+                        <JFXButton fx:id="supprimerCommentaire" text="Supprimer" style="-fx-background-color: red;" textFill="white"/>  
+                        <JFXButton fx:id="ban" text="Bannir" style="-fx-background-color: black;" visible="false" textFill="white"/>   
+                </HBox> 
+                </VBox>
+                
                     </children>
                 </HBox>
             </children>
         </VBox>
     </graphic>
 </fx:root>
-
-
-        
-

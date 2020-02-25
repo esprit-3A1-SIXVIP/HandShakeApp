@@ -11,7 +11,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.AdminController">
@@ -25,19 +24,29 @@
                         <Image url="@images/main1.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="85.0" fitWidth="347.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="85.0" fitWidth="347.0" layoutX="-4.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/logoH.png" />
                      </image>
                   </ImageView>
                   <AnchorPane layoutY="69.0" opacity="0.5" prefHeight="750.0" prefWidth="260.0" style="-fx-background-color: #12cdf4;">
                      <children>
-                        <Label fx:id="emailU" layoutY="443.0" prefHeight="47.0" prefWidth="260.0">
+                        <ImageView fitHeight="750.0" fitWidth="260.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/Dark-Grey-Background-89.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="106.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/user1.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="emailU" layoutX="-2.0" layoutY="66.0" prefHeight="47.0" prefWidth="260.0">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Hyperlink alignment="TOP_CENTER" layoutY="185.0" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Don" textAlignment="CENTER" textFill="#fb9d4a">
+                        <Hyperlink alignment="TOP_CENTER" layoutX="-2.0" layoutY="210.0" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="Dons" textAlignment="CENTER" textFill="#fb9d4a">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -45,24 +54,22 @@
                               <Insets />
                            </opaqueInsets>
                         </Hyperlink>
-
-                        <JFXButton fx:id="benef" buttonType="RAISED" layoutX="1.0" layoutY="289.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="260.0" style="-fx-background-color: black;" text="Beneficiaire" textFill="#12cdf4">
+                        <JFXButton fx:id="benef" buttonType="RAISED" layoutX="-6.0" layoutY="291.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="Aides/Beneficiaires" textFill="#12cdf4">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-
                         <Circle fx:id="profile_admin" fill="#7cc0ee5c" layoutX="126.0" layoutY="79.0" radius="51.0" stroke="#00000010" strokeType="INSIDE" />
-
+                        <JFXButton fx:id="ShakeHub" buttonType="RAISED" layoutX="-6.0" layoutY="366.0" onAction="#shakehub" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="ShakeHub" textFill="#12cdf4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="750.0" prefWidth="760.0" style="-fx-background-color: f1f1f0;">
                      <children>
-
-                     
-
-                        <TableView fx:id="tableDon" editable="true" layoutY="1.0" prefHeight="484.0" prefWidth="739.0" tableMenuButtonVisible="true">
-
+                        <TableView fx:id="tableDon" layoutY="1.0" prefHeight="465.0" prefWidth="760.0">
                           <columns>
                             <TableColumn fx:id="typeD" prefWidth="100.0" text="Type" />
                             <TableColumn fx:id="cibleD" prefWidth="128.0" text="Cible" />
@@ -70,11 +77,8 @@
                               <TableColumn fx:id="libelleD" minWidth="0.0" prefWidth="134.0" text="Libelle" />
                               <TableColumn fx:id="categorieD" prefWidth="115.0" text="Categorie" />
                               <TableColumn fx:id="quantiteD" prefWidth="66.0" text="Quantité" />
-
                               <TableColumn fx:id="dateD" prefWidth="148.0" text="Date" />
                               <TableColumn fx:id="donId" prefWidth="77.0" text="id" />
-
-                            
                               <TableColumn fx:id="cap" prefWidth="75.0" text="capacite" />
                               <TableColumn fx:id="ville" prefWidth="75.0" text="ville" />
                               <TableColumn fx:id="pays" prefWidth="75.0" text="pays" />
@@ -82,7 +86,6 @@
                               <TableColumn fx:id="date_fin" prefWidth="75.0" text="date_fin" />
                               <TableColumn fx:id="longitude" prefWidth="75.0" text="longituge" />
                               <TableColumn fx:id="latitude" prefWidth="75.0" text="latitude" />
-
                           </columns>
                         </TableView>
                         <JFXButton fx:id="supprimerD" buttonType="RAISED" layoutX="55.0" layoutY="499.0" onAction="#SupprimerDonU" style="-fx-background-color: black;" text="Supprimer Don" textFill="#12cdf4">
@@ -100,7 +103,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="Statistique" buttonType="RAISED" layoutX="52.0" layoutY="581.0" onAction="#Statistique" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: black;" text="Satistiques" textFill="#12cdf4">
+                        <JFXButton fx:id="Statistique" buttonType="RAISED" layoutX="52.0" layoutY="581.0" onAction="#Statistique" prefHeight="39.0" prefWidth="151.0" style="-fx-background-color: black;" text="Statistiques" textFill="#12cdf4">
                            <font>
                               <Font size="18.0" />
                            </font>

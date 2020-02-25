@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -83,22 +84,32 @@ import javafx.collections.ObservableList;
     @Override
     public boolean update(Question t) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`question` SET `texteQuestion` = '" + t.getTexteQuestion() + "' WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`question` SET `texteQuestion` = '" + t.getTexteQuestion().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
        return(ste.execute(requeteUpdate)); 
     }
-    public List<Question> search(String S) throws SQLException {
-     List<Question> arr=new ArrayList<>();
+    public ObservableList<Question> search(String S) throws SQLException {
+     ObservableList<Question> arr=FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,U.userId,U.login,U.password,U.email,U.role from question Q join user U where Q.userId=U.userId and `texteQuestion` like '%"+S+"%';");
+    ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,U.userId,U.login,U.password,U.email,U.role,U.accesShakeHub from question Q join user U where Q.userId=U.userId and (`texteQuestion` like '%"+S+"%' or `U.login` like '%"+S+"%');");
      while (rs.next()) {                
                int questionId=rs.getInt("questionId");
                String texteQuestion=rs.getString("texteQuestion");
                Date dateQuestion=rs.getDate("dateQuestion");
-               User user=new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+               User user=new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"),rs.getInt("accesShakeHub"));
                Question p=new Question(questionId, texteQuestion, dateQuestion,user);
      arr.add(p);
      }
     return arr;
-    }   
-}
+    }
+    public Question getQuestion(int id) throws SQLException {
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from question where questionId=" + id );
+        ServiceUser us =new ServiceUser();
+        if (rs.next()) {
+            Question Q = new Question(rs.getInt("questionId"),rs.getString("texteQuestion"),rs.getDate("dateQuestion"),rs.getInt("score"),us.getUser(rs.getInt("userId")));
+            return Q;
+        }
 
+        return null;
+    }
+}

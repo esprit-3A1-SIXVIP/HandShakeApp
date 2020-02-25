@@ -56,17 +56,16 @@ public class ServiceUser {
         return x;
     }
 
-    public User getUser(int id) throws SQLException {
+public User getUser(int id) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId=" + id);
+        ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
         if (rs.next()) {
-            User U = new User(rs.getInt("userId"), rs.getString("login"), rs.getString("password"), rs.getString("email"), rs.getString("role"));
+            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"),rs.getInt("accesShakeHub"));
             return U;
         }
 
         return null;
     }
-
     /**
      *
      * @return @throws SQLException
@@ -438,6 +437,12 @@ public class ServiceUser {
             i++;
         }
         return i;
+    }
+
+    public boolean setAccessShakeHub(User U) throws SQLException {
+       ste = con.createStatement();
+       String requeteUpdate = "UPDATE `handshake`.`user` SET `accesShakeHub` = '" + U.isAccesShakeHub() + "' WHERE `userId`= '" + U.getUserId() + "';";
+       return(ste.execute(requeteUpdate)); 
     }
 
     public User chercherUser(int id) throws SQLException {

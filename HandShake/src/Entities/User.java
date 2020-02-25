@@ -25,7 +25,7 @@ public class User {
    String rue ;
    String pays ;
    String role ;
-   boolean accesShakeHub;
+   int accesShakeHub;
    
     public User(int userId, String login, String password, String email, String role) {
         this.userId = userId;
@@ -34,7 +34,19 @@ public class User {
         this.email = email;
         this.role = role;
     }
+
+
+    public User(int userId, String login, String password, String email, String role, int accesShakeHub) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.accesShakeHub = accesShakeHub;
+    }
+    
     public User(String email, String ville, String pays) {
+
         this.email = email;
         this.ville = ville;
         this.pays = pays;
@@ -189,11 +201,11 @@ public class User {
         return "\nUser{"+",login=" + login + ", password=" + password + ", nomUser=" + nomUser + ", prenomUser=" + prenomUser + ", email=" + email + ", telephone=" + telephone + ", ville=" + ville + ", rue=" + rue + ", pays=" + pays + ", role=" + role + '}';
     }
 
-    public boolean isAccesShakeHub() {
+    public int isAccesShakeHub() {
         return accesShakeHub;
     }
 
-    public void setAccesShakeHub(boolean accesShakeHub) {
+    public void setAccesShakeHub(int accesShakeHub) {
         this.accesShakeHub = accesShakeHub;
     }
     
@@ -236,4 +248,3 @@ public class User {
     
     
 }
-

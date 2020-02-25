@@ -109,7 +109,7 @@ public class ServiceDonNature implements InterfaceDon<DonNature> {
              String categorie=rs.getString("categorieDonNature");
              int quantite=rs.getInt("quantiteDonNature");
              String cible=rs.getString("cibleDon");
-             java.sql.Date date1 = rs.getDate("dateDon");
+             java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
              DonNature dn=new DonNature(libelle, categorie, quantite, id, type, cible,date1,user);
              
              arr.add(dn);
