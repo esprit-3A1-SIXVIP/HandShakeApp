@@ -99,6 +99,17 @@ import javafx.collections.ObservableList;
      arr.add(p);
      }
     return arr;
-    }   
+    }
+    public Question getQuestion(int id) throws SQLException {
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from question where questionId=" + id );
+        ServiceUser us =new ServiceUser();
+        if (rs.next()) {
+            Question Q = new Question(rs.getInt("questionId"),rs.getString("texteQuestion"),rs.getDate("dateQuestion"),rs.getInt("score"),us.getUser(rs.getInt("userId")));
+            return Q;
+        }
+
+        return null;
+    }
 }
 

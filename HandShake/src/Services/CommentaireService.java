@@ -53,7 +53,7 @@ public class CommentaireService implements IService<Commentaire> {
     @Override
     public boolean delete(Commentaire t) throws SQLException {
        ste = con.createStatement();
-       String requeteDelete = "DELETE FROM `handshake`.`commentaire` WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
+       String requeteDelete = "DELETE FROM `handshake`.`commentaire` WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "' AND `dateCommentaire`='"+t.getDateCommentaire()+"';";
        return(ste.execute(requeteDelete));
     }
 
@@ -79,6 +79,14 @@ public class CommentaireService implements IService<Commentaire> {
      }
      return arr;
      }
+    public int countComments(Question Q) throws SQLException {
+        int C=0;
+        ste=con.createStatement();
+        ResultSet rs= ste.executeQuery("Select count(*) as c from commentaire where questionId="+Q.getQuestionId());
+        if (rs.next())
+            C=rs.getInt("c");
+        return C;
+    }
     
     public List<Commentaire> search(String S,Question Q) throws SQLException {
      List<Commentaire> arr=new ArrayList<>();

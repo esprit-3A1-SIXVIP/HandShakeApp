@@ -5,6 +5,7 @@
  */
 package Services;
 
+import Entities.Commentaire;
 import Entities.DonEspeces;
 import Entities.DonNature;
 import Entities.Dons;
@@ -121,6 +122,7 @@ public class ServiceUser {
 
         return -1;
     }
+    
      
      public String getRole(int a) throws SQLException {
         ste = con.createStatement();
@@ -225,7 +227,11 @@ public class ServiceUser {
         return arr;
 
     }
-    
+    public boolean setAccessShakeHub(User U) throws SQLException {
+       ste = con.createStatement();
+       String requeteUpdate = "UPDATE `handshake`.`user` SET `accesShakeHub` = '" + U.isAccesShakeHub() + "' WHERE `userId`= '" + U.getUserId() + "';";
+       return(ste.execute(requeteUpdate)); 
+    }
     public int NombreDonNature() throws SQLException
     {
         int i=0;
