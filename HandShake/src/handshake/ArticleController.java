@@ -119,15 +119,15 @@ public class ArticleController implements Initializable {
   }
   
   public void initialize(URL location, ResourceBundle resources) {
-    for (int i = 0; i < 10; i++) {
-      Timeline rotate = new Timeline();
-      DoubleProperty r = this.imgrot.rotateProperty();
-      rotate.getKeyFrames().addAll(new KeyFrame[] { new KeyFrame(new Duration(0.0D), new KeyValue[] { new KeyValue(r, 
-                  (T)Integer.valueOf(0)) }), new KeyFrame(new Duration(23000.0D), new KeyValue[] { new KeyValue(r, 
-                  (T)Integer.valueOf(-360)) }), new KeyFrame(new Duration(23000.0D), new KeyValue[] { new KeyValue(r, (T)Integer.valueOf(0)) }), new KeyFrame(new Duration(46000.0D), new KeyValue[] { new KeyValue(r, 
-                  (T)Integer.valueOf(-360)) }) });
-      rotate.play();
-    } 
+//    for (int i = 0; i < 10; i++) {
+//      Timeline rotate = new Timeline();
+//      DoubleProperty r = this.imgrot.rotateProperty();
+//      rotate.getKeyFrames().addAll(new KeyFrame[] { new KeyFrame(new Duration(0.0D), new KeyValue[] { new KeyValue(r, 
+//                  Integer.valueOf(0)) }), new KeyFrame(new Duration(23000.0D), new KeyValue[] { new KeyValue(r, 
+//                  Integer.valueOf(-360)) }), new KeyFrame(new Duration(23000.0D), new KeyValue[] { new KeyValue(r, Integer.valueOf(0)) }), new KeyFrame(new Duration(46000.0D), new KeyValue[] { new KeyValue(r, 
+//                  Integer.valueOf(-360)) }) });
+//      rotate.play();
+//    } 
     charger(new ActionEvent());
   }
   
@@ -147,12 +147,12 @@ public class ArticleController implements Initializable {
           Integer i1 = Integer.valueOf(this.pagination.getCurrentPageIndex());
           Article a1 = null;
           try {
-            a1 = ser.findid(list11.get(i1.intValue()));
+            a1 = ser.findid(list11.get(i1)+1);
           } catch (SQLException ex) {
             System.out.println("nbr");
           } 
           this.ar = a1;
-          this.ar.setId(((Integer)list11.get(i1.intValue())).intValue());
+          this.ar.setId(((Integer)list11.get(i1)));
           Label label1 = new Label("                      " + a1.getTitre());
           label1.setFont(new Font("Verdana", 36.0D));
           label1.setTextFill(Color.CORAL);
@@ -164,7 +164,7 @@ public class ArticleController implements Initializable {
           Label label3 = new Label("   par   " + a1.getAuteur());
           label3.setFont(new Font("Arial", 16.0D));
           label3.setTextFill(Color.BROWN);
-          File file = new File("C:/xampp/htdocs/javafx/" + list11.get(i1.intValue()) + ".png");
+          File file = new File("C:/xampp/htdocs/javafx/" + list11.get(i1) + ".png");
           String localUrl = null;
           try {
             localUrl = file.toURI().toURL().toString();

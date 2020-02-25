@@ -68,11 +68,6 @@ public class ArticleAddController implements Initializable {
   @FXML
   private JFXButton btnaffsc3;
   
-  @FXML
-  private JFXButton btnaffsc1;
-  
-  @FXML
-  private TextField tit;
   
   public Article ar;
   
@@ -126,7 +121,7 @@ public class ArticleAddController implements Initializable {
       return;
     } 
     if (NativeString.trim(this.desc.getText()).equals("")) {
-      this.msg.setText("veuiller inserer un la description");
+      this.msg.setText("veuiller inserer la description");
       return;
     } 
     if (NativeString.trim(this.auth.getText()).equals("")) {
@@ -158,7 +153,7 @@ public class ArticleAddController implements Initializable {
     } catch (SQLException ex) {
       System.out.println(ex.getMessage());
     } 
-    this.msg.setText("sauvgarde avec succe");
+    this.msg.setText("sauvgarde avec succes");
     this.auth.setText(null);
     this.desc.setText(null);
     this.titre.setText(null);

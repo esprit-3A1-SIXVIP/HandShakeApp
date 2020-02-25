@@ -7,6 +7,7 @@ package handshake;
 
 import Services.ServiceUser;
 import Utils.UserSession;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -51,6 +52,10 @@ public class HomeController implements Initializable {
     private ImageView shakehub;
     @FXML
     private Circle cercledon;
+    @FXML
+    private JFXButton btn;
+    @FXML
+    private JFXButton btn1;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,15 +96,7 @@ public class HomeController implements Initializable {
     }
 
   private void GoToActualite(ActionEvent event) {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("article.fxml"));
-      Parent root = loader.<Parent>load();
-      ArticleController dpc = loader.<ArticleController>getController();
-      this.btn.getScene().setRoot(root);
-    } catch (IOException ex) {
-      System.out.println(ex.getMessage());
-      ex.printStackTrace();
-    } 
+    
   }
     
     private void loadStage(String fxml) {
@@ -115,6 +112,23 @@ public class HomeController implements Initializable {
 
     @FXML
     private void handleShakeHub(MouseEvent event) {
+    }
+
+    @FXML
+    private void GoToEvenement(ActionEvent event) {
+    }
+
+    @FXML
+    private void GoToActualité(ActionEvent event) {
+        try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("article.fxml"));
+      Parent root = loader.<Parent>load();
+      ArticleController dpc = loader.<ArticleController>getController();
+      this.btn.getScene().setRoot(root);
+    } catch (IOException ex) {
+      System.out.println(ex.getMessage());
+      ex.printStackTrace();
+    } 
     }
     
 

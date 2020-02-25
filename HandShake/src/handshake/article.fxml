@@ -26,11 +26,6 @@
                         <Image url="@images/67285598-idée-verte-et-icônes-écologiques-autour-de-la-forme-du-cercle-design-coloré-illustration-vectorielle%20(1).jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="77.0" fitWidth="79.0" layoutX="97.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/download.png" />
-                     </image>
-                  </ImageView>
                </children>
             </Pane>
             <ImageView fitHeight="603.0" fitWidth="256.0" layoutX="-5.0" layoutY="203.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="203.0">
