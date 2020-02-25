@@ -147,20 +147,24 @@ public class GestionnaireController implements Initializable {
               Image I=null;
               chargerimagecircle(I, profile_admin ,a.getProfil());   
           } catch (SQLException ex) {
-              Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (IOException ex) {
-              Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
+              System.out.println(ex.getMessage());
           }
     }    
-  void chargerimagecircle(Image I, Circle c, String x) throws MalformedURLException, IOException {
-        URL urlp;
-        urlp = new URL(x);
-        URLConnection connection = urlp.openConnection();
-        InputStream inputStream = connection.getInputStream();
-        c.setStroke(Color.GOLDENROD);
-        I = new Image(inputStream);
-        c.setFill(new ImagePattern(I));
-        c.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+  void chargerimagecircle(Image I, Circle c, String x) {
+        try {
+            URL urlp;
+            urlp = new URL(x);
+            URLConnection connection = urlp.openConnection();
+            InputStream inputStream = connection.getInputStream();
+            c.setStroke(Color.GOLDENROD);
+            I = new Image(inputStream);
+            c.setFill(new ImagePattern(I));
+            c.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public void displayUser() {

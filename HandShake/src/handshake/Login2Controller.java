@@ -308,9 +308,9 @@ public class Login2Controller {
             String path = selectedFile.getAbsolutePath();
 
             urlimage.setText(selectedFile.toURI().toString());
-            
-          I=new Image(selectedFile.toURI().toString(),100,200,true,true);
-            profil=new ImageView(I);
+
+            I = new Image(selectedFile.toURI().toString(), 100, 200, true, true);
+            profil = new ImageView(I);
             profil.setFitWidth(100);
             profil.setFitHeight(100);
             layout.setCenter(profil);
@@ -324,50 +324,46 @@ public class Login2Controller {
     @FXML
     private void btncx(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() == btncx) {
-                ServiceUser SU = new ServiceUser();
-                String email = tcl.getText();
-                String Password = tcp.getText();
+            ServiceUser SU = new ServiceUser();
+            String email = tcl.getText();
+            String Password = tcp.getText();
             if (lc3.getText().equals("sign in to continue")) {
-                
-            
 
                 try {
-                   
-                     int id = SU.getIdUser1(email, Password);
-                     String role = SU.getRole(id);
-                     String login = SU.getLogin(id);
-                    if (id != -1) {
-                          UserSession.getInstace(email, id,role,login);
 
+                    int id = SU.getIdUser1(email, Password);
+                    System.out.println(id);
+                    String role = SU.getRole(id);
+                    String login = SU.getLogin(id);
+                    UserSession.setU(new User(id, login, Password, email, role, SU.getUser(id).isAccesShakeHub()));
+                    if (id != -1) {
+                        UserSession.getInstance(email, id, Password, role, login);
+                        
                         loadStage("Home.fxml");
 
                     }
 
                 } catch (SQLException ex) {
-                    System.out.println(ex);
+                    System.out.println(ex.getMessage());
                 }
-            }
-            else if (lc3.getText().equals("Administrator"))
-            {
+            } else if (lc3.getText().equals("Administrator")) {
 
-                
-                 
-                ServiceAdmin A = new ServiceAdmin();
                 try {
                     int id = SU.getIdUser1(email, Password);
-                     String role = SU.getRole(id);
-                 
-                     String login = SU.getLogin(id);
+                    String role = SU.getRole(id);
+
+                    String login = SU.getLogin(id);
+                    UserSession.setU(new User(id, login, Password, email, role, SU.getUser(id).isAccesShakeHub()));
                     if (id != -1) {
-                          UserSession.getInstace(email, id,role,login);
-                      if(role.equals("admin")){
-                        loadStage("gestionnaire.fxml");
-                      }
+                        UserSession.getInstance(email, id, Password, role, login);
+                        if (role.equals("admin")) {
+                            loadStage("gestionnaire.fxml");
+                        }
 
                     }
 
                 } catch (SQLException ex) {
-                    System.out.println(ex);
+                    System.out.println(ex.getMessage());
                 }
             }
         }
@@ -381,7 +377,7 @@ public class Login2Controller {
             stage.setScene(new Scene(root));
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.initModality(Modality.APPLICATION_MODAL);
-           
+
             stage.show();
 
         } catch (IOException ex) {
@@ -390,7 +386,7 @@ public class Login2Controller {
     }
 
     @FXML
-    
+
     private void btnisave(MouseEvent event) {
         if (event.getSource() == btni1) {
 
@@ -437,7 +433,7 @@ public class Login2Controller {
                     Organisation O = new Organisation(org, domaine, login, password1, nom, prenom, email, tel, ville, rue, pays, prof);
                     ServiceOrganisation so = new ServiceOrganisation();
                     so.ajouter(O);
-                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Succès");
                     alert.setContentText("Votre inscription a été effectuer avec succès.");
                     ButtonType buttonTypeOne = new ButtonType("OK");
@@ -484,15 +480,14 @@ public class Login2Controller {
 
     @FXML
     private void btnminus1(MouseEvent event) {
-        Stage s=(Stage)(interfaceprincipale).getScene().getWindow();
+        Stage s = (Stage) (interfaceprincipale).getScene().getWindow();
         s.setIconified(true);
     }
 
     @FXML
     private void btnfull1(MouseEvent event) {
-        Stage s=(Stage)(interfaceprincipale).getScene().getWindow();
-        s.setFullScreen(true); 
-       
-        
+        Stage s = (Stage) (interfaceprincipale).getScene().getWindow();
+        s.setFullScreen(true);
+
     }
 }

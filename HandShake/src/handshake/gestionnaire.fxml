@@ -125,7 +125,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnmdon" layoutX="3.0" layoutY="270.0" onMouseClicked="#btnmdon" prefHeight="59.0" prefWidth="228.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
+            <JFXButton fx:id="btnmdon" layoutX="-4.0" layoutY="270.0" onMouseClicked="#btnmdon" prefHeight="59.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>

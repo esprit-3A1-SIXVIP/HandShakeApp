@@ -156,8 +156,6 @@ public class AdminController implements Initializable {
     @FXML
     private TableColumn<Dons, Date> dateD;
     @FXML
-    private AnchorPane AnchorPane;
-    @FXML
     private Circle profile_admin;
     @FXML
     private TableColumn<Dons, String> cap;
@@ -173,10 +171,6 @@ public class AdminController implements Initializable {
     private TableColumn<Dons, Double> longitude;
     @FXML
     private TableColumn<Dons, Double> latitude;
-    @FXML
-    private JFXButton supprimerD;
-    @FXML
-    private JFXButton buttonPdf;
 
 
     @FXML

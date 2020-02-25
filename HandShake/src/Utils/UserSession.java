@@ -50,7 +50,13 @@ public final class UserSession {
     public static UserSession getInstace(String email, int id,String role,String login) throws SQLException {
         if(instance == null) {
             instance = new UserSession(email, id,role,login);
-            U=us.getUser(id);
+        }
+        return instance;
+    }
+    public static UserSession getInstance(String email, int id,String password,String role,String login) throws SQLException {
+        if(instance == null) {
+            instance = new UserSession(email, id,role,login);
+            U=new User(id,login,password,email,role,us.getUser(id).isAccesShakeHub());
         }
         return instance;
     }

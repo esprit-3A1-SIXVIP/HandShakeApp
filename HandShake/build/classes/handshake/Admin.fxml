@@ -11,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.AdminController">
@@ -59,6 +60,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
+                        <Circle fx:id="profile_admin" fill="#7cc0ee5c" layoutX="126.0" layoutY="79.0" radius="51.0" stroke="#00000010" strokeType="INSIDE" />
                         <JFXButton fx:id="ShakeHub" buttonType="RAISED" layoutX="-6.0" layoutY="366.0" onAction="#shakehub" prefHeight="57.0" prefWidth="267.0" style="-fx-background-color: black;" text="ShakeHub" textFill="#12cdf4">
                            <font>
                               <Font size="18.0" />

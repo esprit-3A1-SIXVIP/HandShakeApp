@@ -126,7 +126,10 @@ public class FormRefugeController implements Initializable {
 
     @FXML
     private void annuleref(MouseEvent event) {
+        loadStage("Home.fxml");
     }
+
+   
 
   
     
