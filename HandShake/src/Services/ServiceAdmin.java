@@ -109,7 +109,7 @@ public void modifpassword(String password,int id) throws SQLException{
         public Admin chercherAdmin(int id) throws SQLException {
         Admin p = null;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='Administrateur' and userId='" + id+ "'");
+        ResultSet rs = ste.executeQuery("select * from user where role='admin' and userId='" + id+ "'");
         while (rs.next()) {
             int userId = rs.getInt(1);
             String login = rs.getString("login");

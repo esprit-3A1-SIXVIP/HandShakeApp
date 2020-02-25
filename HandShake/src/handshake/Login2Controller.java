@@ -356,12 +356,12 @@ public class Login2Controller {
                 try {
                     int id = SU.getIdUser1(email, Password);
                      String role = SU.getRole(id);
-                     System.out.println(role);
+                 
                      String login = SU.getLogin(id);
                     if (id != -1) {
                           UserSession.getInstace(email, id,role,login);
                       if(role.equals("admin")){
-                        loadStage("Admin.fxml");
+                        loadStage("gestionnaire.fxml");
                       }
 
                     }

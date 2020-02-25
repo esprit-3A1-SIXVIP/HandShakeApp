@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package handshake;
+package Gui;
 
 import Entities.Organisation;
 import Entities.User;
@@ -358,7 +358,7 @@ public class LoginController {
                     if (id != -1) {
                           UserSession.getInstace(email, id,role,login);
 
-                        loadStage("Admin.fxml");
+                        loadStage("gestionnaire.fxml");
 
                     }
 

@@ -7,6 +7,7 @@ package handshake;
 
 import Entities.Admin;
 import Entities.Organisation;
+import Entities.User;
 import Services.ServiceAdmin;
 import Services.ServiceOrganisation;
 import Utils.UserSession;
@@ -33,9 +34,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -111,7 +114,7 @@ public class GestionOrgController implements Initializable {
     @FXML
     private JFXTextField tabRecherche1;
     @FXML
-    private AnchorPane pp;
+    private AnchorPane intOrg;
     @FXML
     private BorderPane cadre3;
     @FXML
@@ -121,11 +124,13 @@ public class GestionOrgController implements Initializable {
     @FXML
     private JFXButton btnmaguser;
     @FXML
-    private JFXButton btnmagmart;
-    @FXML
     private JFXButton btnstat;
     @FXML
     private Circle profile_admin;
+    @FXML
+    private JFXButton btnmeDon;
+    @FXML
+    private Label btnlogout;
 
     /**
      * Initializes the controller class.
@@ -191,7 +196,7 @@ private void loadStage(String fxml) {
         try {
              AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
                 
-               pp.getChildren().setAll(pane);
+               intOrg.getChildren().setAll(pane);
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -284,6 +289,22 @@ lireTel1.setText(savedValue);
             alert.close();
         }
 
+    }
+
+    @FXML
+    private void btnmeDon(MouseEvent event) {
+         loadStage("Admin.fxml");
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+         UserSession.getInstance().cleanUserSession();
+          loadStage("login2.fxml");
+    }
+
+    @FXML
+    private void btnmaguser(MouseEvent event) {
+                  loadStage("gestionnaire.fxml");
     }
 
 

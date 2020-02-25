@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package handshake;
-
+import Utils.DataBase;
 import Entities.Admin;
 import Entities.User;
 import Services.ServiceAdmin;
@@ -12,7 +12,6 @@ import Services.ServiceUser;
 import Utils.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +35,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -50,7 +50,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.util.converter.IntegerStringConverter;
 
 /**
  * FXML Controller class
@@ -58,19 +57,25 @@ import javafx.util.converter.IntegerStringConverter;
  * @author amisa
  */
 public class GestionnaireController implements Initializable {
-
     private Connection con;
     private Statement ste;
+      ObservableList<User> listU = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane intUser;
+    @FXML
+    private BorderPane cadre2;
+    @FXML
+    private ImageView lireprofil;
     @FXML
     private AnchorPane tablebord;
     @FXML
     private JFXButton btnmaguser;
     @FXML
-    private JFXButton btnmagmart;
-    @FXML
     private JFXButton btnstat;
     @FXML
-    private TableColumn<User, String> tabrole;
+    private Circle profile_admin;
+    @FXML
+    private TableView<User> tableau;
     @FXML
     private TableColumn<User, String> tabnom;
     @FXML
@@ -79,6 +84,8 @@ public class GestionnaireController implements Initializable {
     private TableColumn<User, String> tablogin;
     @FXML
     private TableColumn<User, String> tabemail;
+    @FXML
+    private TableColumn<User, String> tabrole;
     @FXML
     private TableColumn<User, String> tabtel;
     @FXML
@@ -94,78 +101,58 @@ public class GestionnaireController implements Initializable {
     @FXML
     private TableColumn<User, String> tabdom;
     @FXML
-    private ImageView lireprofil;
+    private FontAwesomeIconView search;
     @FXML
     private JFXTextField tabRecherche;
     @FXML
-    private JFXTextField lireNon;
-    @FXML
-    private JFXTextField lirePrenom;
-    @FXML
-    private JFXTextField lireRue;
-    @FXML
-    private JFXTextField lireTel;
-    @FXML
-    private JFXTextField lireEmail;
-    @FXML
-    private JFXTextField lireLogin;
-    @FXML
-    private JFXTextField lireVille;
-    @FXML
-    private JFXTextField lirePays;
-    private IntegerStringConverter quant = new IntegerStringConverter();
-
-    @FXML
-    private TableView<User> tableau = new TableView<User>();
-
-    @FXML
-    private FontAwesomeIconView search;
-    @FXML
-    private Circle profile_admin = new Circle(250, 250, 30);
-    ObservableList<User> listU = FXCollections.observableArrayList();
-    @FXML
-    private BorderPane cadre2;
+    private ToggleButton btnlistOrg1;
     @FXML
     private JFXButton btnsupp;
     @FXML
     private JFXButton btnbloquer;
     @FXML
-    private AnchorPane pp;
+    private JFXTextField lireNon;
     @FXML
-    private ToggleButton btnlistOrg1;
+    private JFXTextField lirePrenom;
+    @FXML
+    private JFXTextField lireLogin;
+    @FXML
+    private JFXTextField lireEmail;
+    @FXML
+    private JFXTextField lireTel;
+    @FXML
+    private JFXTextField lireRue;
+    @FXML
+    private JFXTextField lireVille;
+    @FXML
+    private JFXTextField lirePays;
+    @FXML
+    private JFXButton btnmdon;
+    @FXML
+    private Label btnlogout;
 
     /**
      * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        try {
-            // TODO
-            displayUser();
-            setcellvaluefromTabletoTextfield();
-
-            ServiceAdmin sa = new ServiceAdmin();
-            int us = UserSession.getInstance().getId();
-            String login = UserSession.getInstance().getLogin();
-            Admin a = sa.chercherAdmin(us);
+          try {
+              // TODO
+              displayUser();
+              setcellvaluefromTabletoTextfield();
+                con = DataBase.getInstance().getConnection();
+               ServiceAdmin sa = new ServiceAdmin();
+                int us = UserSession.getInstance().getId();
+              Admin a = sa.chercherAdmin(us);
               Image I=null;
-             chargerimagecircle(I, profile_admin ,a.getProfil());          
-
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-  
-    void chargerimagecircle(Image I, Circle c, String x) throws MalformedURLException, IOException {
+              chargerimagecircle(I, profile_admin ,a.getProfil());   
+          } catch (SQLException ex) {
+              Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (IOException ex) {
+              Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+    }    
+  void chargerimagecircle(Image I, Circle c, String x) throws MalformedURLException, IOException {
         URL urlp;
         urlp = new URL(x);
         URLConnection connection = urlp.openConnection();
@@ -293,7 +280,7 @@ public class GestionnaireController implements Initializable {
         try {
             AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
 
-            pp.getChildren().setAll(pane);
+            intUser.getChildren().setAll(pane);
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -330,4 +317,16 @@ public class GestionnaireController implements Initializable {
     private void btnlistOrg1(MouseEvent event) {
          loadStage("gestionOrg.fxml");
     }
+
+    @FXML
+    private void btnmdon(MouseEvent event) {
+        loadStage("Admin.fxml");
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+       UserSession.getInstance().cleanUserSession();
+        loadStage("login2.fxml");
+    }
+    
 }
