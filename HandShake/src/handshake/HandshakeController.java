@@ -77,7 +77,7 @@ public class HandshakeController implements Initializable {
                      int id = SU.getIdUser1(email, Password);
                      String role = SU.getRole(id);
                      String login = SU.getLogin(id);
-                     UserSession.setU(new User(id,login,Password,email,role));
+                     UserSession.setU(new User(id,login,Password,email,role,SU.getUser(id).isAccesShakeHub()));
                      if(id != -1)
                      {
                          if(role.equals("admin"))
