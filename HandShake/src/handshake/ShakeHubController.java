@@ -221,7 +221,7 @@ public class ShakeHubController implements Initializable {
                         }
                     }
                 });
-                if (UserSession.getU().getRole().equals("admin") && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                if (UserSession.getInstance().getRole().equals("admin") && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
                     ban.setVisible(true);
                     ban.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
