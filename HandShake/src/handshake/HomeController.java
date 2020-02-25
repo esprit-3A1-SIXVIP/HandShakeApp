@@ -1,5 +1,6 @@
 
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -54,17 +55,23 @@ public class HomeController implements Initializable {
     @FXML
     private JFXButton btn;
      @FXML
+    private JFXButton btn2;
+
+    @FXML
+    private JFXButton btn3;
+     @FXML
     private Hyperlink appel_aide;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        String login = UserSession.getInstance().getLogin();
+        btn3.setText(login);
     }
 
     @FXML
     private void handleButtonFairedon(javafx.event.ActionEvent mouseEvent) {
         if (mouseEvent.getSource() == fairedon) {
-
+            
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Type Don");
             alert.setHeaderText("Quel type de Don souhaiter vous faire ");
@@ -94,7 +101,7 @@ public class HomeController implements Initializable {
         loadStage("User.fxml");
     }
     
-    @FXML
+     @FXML
     private void handleShakeHub() {
         if (UserSession.getU().isAccesShakeHub()==1 ){
            

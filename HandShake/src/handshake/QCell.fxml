@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
@@ -85,7 +86,3 @@
         </VBox>
     </graphic>
 </fx:root>
-
-
-        
-

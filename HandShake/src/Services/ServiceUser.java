@@ -165,7 +165,7 @@ public class ServiceUser {
                 int quantite = rs.getInt("quantiteDonNature");
                 String cible = rs.getString("cibleDon");
                 
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 DonNature dn = new DonNature(libelle, categorie, quantite, id, type, cible, date1, user);
 
                 arr.add(dn);
@@ -176,7 +176,7 @@ public class ServiceUser {
                 String type = rs.getString("typeDon");
                 int montant = rs.getInt("montantDon");
                  
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 int user = rs.getInt("userId");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 
@@ -204,7 +204,7 @@ public class ServiceUser {
                 int quantite = rs.getInt("quantiteDonNature");
                 String cible = rs.getString("cibleDon");
                 
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 DonNature dn = new DonNature(libelle, categorie, quantite, id, type, cible, date1, user);
 
                 arr.add(dn);
@@ -215,7 +215,7 @@ public class ServiceUser {
                 String type = rs.getString("typeDon");
                 int montant = rs.getInt("montantDon");
                  
-                Date date1 = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 int user = rs.getInt("userId");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 

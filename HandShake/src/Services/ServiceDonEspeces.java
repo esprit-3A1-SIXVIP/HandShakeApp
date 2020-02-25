@@ -92,9 +92,9 @@ public class ServiceDonEspeces implements InterfaceDon<DonEspeces>{
                String cible=rs.getString("cibleDon");
                String type=rs.getString("typeDon");
                int montant=rs.getInt("montantDon");
-                Date date = rs.getDate("dateDon");
+                java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
                 int user = rs.getInt("userId");
-               DonEspeces de=new DonEspeces(id,montant, type, cible,user,date);
+               DonEspeces de=new DonEspeces(id,montant, type, cible,user,date1);
                 
      arr.add(de);
          
