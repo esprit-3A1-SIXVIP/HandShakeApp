@@ -78,7 +78,7 @@ public class FormulaireModifDonEController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Votre don a été Modifier.");
-            ButtonType buttonTypeOne = new ButtonType("OK");
+            ButtonType buttonTypeOne = new ButtonType("Ok");
 
             alert.getButtonTypes().setAll(buttonTypeOne);
 

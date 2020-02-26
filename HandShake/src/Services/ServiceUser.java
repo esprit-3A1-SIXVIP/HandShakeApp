@@ -208,7 +208,7 @@ public class ServiceUser {
         ObservableList<User> arr =FXCollections.observableArrayList();
         ste=con.createStatement();
         ResultSet rs=ste.executeQuery("select nomOrganisation,pays,ville,domaine,email from user\n" +
-"where type=\"organisation\";");
+"where role=\"organisation\";");
         while(rs.next()){
             
             String nomOrganisation= rs.getString("nomOrganisation");

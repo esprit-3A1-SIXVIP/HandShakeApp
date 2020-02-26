@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import com.itextpdf.text.Image;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +23,8 @@ public class Evenement {
    private LocalTime heureEvenement;
    private String porteeEvenement;
    private Float prixEvenement;
+   private int userId;
+   private String image;
 
     public Evenement() {
     }
@@ -38,6 +41,19 @@ public class Evenement {
     public Evenement(int evenementId) {
         this.evenementId = evenementId;
     }
+
+    public Evenement(int evenementId, String descriptionEvenement, String lieuEvenement, LocalDate dateEvenement, LocalTime heureEvenement, String porteeEvenement, Float prixEvenement, int userId, String image) {
+        this.evenementId = evenementId;
+        this.descriptionEvenement = descriptionEvenement;
+        this.lieuEvenement = lieuEvenement;
+        this.dateEvenement = dateEvenement;
+        this.heureEvenement = heureEvenement;
+        this.porteeEvenement = porteeEvenement;
+        this.prixEvenement = prixEvenement;
+        this.userId = userId;
+        this.image = image;
+    }
+    
 
     public Evenement(int evenementId, String descriptionEvenement, String lieuEvenement, LocalDate dateEvenement, LocalTime heureEvenement, String porteeEvenement, Float prixEvenement) {
         this.evenementId = evenementId;
@@ -57,6 +73,33 @@ public class Evenement {
         this.porteeEvenement = porteeEvenement;
         this.prixEvenement = prixEvenement;
           this.evenementId = evenementId;
+    }
+
+    public Evenement(int evenementId, String descriptionEvenement) {
+        this.evenementId = evenementId;
+        this.descriptionEvenement = descriptionEvenement;
+    }
+
+    public Evenement(String descriptionEvenement, String lieuEvenement, LocalDate dateEvenement, LocalTime heureEvenement, String porteeEvenement, Float prixEvenement, String image) {
+      
+        this.descriptionEvenement = descriptionEvenement;
+        this.lieuEvenement = lieuEvenement;
+        this.dateEvenement = dateEvenement;
+        this.heureEvenement = heureEvenement;
+        this.porteeEvenement = porteeEvenement;
+        this.prixEvenement = prixEvenement;
+        this.image = image;
+    }
+
+    public Evenement(int evenementId, String descriptionEvenement, String lieuEvenement, LocalDate dateEvenement, LocalTime heureEvenement, String porteeEvenement, Float prixEvenement, String image) {
+        this.evenementId = evenementId;
+        this.descriptionEvenement = descriptionEvenement;
+        this.lieuEvenement = lieuEvenement;
+        this.dateEvenement = dateEvenement;
+        this.heureEvenement = heureEvenement;
+        this.porteeEvenement = porteeEvenement;
+        this.prixEvenement = prixEvenement;
+        this.image = image;
     }
 
     public int getEvenementId() {
@@ -114,6 +157,23 @@ public class Evenement {
     public void setPrixEvenement(Float prixEvenement) {
         this.prixEvenement = prixEvenement;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
 
     @Override
     public String toString() {
