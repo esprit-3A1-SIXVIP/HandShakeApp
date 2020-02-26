@@ -134,6 +134,10 @@ public class GestionnaireController implements Initializable {
     private JFXButton btnshakehub;
     @FXML
     private JFXButton btnArticles;
+    @FXML
+    private JFXButton benef;
+    @FXML
+    private JFXButton even;
 
     /**
      * Initializes the controller class.
@@ -190,9 +194,9 @@ public class GestionnaireController implements Initializable {
             scrollbar(tableau);
 
         } catch (SQLException ex) {
-            Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         } catch (ParseException ex) {
-            Logger.getLogger(GestionnaireController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -288,9 +292,10 @@ public class GestionnaireController implements Initializable {
         try {
             AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
 
-            intUser.getChildren().setAll(pane);
+            rootPane.getChildren().setAll(pane);
 
         } catch (IOException ex) {
+
             ex.printStackTrace();
         }
     }
@@ -298,7 +303,7 @@ public class GestionnaireController implements Initializable {
   
 
     @FXML
-    private void btnsupuser(ActionEvent event) throws SQLException {
+    private void btnsupuser(MouseEvent event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Suppression");
         alert.setContentText("Vous allez Supprimer un Don .\n\n Voulez vous vraiment effectuer cette action?  ");
@@ -322,11 +327,6 @@ public class GestionnaireController implements Initializable {
     }
 
     @FXML
-    private void btnlistOrg1(ActionEvent event) {
-         loadStage("gestionOrg.fxml");
-    }
-
-    @FXML
     private void btnmdon(ActionEvent event) {
         loadStage("Admin.fxml");
     }
@@ -340,14 +340,30 @@ public class GestionnaireController implements Initializable {
        UserSession.getInstance().cleanUserSession();
         loadStage("login2.fxml");
     }
+    @FXML
+    private void beneficiaire(ActionEvent event) {
+        loadStage("InterBeneficiaire.fxml");
+    }
+
+    @FXML
+    private void btnlistOrg1(ActionEvent event) {
+        loadStage("gestionOrg.fxml");
+    }
 
     @FXML
     private void btnlistOrg1(MouseEvent event) {
     }
 
     @FXML
-    private void btnsupuser(MouseEvent event) {
+    private void articles(ActionEvent event) {
+        loadStage("articleAdmin.fxml");
     }
+
+    @FXML
+    private void evenements(ActionEvent event) {
+        loadStage("evenement.fxml");
+    }
+
 
     
 }

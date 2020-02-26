@@ -37,7 +37,7 @@
                         <JFXDatePicker fx:id="FRdfin1" defaultColor="#0013f2" layoutX="103.0" layoutY="369.0" prefHeight="25.0" prefWidth="292.0" promptText="date fin" />
                         <ImageView fitHeight="105.0" fitWidth="126.0" layoutX="36.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../projet_handshake/src/images/icon-domestic-violence-refuge.png" />
+                              <Image url="@../images/icon-domestic-violence-refuge.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="166.0" layoutY="64.0" prefHeight="29.0" prefWidth="229.0" text="Offrer un Refuge" textFill="#0c90ab">

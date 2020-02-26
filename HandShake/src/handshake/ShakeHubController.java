@@ -537,7 +537,7 @@ public class ShakeHubController implements Initializable {
     @FXML
     private void home(ActionEvent event) {
         if (UserSession.getInstance().getRole().equals("admin")) {
-            loadStage("Admin.fxml");
+            loadStage("gestionnaire.fxml");
         } else {
             loadStage("Home.fxml");
         }

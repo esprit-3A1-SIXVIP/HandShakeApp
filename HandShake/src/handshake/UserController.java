@@ -7,6 +7,7 @@ package handshake;
 
 import Entities.DonNature;
 import Entities.Dons;
+import Entities.User;
 import Services.ServiceDonEspeces;
 import Services.ServiceDonNature;
 import Services.ServiceUser;
@@ -70,6 +71,10 @@ import java.awt.event.*;
 import java.sql.ResultSet;
 import javafx.application.Platform;
 import javafx.event.EventType;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -86,7 +91,7 @@ public class UserController  implements Initializable{
     private Connection con;
     private Statement ste;
     private FileChooser fc;
-    public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
+    public static final String chemin = "C:\\TableDon.pdf";
     
     @FXML
     private JFXTextField input;
@@ -150,88 +155,99 @@ public class UserController  implements Initializable{
     private TableView<Dons> tableDon;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
+    @FXML
+    private Circle profil_admin;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
         
-        con = DataBase.getInstance().getConnection();
-        ServiceUser SU = new ServiceUser();
-        int us = UserSession.getInstance().getId();
-        String email = UserSession.getInstance().getEmail();
-        String login = UserSession.getInstance().getLogin();
-        emailU.setText(login);
         try {
-            donList = (ObservableList<Dons>) SU.readAllDon(us);
+            
+            
+            con = DataBase.getInstance().getConnection();
+            ServiceUser SU = new ServiceUser();
+            int us = UserSession.getInstance().getId();
+            String email = UserSession.getInstance().getEmail();
+            String login = UserSession.getInstance().getLogin();
+            User a = SU.chercherUser(us);
+            javafx.scene.image.Image I=null;
+            emailU.setText(login);
+            try {
+                donList = (ObservableList<Dons>) SU.readAllDon(us);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            donId.setCellValueFactory(new PropertyValueFactory<>("donId"));
+            typeD.setCellValueFactory(new PropertyValueFactory<>("typeDon"));
+            cibleD.setCellValueFactory(new PropertyValueFactory<>("cibleDon"));
+            montantD.setCellValueFactory(new PropertyValueFactory<>("montantDon"));
+            libelleD.setCellValueFactory(new PropertyValueFactory<>("libelleDonNature"));
+            categorieD.setCellValueFactory(new PropertyValueFactory<>("categorieDonNature"));
+            quantiteD.setCellValueFactory(new PropertyValueFactory<>("quantiteDonNature"));
+            dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
+            
+            tableDon.setItems(donList);
+            
+            FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
+            rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
+                
+                filteredData.setPredicate((Dons don) -> {
+                    
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    
+                    if (don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    
+                });
+                
+            });
+            
+            SortedList<Dons> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
+            
+            tableDon.setItems(sortedData);
+            
+            //* Debut Partie Chat *//
+            input.setOnAction(event -> {
+                String message = isServer ? "Admin : " : ""+login+" : ";
+                message += input.getText();
+                input.clear();
+                
+                messages.appendText(message + "\n");
+                
+                try{
+                    connection.send(message);
+                }
+                catch(Exception e){
+                    messages.appendText("Failed to send\n");
+                    
+                }
+            });
+            
+            try {
+                messages.appendText("Attempting connection... \n");
+                connection.startConnection();
+                
+            } catch (Exception ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //* Fin Partie Chat *//
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        donId.setCellValueFactory(new PropertyValueFactory<>("donId"));
-        typeD.setCellValueFactory(new PropertyValueFactory<>("typeDon"));
-        cibleD.setCellValueFactory(new PropertyValueFactory<>("cibleDon"));
-        montantD.setCellValueFactory(new PropertyValueFactory<>("montantDon"));
-        libelleD.setCellValueFactory(new PropertyValueFactory<>("libelleDonNature"));
-        categorieD.setCellValueFactory(new PropertyValueFactory<>("categorieDonNature"));
-        quantiteD.setCellValueFactory(new PropertyValueFactory<>("quantiteDonNature"));
-        dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
-
-        tableDon.setItems(donList);
-
-        FilteredList<Dons> filteredData = new FilteredList<>(donList, b -> true);
-        rechercheD.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            filteredData.setPredicate((Dons don) -> {
-
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (don.getCibleDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (don.getTypeDon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            });
-
-        });
-
-        SortedList<Dons> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
-
-        tableDon.setItems(sortedData);
-        
-        //* Debut Partie Chat *//
-        input.setOnAction(event -> {
-            String message = isServer ? "Admin : " : ""+login+" : ";
-            message += input.getText();
-            input.clear();
-            
-            messages.appendText(message + "\n");
-            
-            try{
-                connection.send(message);
-            }
-            catch(Exception e){
-                messages.appendText("Failed to send\n");
-                
-            }
-        });
-        
-        try {
-            messages.appendText("Attempting connection... \n");
-            connection.startConnection();
-            
-        } catch (Exception ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //* Fin Partie Chat *//
 
     }
 
@@ -246,7 +262,22 @@ public class UserController  implements Initializable{
         }
     }
     
-    
+     void chargerimagecircle(javafx.scene.image.Image I, Circle c, String x) {
+        try {
+            URL urlp;
+            urlp = new URL(x);
+            URLConnection connection = urlp.openConnection();
+            InputStream inputStream = connection.getInputStream();
+            c.setStroke(javafx.scene.paint.Color.GOLDENROD);
+            I = new javafx.scene.image.Image(inputStream);
+            c.setFill(new ImagePattern(I));
+            c.setEffect(new DropShadow(+25d, 0d, +2d, javafx.scene.paint.Color.DARKSEAGREEN));
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    } 
 
     @FXML
     private void Home() {

@@ -7,14 +7,20 @@ package handshake;
 
 import Entities.Evenement;
 import Services.ServiceEvenement;
+import Services.ServiceUser;
+import Utils.EvenementSession;
+import Utils.UserSession;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import static java.util.Optional.empty;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,10 +29,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 /**
@@ -35,6 +43,9 @@ import javafx.util.Callback;
  * @author Soreilla
  */
 public class ReadEvenementController implements Initializable {
+    
+     @FXML
+    private TableColumn<Evenement, Integer> id;
 
     @FXML
     private TableColumn<Evenement, String> txtnom;
@@ -57,25 +68,37 @@ public class ReadEvenementController implements Initializable {
     private TableColumn txtAction2;
     @FXML
     private JFXButton btnEvent;
+    @FXML
+    private AnchorPane rootPane;
+   
+    public int iiiii;
+    
+   
     /**
-     * Initializes the controller class.
+     ** Initializes the controller class.
+     * @param url     
+     * @param rb     
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+      ServiceUser SU = new ServiceUser();
+        int us = UserSession.getInstance().getId();
+            System.out.println(us);
          ServiceEvenement ser = new ServiceEvenement();
+         
         try {
-           data=ser.readAll();
+           data=ser.readEvenement(us);
         } catch(SQLException ex){
             System.out.println(ex);
         }
- 
-             txtnom.setCellValueFactory(new PropertyValueFactory<Evenement,String>("descriptionEvenement"));
-                  txtlieu.setCellValueFactory(new PropertyValueFactory<Evenement,String>("lieuEvenement"));
-                       dateP.setCellValueFactory(new PropertyValueFactory<Evenement,LocalDate>("dateEvenement"));
-                           timeP.setCellValueFactory(new PropertyValueFactory<Evenement,LocalTime>("heureEvenement"));
-                                 txtportee.setCellValueFactory(new PropertyValueFactory<Evenement,String>("porteeEvenement"));
-                                      txtprix.setCellValueFactory(new PropertyValueFactory<Evenement,Float>("prixEvenement"));
+          id.setCellValueFactory(new PropertyValueFactory<>("evenementId"));
+             txtnom.setCellValueFactory(new PropertyValueFactory<>("descriptionEvenement"));
+                  txtlieu.setCellValueFactory(new PropertyValueFactory<>("lieuEvenement"));
+                       dateP.setCellValueFactory(new PropertyValueFactory<>("dateEvenement"));
+                           timeP.setCellValueFactory(new PropertyValueFactory<>("heureEvenement"));
+                                 txtportee.setCellValueFactory(new PropertyValueFactory<>("porteeEvenement"));
+                                      txtprix.setCellValueFactory(new PropertyValueFactory<>("prixEvenement"));
+                                      
                                         table.setItems(data);
                                     Callback<TableColumn<Evenement,String>,TableCell<Evenement,String>> cellFactory =(param)->{
           
@@ -91,16 +114,25 @@ public class ReadEvenementController implements Initializable {
                                                       final  JFXButton editButton= new  JFXButton("Modifier");
                                                       final  JFXButton deleteButton= new  JFXButton("Supprimer");
                                                       editButton.setOnAction(event ->{
-                                                          Evenement e=getTableView().getItems().get(getIndex());
-                                                          Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                                                          alert.setContentText("You have clicked_n"+e.getDescriptionEvenement()+"xith email");
+                                                          
+                                                       Evenement   e=getTableView().getItems().get(getIndex());
+                                                        
+                                                       EvenementSession.getInstace(e.getEvenementId(), e.getDescriptionEvenement(), e.getLieuEvenement(), e.getDateEvenement(), e.getHeureEvenement(), e.getPorteeEvenement(), e.getPrixEvenement());
+                                                          
+                                                          loadStage("modifierEvenement.fxml");
+                                                          Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+                                                          alert.setContentText("Vous êtes entrain de vouloir modifier l'évènement :"+e.getDescriptionEvenement());
                                                           alert.show();
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
                                                           });
                                                       setGraphic(editButton);
                                                       setText(null);
-                                                     /* setGraphic(deleteButton);
-                                                      setText(null);*/
-                                                     
+                                                  
                                                   }
                                               }
                                               ;
@@ -123,10 +155,22 @@ public class ReadEvenementController implements Initializable {
                                                   
                                                       final  JFXButton deleteButton= new  JFXButton("Supprimer");
                                                       deleteButton.setOnAction(event ->{
-                                                          Evenement e=getTableView().getItems().get(getIndex());
-                                                          Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                                                          alert.setContentText("Voulez vous vraiment supprimer l'évènement"+e.getDescriptionEvenement());
-                                                          alert.show();
+                                                          
+                                                        
+                                                            Evenement    e=getTableView().getItems().get(getIndex());
+                                                           System.out.println(e.getEvenementId());
+                                                             
+                                                              Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+                                                              alert.setContentText("Voulez vous vraiment supprimer l'évènement"+e.getDescriptionEvenement());
+                                                              alert.show();
+                                                             // Optional<ButtonType> action= alert.showAndWait();
+                                                            //  if(action.get()==ButtonType.OK)
+                                                              try {
+                                                                  ser.delete(e.getEvenementId());
+                                                          } catch (SQLException ex) {
+                                                              Logger.getLogger(ReadEvenementController.class.getName()).log(Level.SEVERE, null, ex);
+                                                          }
+                                                         
                                                           });
                                                       setGraphic(deleteButton);
                                                       setText(null);
@@ -160,6 +204,16 @@ public class ReadEvenementController implements Initializable {
 
         } catch (IOException ex) {
         System.out.println(ex.getMessage());
+        }
+    }
+    private void loadStage(String fxml) {
+        try {
+             AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+                
+               rootPane.getChildren().setAll(pane);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
     

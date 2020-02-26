@@ -47,7 +47,10 @@ import Services.ServiceBeneficiaire;
 import Services.ServiceNecessiteux;
 import Services.ServiceRefugie;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -177,6 +180,15 @@ public class AjouterBeneficiaireController implements Initializable {
                     System.out.println(ex);
                  }
              }
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setContentText("Bénéficiaire ajouté avec succès");
+            ButtonType buttonTypeOne = new ButtonType("OK");
+
+            alert.getButtonTypes().setAll(buttonTypeOne);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            loadStage("Home.fxml");
                 
                     
     }

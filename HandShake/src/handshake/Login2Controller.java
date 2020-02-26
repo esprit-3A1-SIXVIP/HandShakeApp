@@ -319,7 +319,6 @@ public class Login2Controller {
                 try {
 
                     int id = SU.getIdUser1(email, Password);
-                    System.out.println(id);
                     String role = SU.getRole(id);
                     String login = SU.getLogin(id);
                     UserSession.setU(new User(id, login, Password, email, role, SU.getUser(id).isAccesShakeHub()));
@@ -397,7 +396,7 @@ public class Login2Controller {
 
                     }
                 } catch (SQLException ex) {
-                    System.out.println(ex);
+                    System.out.println(ex.getMessage());
                 }
 
             } else {

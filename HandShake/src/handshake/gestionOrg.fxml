@@ -53,7 +53,7 @@
       <JFXButton fx:id="btnbloquer" layoutX="803.0" layoutY="740.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: #0c9ae0;" text="BLOQUER" />
       <AnchorPane fx:id="tablebord" layoutX="-15.0" layoutY="75.0" pickOnBounds="false" prefHeight="733.0" prefWidth="249.0" style="-fx-background-color: rgba(0,0,0,0.3);">
          <children>
-            <JFXButton fx:id="btnmaguser" layoutX="-3.0" layoutY="193.0" onMouseClicked="#btnmaguser" prefHeight="59.0" prefWidth="241.0" style="-fx-background-color: #0c9ae0;" text="Gestion Utilisateurs" textFill="#f8f8f7">
+            <JFXButton fx:id="btnmaguser" layoutX="-3.0" layoutY="193.0" onMouseClicked="#btnmaguser" prefHeight="59.0" prefWidth="252.0" style="-fx-background-color: #0c9ae0;" text="Gestion Utilisateurs" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +62,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnmeDon" layoutX="3.0" layoutY="270.0" onMouseClicked="#btnmeDon" prefHeight="59.0" prefWidth="228.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
+            <JFXButton fx:id="btnmeDon" layoutX="3.0" layoutY="270.0" onMouseClicked="#btnmeDon" prefHeight="59.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Dons" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -71,7 +71,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="-1.0" layoutY="350.0" prefHeight="59.0" prefWidth="238.0" style="-fx-background-color: #0c9ae0;" text="Gestions des Articles" textFill="#f8f8f7">
+            <JFXButton layoutX="-1.0" layoutY="350.0" prefHeight="59.0" prefWidth="252.0" style="-fx-background-color: #0c9ae0;" text="Gestions des Articles" textFill="#f8f8f7">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -85,16 +85,15 @@
                   <Font name="Bookman Old Style Bold" size="24.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnstat" layoutX="-3.0" layoutY="433.0" prefHeight="52.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Statistiques" textFill="#f8f8f7">
-               <graphic>
-                  <ImageView fitHeight="47.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/up_grafik_business_ideas_company_strategy0-512.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
             <Circle fx:id="profile_admin" fill="#7cc0ee5c" layoutX="117.0" layoutY="71.0" radius="51.0" stroke="#00000010" strokeType="INSIDE" />
+            <JFXButton fx:id="btnshakehub" layoutX="8.0" layoutY="427.0" onAction="#btnshake" prefHeight="52.0" prefWidth="243.0" style="-fx-background-color: #0c9ae0;" text="Gestion du ShakeHub" textFill="#f8f8f7" />
+            <ImageView fitHeight="47.0" fitWidth="55.0" layoutX="30.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/download.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="benef" buttonType="RAISED" layoutX="11.0" layoutY="508.0" onAction="#beneficiaire" prefHeight="57.0" prefWidth="241.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Beneficiaires" textFill="WHITE" />
+            <JFXButton fx:id="even" buttonType="RAISED" layoutX="16.0" layoutY="587.0" onAction="#evenements" prefHeight="57.0" prefWidth="236.0" style="-fx-background-color: #0c9ae0;" text="Gestion des Evenements" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="79.0" prefWidth="236.0" style="-fx-background-color: #ffffff;">

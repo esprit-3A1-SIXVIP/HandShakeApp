@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,13 +125,17 @@ public class GestionOrgController implements Initializable {
     @FXML
     private JFXButton btnmaguser;
     @FXML
-    private JFXButton btnstat;
-    @FXML
     private Circle profile_admin;
     @FXML
     private JFXButton btnmeDon;
     @FXML
     private Label btnlogout;
+    @FXML
+    private JFXButton btnshakehub;
+    @FXML
+    private JFXButton benef;
+    @FXML
+    private JFXButton even;
 
     /**
      * Initializes the controller class.
@@ -305,6 +310,33 @@ lireTel1.setText(savedValue);
     @FXML
     private void btnmaguser(MouseEvent event) {
                   loadStage("gestionnaire.fxml");
+    }
+    private void btnmdon(ActionEvent event) {
+        loadStage("Admin.fxml");
+    }
+    @FXML
+    private void btnshake(ActionEvent event) {
+        loadStage("ShakeHub.fxml");
+    }
+
+ 
+    @FXML
+    private void beneficiaire(ActionEvent event) {
+        loadStage("InterBeneficiaire.fxml");
+    }
+
+    private void btnlistOrg1(ActionEvent event) {
+        loadStage("gestionOrg.fxml");
+    }
+
+
+    private void articles(ActionEvent event) {
+        loadStage("articleAdmin.fxml");
+    }
+
+    @FXML
+    private void evenements(ActionEvent event) {
+        loadStage("evenement.fxml");
     }
 
 

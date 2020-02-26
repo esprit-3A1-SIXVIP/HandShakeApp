@@ -3,41 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/MapsController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/InterBeneficiaire.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/ShakeHubController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/staticEvenement.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/FormulaireDonNature.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/HomeController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/Admin.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Services/QuestionService.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/GestionnaireController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/readEvenement.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Services/CommentaireService.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/Login2Controller.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/AjouterBeneficiaireController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/AjouterBeneficiaire.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/FormulaireModifDonN.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/FormulaireDonEspece.fxml</file>
             <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/AdminController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/ShakeHub.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Utils/UserSession.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/FormulaireModifDonE.fxml</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/ModifierEvenementController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/UserController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/articleAdmin.fxml</file>
             <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/HandShake.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Entities/SendMail.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/Handshake.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/QCell.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/HandshakeController.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/evenement.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/User.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/FormRefugeController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/HomeController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/GestionnaireController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/articleadd.fxml</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/GestionOrgController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/ArticleAdminController.java</file>
             <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Entities/User.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/Home.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/CCell.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Entities/Pdf.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/AjouterAide.fxml</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Services/ServiceUser.java</file>
-            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/Utils/SendEmailTLS.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/ArticleAddController.java</file>
+            <file>file:/C:/Users/ghost/Documents/NetBeansProjects/HandShakeApp/HandShake/src/handshake/login2.fxml</file>
         </group>
     </open-files>
 </project-private>

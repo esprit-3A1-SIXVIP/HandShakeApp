@@ -26,6 +26,16 @@ public class User {
    String pays ;
    String role ;
    int accesShakeHub;
+   String nomOrganisation;
+  String domaine;
+
+    public User(String email, String nomOrganisation, String domaine, String ville, String pays) {
+        this.email = email;
+        this.nomOrganisation = nomOrganisation;
+        this.domaine = domaine;
+        this.ville = ville;
+        this.pays = pays;
+    }
    
     public User(int userId, String login, String password, String email, String role) {
         this.userId = userId;

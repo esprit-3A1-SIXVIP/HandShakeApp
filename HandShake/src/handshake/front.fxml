@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.ReadEvenementController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.FrontController">
     <stylesheets>
         <URL value="@/css/readevenement.css" />
     </stylesheets>
@@ -23,7 +23,7 @@
                   <Image url="@images/main1.jpg" />
                </image>
             </ImageView>
-            <Label layoutX="47.0" layoutY="49.0" text="Mes évènements">
+            <Label layoutX="47.0" layoutY="49.0" text="Liste des évènements">
                <font>
                   <Font size="26.0" />
                </font>
@@ -38,7 +38,7 @@
                         <TableColumn fx:id="txtportee" prefWidth="117.0" text="Portée" />
                         <TableColumn fx:id="txtprix" prefWidth="53.0" text="Prix" />
                         <TableColumn fx:id="dateP" prefWidth="91.0" text="Date" />
-                        <TableColumn fx:id="txtAction2" prefWidth="69.0" text="Action" />
+                        <TableColumn fx:id="image" prefWidth="69.0" text="Image" />
                         <TableColumn fx:id="txtAction" minWidth="0.0" prefWidth="62.0" text="Action" />
                         <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
                     </columns>

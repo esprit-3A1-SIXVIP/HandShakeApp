@@ -5,10 +5,19 @@
  */
 package handshake;
 
+import Entities.Evenement;
+import Services.ServiceEvenement;
+import Services.ServiceUser;
+import Utils.UserSession;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,15 +47,53 @@ public class StaticEvenementController implements Initializable {
     private JFXButton btnStat;
     @FXML
     private JFXButton btnOurEvents;
+    int eventId=17;
+         public ObservableList<Evenement> data =FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        XYChart.Series set1 = new XYChart.Series<>();
-        set1.getData().add(new XYChart.Data("James",50));
+       
+          ServiceUser SU = new ServiceUser();
+        int us = UserSession.getInstance().getId();
+            System.out.println(us);
+            
+         ServiceEvenement ser = new ServiceEvenement();
+     
+         
+         
+        try {
+         
+            data=ser.searchEventByIdUser(us);
+            
+            for(int i=0; i<data.size();i++){
+                
+                  XYChart.Series set1 = new XYChart.Series<>();
+        
+        set1.getData().add(new XYChart.Data(data.get(i).getDescriptionEvenement(),
+                ser.NombreParticpantParEvenement(data.get(i).getEvenementId())
+                
+                
+        ));
         EventBar.getData().addAll(set1);
+                
+                System.out.println(data.get(i).getDescriptionEvenement());  
+                System.out.println( ser.NombreParticpantParEvenement(eventId));
+                
+                
+                
+            }
+        } catch (SQLException ex) {
+         System.out.println(ex);     
+        }
+        
+        
+      /*  XYChart.Series set1 = new XYChart.Series<>();
+        
+        set1.getData().add(new XYChart.Data("James",50));
+        EventBar.getData().addAll(set1);*/
     }    
 
     @FXML

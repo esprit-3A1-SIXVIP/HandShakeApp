@@ -36,7 +36,10 @@ import Entities.Aide;
 import Entities.Pdf;
 import Services.ServiceAide;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -183,8 +186,16 @@ public class AjouterAideController implements Initializable {
                  catch (SQLException ex) {
                     System.out.println(ex);
                  }
-
+           
          }
+         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setContentText("Aide ajoutée avec succès");
+            ButtonType buttonTypeOne = new ButtonType("OK");
+
+            alert.getButtonTypes().setAll(buttonTypeOne);
+
+            Optional<ButtonType> result = alert.showAndWait();
     }
     @FXML
     private void Change_Description(TableColumn.CellEditEvent bb) throws SQLException{

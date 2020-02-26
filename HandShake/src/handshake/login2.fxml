@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.Login2Controller">
+<AnchorPane id="AnchorPane" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.Login2Controller">
    <children>
       <ImageView fitHeight="603.0" fitWidth="396.0" layoutX="7.0" layoutY="-2.0" pickOnBounds="true" smooth="false">
          <image>
@@ -29,7 +29,7 @@
             <Image url="@../images/main1.jpg" />
          </image>
       </ImageView>
-      <Pane fx:id="paneinscription" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: rgba(0,0,0,0.3);">
+      <Pane fx:id="paneinscription" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: rgba(0,0,0,0.3);" stylesheets="@login.css">
          <children>
             <JFXPasswordField fx:id="tipas" focusColor="#0c78e4" layoutX="39.0" layoutY="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="password" unFocusColor="#2c07fc" />
             <JFXPasswordField fx:id="tipas3" focusColor="#0c78e4" layoutX="39.0" layoutY="317.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="resaisissez le password" unFocusColor="#2c07fc" />
@@ -84,20 +84,20 @@
                   <Font name="Bookman Old Style" size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="tcl" focusColor="#056ed7" layoutX="168.0" layoutY="423.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Email" stylesheets="@login.css" unFocusColor="#e39910">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></JFXTextField>
-            <JFXPasswordField fx:id="tcp" focusColor="#0c78e4" layoutX="168.0" layoutY="539.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="password" stylesheets="@login.css" unFocusColor="#e39910">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></JFXPasswordField>
             <Label fx:id="mdpforgot" layoutX="257.0" layoutY="719.0" text="Mot de passe oublié?" textFill="#070606">
                <font>
                   <Font name="Bookman Old Style" size="12.0" />
                </font>
             </Label>
             <JFXButton fx:id="btncx" buttonType="RAISED" layoutX="214.0" layoutY="634.0" onMouseClicked="#btncx" prefHeight="35.0" prefWidth="208.0" ripplerFill="#e39910" styleClass="loginbtn" text="connexion" />
+            <JFXTextField fx:id="tcl" focusColor="#056ed7" layoutX="168.0" layoutY="423.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="40.0" prefWidth="300.0" promptText="Email" style="-fx-background-color: white;" stylesheets="@login.css" unFocusColor="#e39910">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></JFXTextField>
+            <JFXPasswordField fx:id="tcp" focusColor="#0c78e4" layoutX="168.0" layoutY="539.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="40.0" prefWidth="300.0" promptText="password" style="-fx-background-color: white;" stylesheets="@login.css" unFocusColor="#e39910">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></JFXPasswordField>
          </children>
       </Pane>
       <VBox fx:id="vboxinscription" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: #0c9ae0;" styleClass="vbox" stylesheets="@login.css">

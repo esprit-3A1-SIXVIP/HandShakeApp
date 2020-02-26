@@ -60,6 +60,28 @@ public class ServiceRefuge {
         }
         return id;
     }
+     public User infomarker(int id) throws SQLException {
+        User p = null;
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from user u join don d on u.userId=d.userId where donId='"+id+"' and typeDon='Refuge'");
+        while (rs.next()) {
+            int userId = rs.getInt(1);
+            String login = rs.getString("login");
+            String password = rs.getString("password");
+            String nomUser = rs.getString("nomUser");
+            String prenomUser = rs.getString("prenomUser");
+            String email = rs.getString("email");
+            int telephone = rs.getInt("telephone");
+            String ville = rs.getString("ville");
+            String rue = rs.getString("rue");
+            String pays = rs.getString("pays");
+            String role = rs.getString("role");
+            String profil = rs.getString("profil");
+            p = new User(userId, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+
+        }
+        return p;
+    }
  public double moyenneR() throws SQLException
     {
         double i=0 , j=0;

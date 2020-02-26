@@ -6,7 +6,9 @@
  */
 package handshake;
 
+import Entities.Admin;
 import Entities.Dons;
+import Services.ServiceAdmin;
 import Services.ServiceDonEspeces;
 import Services.ServiceDonNature;
 import Services.ServiceRefuge;
@@ -80,8 +82,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.SwingUtilities;
 import handshake.NetworkConnection;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URLConnection;
 import java.sql.ResultSet;
 import javafx.application.Platform;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 /**
  * FXML Controller class
@@ -109,7 +119,7 @@ public class AdminController implements Initializable {
     final static String refuge= "Refuge";
 
 
-    public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
+    public static final String chemin = "C:\\TableDon.pdf";
 
     @FXML
     private AnchorPane rootPane;
@@ -129,9 +139,6 @@ public class AdminController implements Initializable {
 
     @FXML
     private JFXTextField rechercheD;
-
-    @FXML
-    private Label emailU;
 
     @FXML
     private TableColumn<Dons, Integer> donId;
@@ -155,8 +162,6 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableColumn<Dons, Date> dateD;
-    @FXML
-    private Circle profile_admin;
     @FXML
     private TableColumn<Dons, String> cap;
     @FXML
@@ -191,6 +196,21 @@ public class AdminController implements Initializable {
 
     @FXML
     private Label btnlogout;
+    @FXML
+    private AnchorPane tablebord;
+    @FXML
+    private JFXButton btnmaguser;
+    @FXML
+    private JFXButton btnmdon;
+    @FXML
+    private JFXButton btnArticles;
+    @FXML
+    private JFXButton btnshakehub;
+    private Circle profile_admin;
+    @FXML
+    private Circle profile_admin1;
+    @FXML
+    private JFXButton benef1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -200,16 +220,27 @@ public class AdminController implements Initializable {
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
         String login = UserSession.getInstance().getLogin();
-        emailU.setText(email);
+        con = DataBase.getInstance().getConnection();
+               ServiceAdmin sa = new ServiceAdmin();
+                int id = UserSession.getInstance().getId();
+              Admin a;
+        try {
+            a = sa.chercherAdmin(id);
+            Image I=null;
+            chargerimagecircle(I, profile_admin ,a.getProfil());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+                 
         try {
             donList = (ObservableList<Dons>) SU.readAllDonAdmin();
         } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.println(ex.getMessage());
         } catch (ParseException ex) {
 
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
-
+        
         donId.setCellValueFactory(new PropertyValueFactory<>("donId"));
         typeD.setCellValueFactory(new PropertyValueFactory<>("typeDon"));
         cibleD.setCellValueFactory(new PropertyValueFactory<>("cibleDon"));
@@ -280,10 +311,28 @@ public class AdminController implements Initializable {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
         //* Fin Partie Chat *//
-        
-       
-
+         
+          
+         
+          
+    }    
+  void chargerimagecircle(Image I, Circle c, String x) {
+        try {
+            URL urlp;
+            urlp = new URL(x);
+            URLConnection connection = urlp.openConnection();
+            InputStream inputStream = connection.getInputStream();
+            c.setStroke(Color.GOLDENROD);
+            I = new Image(inputStream);
+            c.setFill(new ImagePattern(I));
+            c.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
+       
     public void scrollbar(TableView table) {
         ScrollPane sp = new ScrollPane(table);
         sp.setContent(table);
@@ -545,17 +594,39 @@ public class AdminController implements Initializable {
     private void beneficiaire(ActionEvent event) {
         loadStage("InterBeneficiaire.fxml");
     }
-
     
-
-    private void shakehub(ActionEvent event) {
-        loadStage("ShakeHub.fxml");
-
-    }
     private void Statistiqueref(ActionEvent event) {
-
+        
    }
 
+    @FXML
+    private void btnmdon(ActionEvent event) {
+        loadStage("Admin.fxml");
+    }
+
+    @FXML
+    private void btnshake(ActionEvent event) {
+        loadStage("ShakeHub.fxml");
+    }
+
+    @FXML
+    private void gestionnaire(ActionEvent event) {
+        loadStage("gestionnaire.fxml");
+    }
+
+    @FXML
+    private void articles(ActionEvent event) {
+        loadStage("articleAdmin.fxml");
+    }
+    private void logout(MouseEvent event) {
+       UserSession.getInstance().cleanUserSession();
+        loadStage("login2.fxml");
+    }
+
+    @FXML
+    private void evenements(ActionEvent event) {
+        loadStage("evenement.fxml");
+    }
 
 }
 

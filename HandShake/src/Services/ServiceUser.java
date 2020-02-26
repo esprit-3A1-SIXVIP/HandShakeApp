@@ -137,21 +137,7 @@ public User getUser(int id) throws SQLException {
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 
                 arr.add(de);
-            } else {
-                int id = rs.getInt("donId");
-                int user = rs.getInt("userId");
-                String rueRefuge = rs.getString("rueRefuge");
-                String villeRefuge = rs.getString("villeRefuge");
-                String paysRefuge = rs.getString("paysRefuge");
-                int disponibiliteRefuge = rs.getInt("disponibiliteRefuge");
-                java.sql.Date datd = java.sql.Date.valueOf(rs.getString("dateDebutRefuge"));
-                java.sql.Date datf = java.sql.Date.valueOf(rs.getString("dateFinRefuge"));
-                int capaciteRefuge = rs.getInt("capaciteRefuge");
-                Double longitude = rs.getDouble("longitude");
-                Double latitude = rs.getDouble("latitude");
-                Refuge p = new Refuge(rueRefuge, villeRefuge, paysRefuge, capaciteRefuge, datd.toLocalDate(), datf.toLocalDate(), longitude, latitude, id, paysRefuge, user);
-                arr.add(p);
-            }
+            } 
 
         }
 
