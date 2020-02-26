@@ -9,9 +9,9 @@ package handshake;
 import Entities.Dons;
 import Services.ServiceDonEspeces;
 import Services.ServiceDonNature;
+import Services.ServiceRefuge;
 import Services.ServiceUser;
 import Utils.DataBase;
-import Utils.ModifSession;
 import Utils.UserSession;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -21,20 +21,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.event.ActionListener;
-import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -48,7 +42,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -57,16 +50,14 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.swing.SwingUtilities;
-import handshake.NetworkConnection;
 import javafx.application.Platform;
 
 /**
@@ -82,6 +73,7 @@ public class AdminController implements Initializable {
     private Connection con;
     private Statement ste;
     private FileChooser fc;
+
     
     @FXML
     private JFXTextField input;
@@ -92,22 +84,23 @@ public class AdminController implements Initializable {
 
     final static String nature = "Nature";
     final static String espece = "Espece";
+    final static String refuge= "Refuge";
 
     public static final String chemin = "C:\\Users\\steph\\OneDrive\\Documents\\TableDon.pdf";
 
     @FXML
     private AnchorPane rootPane;
 
-    @FXML
-    private JFXButton supprimerD;
 
-    @FXML
-    private JFXButton buttonPdf;
+  
 
     @FXML
     private JFXButton Statistique;
     
     
+
+    private JFXButton Statistiqueref;
+
 
     @FXML
     private JFXTextField rechercheD;
@@ -137,6 +130,28 @@ public class AdminController implements Initializable {
 
     @FXML
     private TableColumn<Dons, Date> dateD;
+@FXML
+    private AnchorPane AnchorPane;
+    @FXML
+    private Circle profile_admin;
+    @FXML
+    private TableColumn<Dons, String> cap;
+    @FXML
+    private TableColumn<Dons, String> ville;
+    @FXML
+    private TableColumn<Dons, String> pays;
+    @FXML
+    private TableColumn<Dons, LocalDate> date_debut;
+    @FXML
+    private TableColumn<Dons, LocalDate> date_fin;
+    @FXML
+    private TableColumn<Dons, Double> longitude;
+    @FXML
+    private TableColumn<Dons, Double> latitude;
+    @FXML
+    private JFXButton supprimerD;
+    @FXML
+    private JFXButton buttonPdf;
 
     @FXML
     private TableView<Dons> tableDon;
@@ -146,12 +161,14 @@ public class AdminController implements Initializable {
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
     
+
      private boolean isServer = true;
     
      @FXML
     private JFXTextArea messages = new JFXTextArea();
      
     private NetworkConnection connection = isServer ? createServer() : createClient();
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -164,9 +181,7 @@ public class AdminController implements Initializable {
         emailU.setText(email);
         try {
             donList = (ObservableList<Dons>) SU.readAllDonAdmin();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -178,7 +193,13 @@ public class AdminController implements Initializable {
         categorieD.setCellValueFactory(new PropertyValueFactory<>("categorieDonNature"));
         quantiteD.setCellValueFactory(new PropertyValueFactory<>("quantiteDonNature"));
         dateD.setCellValueFactory(new PropertyValueFactory<>("dateDon"));
-
+        cap.setCellValueFactory(new PropertyValueFactory<>("capaciteRefuge"));
+        pays.setCellValueFactory(new PropertyValueFactory<>("paysRefuge"));
+        ville.setCellValueFactory(new PropertyValueFactory<>("villeRefuge"));
+        longitude.setCellValueFactory(new PropertyValueFactory<>("longitude"));
+        latitude.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        date_debut.setCellValueFactory(new PropertyValueFactory<Dons,LocalDate>("dateDebutRefuge"));
+        date_fin.setCellValueFactory(new PropertyValueFactory<Dons,LocalDate>("dateFinRefuge"));
         tableDon.setItems(donList);
         
         //* Debut Partie Filtre *//
@@ -208,6 +229,7 @@ public class AdminController implements Initializable {
         sortedData.comparatorProperty().bind(tableDon.comparatorProperty());
 
         tableDon.setItems(sortedData);
+
         //* Debut Partie Filtre *//
         
         //* Debut Partie Chat *//
@@ -235,8 +257,20 @@ public class AdminController implements Initializable {
         
        
 
-    }
 
+    }
+    public void scrollbar(TableView table) {
+        ScrollPane sp = new ScrollPane(table);
+        sp.setContent(table);
+        sp.setPrefSize(2000, 2000);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sp.setFitToHeight(true);
+        sp.setHmax(3);
+        sp.setHvalue(0);
+        sp.setDisable(true);
+
+    }
     private void loadStage(String fxml) {
         try {
             AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
@@ -244,12 +278,13 @@ public class AdminController implements Initializable {
             rootPane.getChildren().setAll(pane);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
+
     
     
     
+
 
     public void SupprimerDonU(ActionEvent action) throws SQLException {
 
@@ -292,6 +327,7 @@ public class AdminController implements Initializable {
         }
 
     }
+
 
     public void Imprimer(ActionEvent action) {
 
@@ -342,10 +378,12 @@ public class AdminController implements Initializable {
     }
 
     @FXML
+
     public void Statistique(ActionEvent action) throws IOException, SQLException {
         ServiceUser SU = new ServiceUser();
         ServiceDonNature SDN = new ServiceDonNature();
         ServiceDonEspeces SDE = new ServiceDonEspeces();
+        ServiceRefuge SDR=new ServiceRefuge();
         Stage stage = new Stage();
         stage.setTitle("Statistique Don");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -360,6 +398,7 @@ public class AdminController implements Initializable {
         series1.setName("Nombre Don");
         series1.getData().add(new XYChart.Data(nature, SU.NombreDonNature()));
         series1.getData().add(new XYChart.Data(espece, SU.NombreDonEspece()));
+         series1.getData().add(new XYChart.Data(refuge, SU.NombreDonRefuge()));
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("MDN Alimentaire");
@@ -379,8 +418,12 @@ public class AdminController implements Initializable {
         series5.setName("MDE Montant");
         series5.getData().add(new XYChart.Data(espece, SDE.moyenneM()));
         
+        XYChart.Series series6 = new XYChart.Series();
+        series5.setName("NBR Refuge");
+        series5.getData().add(new XYChart.Data(refuge, SDR.moyenneR()));
+        
         Scene scene = new Scene(bc, 800, 600);
-        bc.getData().addAll(series1, series2,series3,series4,series5);
+        bc.getData().addAll(series1, series2,series3,series4,series5,series6);
         stage.setScene(scene);
         stage.show();
 
@@ -413,6 +456,10 @@ public class AdminController implements Initializable {
         loadStage("InterBeneficiaire.fxml");
     }
     
+
+
+    private void Statistiqueref(ActionEvent event) {
+    }
 
 
 }

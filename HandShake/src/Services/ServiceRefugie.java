@@ -18,9 +18,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Entities.Refugie;
+import IServices.IServiceAide;
 
 
-public class ServiceRefugie implements IService<Refugie>{
+public class ServiceRefugie implements IServiceAide<Refugie>{
     
     private Connection con;
     private Statement ste;

@@ -19,9 +19,8 @@ public class User {
    String nomUser;
    String prenomUser ;
    String email ;
-  String nomOrganisation;
-  String domaine;
    int telephone ;
+   String profil;
    String ville ;
    String rue ;
    String pays ;
@@ -35,10 +34,8 @@ public class User {
         this.email = email;
         this.role = role;
     }
-    public User(String email, String nomOrganisation, String domaine, String ville, String pays) {
+    public User(String email, String ville, String pays) {
         this.email = email;
-        this.nomOrganisation = nomOrganisation;
-        this.domaine = domaine;
         this.ville = ville;
         this.pays = pays;
     }
@@ -56,8 +53,24 @@ public class User {
         this.pays = pays;
         this.role = role;
     }
+ public User(String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays,String profil) {
+        this.userId=(int) (Math.random()*(400000-20000));
+       
+        this.login = login;
+        this.password = password;
+        this.nomUser = nomUser;
+        this.prenomUser = prenomUser;
+        this.email = email;
+        this.telephone = telephone;
+        this.ville = ville;
+        this.rue = rue;
+        this.pays = pays;
+  
+        this.profil=profil;
+    }
 
-    public User(String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role) {
+    public User(int userId, String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role, String profil) {
+        this.userId = userId;
         this.login = login;
         this.password = password;
         this.nomUser = nomUser;
@@ -68,7 +81,18 @@ public class User {
         this.rue = rue;
         this.pays = pays;
         this.role = role;
+        this.profil = profil;
     }
+
+    public String getProfil() {
+        return profil;
+    }
+
+    public void setProfil(String profil) {
+        this.profil = profil;
+    }
+
+   
 
   
 

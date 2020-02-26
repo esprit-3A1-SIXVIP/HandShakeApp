@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import Entities.Beneficiaire;
 import IServices.IService;
+import IServices.IServiceAide;
 import Utils.DataBase;
 
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ServiceBeneficiaire implements IService<Beneficiaire>{
+public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
     
     private Connection con;
     private Statement ste;
