@@ -3,7 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Utils/SendEmailTLS.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/handshake/InterBeneficiaireController.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/IServices/IServiceAide.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/handshake/AjouterAideController.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/IServices/InterfaceDon.java</file>
             <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/handshake/HomeController.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Utils/ModifSession.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Services/ServiceBeneficiaire.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Utils/UserSession.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Entities/SendMail.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/handshake/AjouterBeneficiaireController.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Entities/User.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/handshake/AdminController.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Services/ServiceRefugie.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Services/ServiceAide.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Entities/Dons.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/handshake/Admin.fxml</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Entities/DonEspeces.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Entities/Evenement.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Services/ServiceNecessiteux.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/Entities/Pdf.java</file>
+            <file>file:/C:/Users/USER/Documents/NetBeansProjects/HandShake%20Git/HandShakeApp/HandShake/src/IServices/IService.java</file>
         </group>
     </open-files>
 </project-private>

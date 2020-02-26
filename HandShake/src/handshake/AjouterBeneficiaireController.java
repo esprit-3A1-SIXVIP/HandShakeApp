@@ -169,15 +169,16 @@ public class AjouterBeneficiaireController implements Initializable {
                         ser.ajouter(new Necessiteux(tfbesoin.getText(),comboaide.getValue(),nom.getText(), prenom.getText(),email.getText(),sqlDate,ville.getText(),Integer.valueOf(numtel.getText()),adresseGPS.getText(),role));
 
                     }
-                    SendMail.sendMail(email.getText(),"Beneficiaire","vous avez été ajouté ");
+                    SendMail.sendMail(email.getText(),"Beneficiaire","vous avez été ajouté comme bénéficiare sur handshake");
 
                 }
                  catch (SQLException ex) {
                     System.out.println(ex);
                  }
+                
              }
                 
-                    
+     loadStage("Home.fxml");               
     }
 
     @FXML

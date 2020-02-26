@@ -35,7 +35,10 @@ import Entities.Aide;
 import Entities.Pdf;
 import Services.ServiceAide;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -156,8 +159,46 @@ public class AjouterAideController implements Initializable {
 		// 5. Add sorted (and filtered) data to the table.
 		AffichageTabAide.setItems(sortedData);
     }
+      
+//      private void interbenif(ActionEvent event) {
+//        if (event.getSource() == AjouterAide) {
+//
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setTitle("signaler une aide");
+//            alert.setHeaderText("Aide signalée");
+//            alert.setContentText("Choisir votre option.");
+//
+//            ButtonType buttonTypeOne = new ButtonType("ok");
+//            ButtonType buttonTypeTwo = new ButtonType("Beneficaire");
+//           
+//            
+//           
+//            alert.getButtonTypes().setAll(buttonTypeOne);
+//
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if (result.get() == buttonTypeOne) {
+//                loadStage("AjouterAide.fxml");
+//                
+//            } else if (result.get() == buttonTypeTwo) {
+//                
+//                loadStage("AjouterBeneficiaire.fxml");
+//            }
+//
+//        }
+//        
+//    }
+      
+      
+      
+      
+      
+      
     @FXML
     private void AjouterAide(MouseEvent event) throws SQLException {
+        
+        
+        
+        
                                        con = DataBase.getInstance().getConnection();
              ste = con.createStatement();
                 
