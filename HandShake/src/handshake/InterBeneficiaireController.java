@@ -462,7 +462,7 @@ public class InterBeneficiaireController implements Initializable {
 
     @FXML
     private void home(MouseEvent event) {
-        loadStage("gestionnaire.fxml");
+        loadStage("Admin.fxml");
     }
 
 

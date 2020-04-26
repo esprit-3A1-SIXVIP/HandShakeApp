@@ -155,8 +155,8 @@ public class UserController  implements Initializable{
     private TableView<Dons> tableDon;
 
     ObservableList<Dons> donList = FXCollections.observableArrayList();
-    @FXML
-    private Circle profil_admin;
+  @FXML
+    private Circle profil_user;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -170,8 +170,9 @@ public class UserController  implements Initializable{
             int us = UserSession.getInstance().getId();
             String email = UserSession.getInstance().getEmail();
             String login = UserSession.getInstance().getLogin();
-            User a = SU.chercherUser(us);
-            javafx.scene.image.Image I=null;
+          User a = SU.chercherUser(login);
+         javafx.scene.image.Image I=null;
+              chargerimagecircle(I, profil_user ,a.getProfil());
             emailU.setText(login);
             try {
                 donList = (ObservableList<Dons>) SU.readAllDon(us);
@@ -483,5 +484,9 @@ public class UserController  implements Initializable{
         });
     }
     //* Fin Partie Chat *//
+      @FXML
+    private void btnprofiluser(javafx.scene.input.MouseEvent event) {
+         loadStage("profilUser.fxml");
+    }
 
 }

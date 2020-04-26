@@ -100,13 +100,13 @@ public class ServiceEvenement implements IService<Evenement> {
         ResultSet rs=ste.executeQuery("SELECT evenementId,descriptionEvenement,lieuEvenement,dateEvenement,heureEvenement,porteeEvenement,prixEvenement,image FROM evenement");
         while(rs.next()){
             int evenementId =rs.getInt(1);
-            String descriptionEvenement= rs.getString(1);
-            String lieuEvenement= rs.getString(2);
-            java.sql.Date dateEvenement = java.sql.Date.valueOf(rs.getString(3));
-             java.sql.Time heureEvenement = java.sql.Time.valueOf(rs.getString(4));
-           String porteeEvenement= rs.getString(5);
-            Float prixEvenement =rs.getFloat(6);
-            String image=rs.getString(rs.getString(7));
+            String descriptionEvenement= rs.getString(2);
+            String lieuEvenement= rs.getString(3);
+            java.sql.Date dateEvenement = java.sql.Date.valueOf(rs.getString(4));
+             java.sql.Time heureEvenement = java.sql.Time.valueOf(rs.getString(5));
+           String porteeEvenement= rs.getString(6);
+            Float prixEvenement =rs.getFloat(7);
+            String image=rs.getString(8);
             Evenement e= new Evenement(
                 
                     evenementId,descriptionEvenement,lieuEvenement,dateEvenement.toLocalDate(),heureEvenement.toLocalTime(),porteeEvenement,prixEvenement,image);
@@ -194,5 +194,6 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return arr;
     }
+    
 
 }

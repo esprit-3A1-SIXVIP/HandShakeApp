@@ -48,7 +48,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Hyperlink>
-                  <Circle fx:id="profil_admin" fill="DODGERBLUE" layoutX="130.0" layoutY="74.0" radius="74.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="profil_user" fill="DODGERBLUE" layoutX="130.0" layoutY="74.0" onMouseClicked="#btnprofiluser" radius="74.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="260.0" layoutY="67.0" opacity="0.71" prefHeight="751.0" prefWidth="761.0" style="-fx-background-color: f1f1f0;">

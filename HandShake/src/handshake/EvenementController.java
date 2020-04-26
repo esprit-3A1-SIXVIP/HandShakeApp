@@ -35,6 +35,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -46,7 +48,8 @@ import javafx.stage.Stage;
  * @author Soreilla
  */
 public class EvenementController implements Initializable {
-
+    @FXML
+    private AnchorPane rootPane;
     @FXML
     private JFXTextField txtnom;
     @FXML
@@ -78,6 +81,8 @@ public class EvenementController implements Initializable {
     private JFXButton btn3;
      private JFXTextField fichier = null;
     public   String fich;
+    @FXML
+    private ImageView home;
   
     
     
@@ -196,6 +201,34 @@ public class EvenementController implements Initializable {
         }
     }
 
+    @FXML
+    private void home(MouseEvent event) {
+        loadStage("Home.fxml");
+    }
+
+    private void loadStage(String fxml) {
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+
+            rootPane.getChildren().setAll(pane);
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    private void myevents(MouseEvent event) {
+        loadStage("readEvenement.fxml");
+    }
+    @FXML
+    private void statistiques(ActionEvent event) {
+        loadStage("staticEvenement.fxml");
+    }
+    @FXML
+    private void eventlist(ActionEvent event) {
+        loadStage("front.fxml");
+    }  
    
    
 

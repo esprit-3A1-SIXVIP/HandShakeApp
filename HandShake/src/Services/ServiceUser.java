@@ -199,6 +199,24 @@ public User getUser(int id) throws SQLException {
         return arr;
 
     }
+     public ObservableList<User> readOrganisation() throws SQLException {
+        ObservableList<User> arr =FXCollections.observableArrayList();
+        ste=con.createStatement();
+        ResultSet rs=ste.executeQuery("select nomOrganisation,pays,ville,domaine,email from user\n" +
+"where role=\"organisation\";");
+        while(rs.next()){
+            
+            String nomOrganisation= rs.getString("nomOrganisation");
+            String ville= rs.getString("ville");
+           String pays= rs.getString("pays");
+           String domaine= rs.getString("domaine");
+           String email= rs.getString("email");
+          
+           User u = new User(nomOrganisation,ville,domaine,pays,email);
+            arr.add(u);
+        }
+        return arr;
+    }
 
     /*     public ObservableList<User> readOrganisation() throws SQLException {
         ObservableList<User> arr =FXCollections.observableArrayList();
@@ -296,19 +314,18 @@ public User getUser(int id) throws SQLException {
     public boolean update(int id, String nom, String prenom, String email, String rue, String ville, String profil, String login, String pays) throws SQLException {
         ste = con.createStatement();
         String requeteInsert = "UPDATE user SET ville='" + ville
-                + "',nomUser=" + nom
-                + ",prenomUser=" + prenom
-                + ",email=" + email
-                + ",login=" + login
-                + ",rue=" + rue
-                + ",pays=" + pays
-                + ",profil=" + profil
-                + " WHERE userId=" + id;
+                + "',nomUser='" + nom
+                + "',prenomUser='" + prenom
+                + "',email='" + email
+                + "',login='" + login
+                + "',rue='" + rue
+                + "',pays='" + pays
+                + "',profil='" + profil
+                + "' WHERE userId=" + id;
         ste.executeUpdate(requeteInsert);
         System.out.println("Modification effectuer");
         return true;
     }
-
     /**
      *
      * @return @throws SQLException

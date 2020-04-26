@@ -11,6 +11,7 @@ import Services.ServiceUser;
 import Utils.EvenementSession;
 import Utils.UserSession;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,6 +35,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
@@ -72,6 +75,13 @@ public class ReadEvenementController implements Initializable {
     private AnchorPane rootPane;
    
     public int iiiii;
+    @FXML
+    private JFXComboBox<String> combo;
+    @FXML
+    private JFXButton btnCombo;
+    @FXML
+    private ImageView home;
+
     
    
     /**
@@ -81,6 +91,19 @@ public class ReadEvenementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+        
+        combo.getItems().addAll(
+                "Liste des organisations",
+                "Liste des participants",
+                "Liste des spoonsors "
+        );
+        
+        combo.setPromptText("Veuillez faire  vos recherches ici");
+        btnCombo.setOnAction(e->printMovie());
+       
+        
       ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
             System.out.println(us);
@@ -215,6 +238,33 @@ public class ReadEvenementController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+    private void printMovie(){
+        
+        System.out.println(combo.getValue());
+        
+        if(combo.getValue()=="Liste des organisations")
+        {
+            loadStage("organisation.fxml");
+        }else if(combo.getValue()=="Liste des participants")
+                {
+                    loadStage("participation.fxml");
+                }
+        
+    }
+
+    @FXML
+    private void home(MouseEvent event) {
+        loadStage("Home.fxml");
+    }
+    @FXML
+    private void statistiques(ActionEvent event) {
+        loadStage("staticEvenement.fxml");
+    }
+
+    @FXML
+    private void eventlist(ActionEvent event) {
+        loadStage("evenement.fxml");
     }
     
              

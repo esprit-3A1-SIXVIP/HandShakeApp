@@ -120,7 +120,7 @@
                     <graphic>
                         <ImageView fitHeight="31.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/1024px-OOjs_UI_icon_articles-ltr-progressive.svg.png" />
+                                <Image url="@../images/articles.png" />
                             </image>
                         </ImageView>
                     </graphic>

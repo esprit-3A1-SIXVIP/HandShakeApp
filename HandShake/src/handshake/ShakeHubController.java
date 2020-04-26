@@ -467,7 +467,7 @@ public class ShakeHubController implements Initializable {
                 };
 
                 list.setCellFactory(cellFactoryC);
-
+                
                 if (!this.commentlist.isEmpty()) {
                     list.setItems(commentlist);
                 }

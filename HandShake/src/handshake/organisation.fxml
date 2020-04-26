@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.FrontController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.OrganisationController">
     <stylesheets>
         <URL value="@/css/readevenement.css" />
     </stylesheets>
@@ -23,7 +23,7 @@
                   <Image url="@images/main1.jpg" />
                </image>
             </ImageView>
-            <Label layoutX="47.0" layoutY="49.0" text="Liste des évènements">
+            <Label layoutX="47.0" layoutY="49.0" text="Liste des organisations">
                <font>
                   <Font size="26.0" />
                </font>
@@ -32,24 +32,16 @@
                <children>
                   <TableView fx:id="table" layoutX="8.0" prefHeight="612.0" prefWidth="731.0" style=": ;">
                     <columns>
-                      <TableColumn fx:id="txtnom" prefWidth="149.0" text="Description" />
-                      <TableColumn fx:id="txtlieu" prefWidth="73.0" text="Lieu" />
-                        <TableColumn fx:id="timeP" prefWidth="68.0" text="Heure" />
-                        <TableColumn fx:id="txtportee" prefWidth="117.0" text="Portée" />
-                        <TableColumn fx:id="txtprix" prefWidth="53.0" text="Prix" />
-                        <TableColumn fx:id="dateP" prefWidth="91.0" text="Date" />
-                        <TableColumn fx:id="image" prefWidth="69.0" text="Image" />
-                        <TableColumn fx:id="txtAction" minWidth="0.0" prefWidth="62.0" text="Action" />
-                        <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="txtnom" prefWidth="149.0" text="Nom " />
+                      <TableColumn fx:id="txtpays" prefWidth="85.0" text="Pays" />
+                        <TableColumn fx:id="txtville" prefWidth="95.0" text="Ville" />
+                        <TableColumn fx:id="txtdomaine" prefWidth="127.0" text="Domaine" />
+                        <TableColumn fx:id="email" prefWidth="128.0" text="Email" />
+                        <TableColumn fx:id="actionSendMail" prefWidth="146.0" text="Action" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-            <ImageView fx:id="home" fitHeight="57.0" fitWidth="74.0" layoutX="675.0" layoutY="21.0" onMouseClicked="#home" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/home3.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="806.0" prefWidth="57.0">
@@ -64,17 +56,17 @@
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="myevents" layoutX="1.0" layoutY="175.0" onAction="#myevents" prefHeight="51.0" prefWidth="260.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="Mes évènements" textFill="WHITE">
+            <JFXButton layoutX="1.0" layoutY="175.0" prefHeight="51.0" prefWidth="260.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="Mes évènements" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="statistiques" layoutX="1.0" layoutY="240.0" onAction="#statistiques" prefHeight="51.0" prefWidth="260.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="Statistiques" textFill="WHITE">
+            <JFXButton layoutX="1.0" layoutY="240.0" prefHeight="51.0" prefWidth="260.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="Statistiques" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="eventlist" layoutY="307.0" onAction="#eventlist" prefHeight="51.0" prefWidth="260.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="Listes des évènements" textFill="WHITE">
+            <JFXButton layoutY="307.0" prefHeight="51.0" prefWidth="260.0" style="-fx-background-color: #0c9ae0; -fx-background-radius: none;" text="Listes des  évènements" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>

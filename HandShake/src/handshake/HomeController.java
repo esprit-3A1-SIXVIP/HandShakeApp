@@ -221,19 +221,7 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
 
     @FXML
     private void GoToEvenement(ActionEvent event) {
-        
-        try {
-                    FXMLLoader top=new FXMLLoader(getClass().getResource("evenement.fxml"));
-
-            Parent root =top.load();
-                    EvenementController dpc=top.getController();
-                    
-                    
-                   btn.getScene().setRoot(root);
-
-        } catch (IOException ex) {
-        System.out.println(ex.getMessage());
-        }
+        loadStage("readEvenement.fxml");
     }
    @FXML
     private void interbenif(ActionEvent event) {
