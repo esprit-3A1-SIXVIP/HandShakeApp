@@ -89,7 +89,7 @@ public class AjouterBeneficiaireController implements Initializable {
     private TableColumn<Beneficiaire, String> villetab;
     private TableColumn<Beneficiaire, java.sql.Date> datenaisstab;
     private TableColumn<Beneficiaire, String> adressegpstab;
-    private TableColumn<Beneficiaire, String> roletab;
+    private TableColumn<Beneficiaire, String> rolestab;
     ServiceBeneficiaire stb = new ServiceBeneficiaire();
     
     ObservableList<String> list = FXCollections.observableArrayList("Refugie","Necessiteux");
@@ -161,16 +161,16 @@ public class AjouterBeneficiaireController implements Initializable {
                 java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
                 ComboBox tmpcmb = (ComboBox) comboBox;
                 
-                    String role = (String) tmpcmb.getValue().toString();
+                    String roles = (String) tmpcmb.getValue().toString();
                     if(comboBox.getValue().toString()=="Refugie")
                     {
                         ServiceRefugie ser =new ServiceRefugie();
-                        ser.ajouter(new Refugie(tfnationalite.getText(),comboaide.getValue(),nom.getText(), prenom.getText(),email.getText(),sqlDate,ville.getText(),Integer.valueOf(numtel.getText()),adresseGPS.getText(),role));
+                        ser.ajouter(new Refugie(tfnationalite.getText(),comboaide.getValue(),nom.getText(), prenom.getText(),email.getText(),sqlDate,ville.getText(),Integer.valueOf(numtel.getText()),adresseGPS.getText(),roles));
                     }
                     else
                     {
                         ServiceNecessiteux ser =new ServiceNecessiteux();
-                        ser.ajouter(new Necessiteux(tfbesoin.getText(),comboaide.getValue(),nom.getText(), prenom.getText(),email.getText(),sqlDate,ville.getText(),Integer.valueOf(numtel.getText()),adresseGPS.getText(),role));
+                        ser.ajouter(new Necessiteux(tfbesoin.getText(),comboaide.getValue(),nom.getText(), prenom.getText(),email.getText(),sqlDate,ville.getText(),Integer.valueOf(numtel.getText()),adresseGPS.getText(),roles));
 
                     }
                     SendMail.sendMail(email.getText(),"Beneficiaire","vous avez été ajouté ");
@@ -194,7 +194,7 @@ public class AjouterBeneficiaireController implements Initializable {
     }
 
     @FXML
-    private void rolechanged(ActionEvent event) {
+    private void roleschanged(ActionEvent event) {
         
         String v = comboBox.getValue().toString();
         if(v=="Refugie")

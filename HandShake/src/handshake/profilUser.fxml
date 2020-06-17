@@ -38,12 +38,12 @@
       <TextField fx:id="nom" layoutX="45.0" layoutY="329.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField fx:id="prenom" layoutX="46.0" layoutY="439.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField fx:id="email" layoutX="37.0" layoutY="555.0" prefHeight="37.0" prefWidth="289.0" />
-      <JFXButton fx:id="btnmodif" layoutX="609.0" layoutY="679.0" onMouseClicked="#modifierprofile" prefHeight="27.0" prefWidth="115.0" styleClass="loginbtn" stylesheets="@login.css" text="Modifier">
+      <JFXButton fx:id="btnmodif" layoutX="609.0" layoutY="679.0" onMouseClicked="#modifierprofile" prefHeight="27.0" prefWidth="115.0" styleClass="usernamebtn" stylesheets="@username.css" text="Modifier">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnload" layoutX="773.0" layoutY="679.0" onMouseClicked="#LoadImage" prefHeight="37.0" prefWidth="150.0" styleClass="loginbtn" stylesheets="@login.css" text="Changer Profil">
+      <JFXButton fx:id="btnload" layoutX="773.0" layoutY="679.0" onMouseClicked="#LoadImage" prefHeight="37.0" prefWidth="150.0" styleClass="usernamebtn" stylesheets="@username.css" text="Changer Profil">
          <font>
             <Font size="18.0" />
          </font>
@@ -51,7 +51,7 @@
       <TextField fx:id="rue" layoutX="400.0" layoutY="332.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField fx:id="ville" layoutX="397.0" layoutY="437.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField fx:id="pays" layoutX="716.0" layoutY="557.0" prefHeight="37.0" prefWidth="270.0" />
-      <TextField fx:id="login" layoutX="394.0" layoutY="557.0" prefHeight="37.0" prefWidth="289.0" />
+      <TextField fx:id="username" layoutX="394.0" layoutY="557.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField fx:id="image" layoutX="724.0" layoutY="437.0" prefHeight="37.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

@@ -16,13 +16,13 @@ import java.util.Date;
 public class Necessiteux extends Beneficiaire{
     private String besoin;
 
-    public Necessiteux(String besoin, int beneficiaireId, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String role) {
-        super(beneficiaireId, aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, role);
+    public Necessiteux(String besoin, int beneficiaireId, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String roles) {
+        super(beneficiaireId, aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, roles);
         this.besoin = besoin;
     }
 
-    public Necessiteux(String besoin, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String role) {
-        super(aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, role);
+    public Necessiteux(String besoin, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String roles) {
+        super(aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, roles);
         this.besoin = besoin;
     }
 

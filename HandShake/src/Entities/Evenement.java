@@ -23,7 +23,7 @@ public class Evenement {
    private LocalTime heureEvenement;
    private String porteeEvenement;
    private Float prixEvenement;
-   private int userId;
+   private int id;
    private String image;
 
     public Evenement() {
@@ -42,7 +42,7 @@ public class Evenement {
         this.evenementId = evenementId;
     }
 
-    public Evenement(int evenementId, String descriptionEvenement, String lieuEvenement, LocalDate dateEvenement, LocalTime heureEvenement, String porteeEvenement, Float prixEvenement, int userId, String image) {
+    public Evenement(int evenementId, String descriptionEvenement, String lieuEvenement, LocalDate dateEvenement, LocalTime heureEvenement, String porteeEvenement, Float prixEvenement, int id, String image) {
         this.evenementId = evenementId;
         this.descriptionEvenement = descriptionEvenement;
         this.lieuEvenement = lieuEvenement;
@@ -50,7 +50,7 @@ public class Evenement {
         this.heureEvenement = heureEvenement;
         this.porteeEvenement = porteeEvenement;
         this.prixEvenement = prixEvenement;
-        this.userId = userId;
+        this.id = id;
         this.image = image;
     }
     
@@ -158,12 +158,12 @@ public class Evenement {
         this.prixEvenement = prixEvenement;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getid() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setid(int id) {
+        this.id = id;
     }
 
     public String getImage() {

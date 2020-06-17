@@ -17,13 +17,13 @@ public class DataBase {
     
     
      String url = "jdbc:mysql://localhost:3306/handshake";
-     String login = "root";
+     String username = "root";
      String pwd = "";
     public  static DataBase db;
     public Connection con;
     private DataBase() {
          try {
-             con=DriverManager.getConnection(url, login, pwd);
+             con=DriverManager.getConnection(url, username, pwd);
              System.out.println("connexion etablie");
          } catch (SQLException ex) {
              System.out.println(ex);

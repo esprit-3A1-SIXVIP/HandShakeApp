@@ -43,7 +43,7 @@
                   <TableColumn fx:id="villetab" onEditCommit="#Change_VilleR" prefWidth="89.0" text="Ville" />
                   <TableColumn fx:id="datenaisstab" prefWidth="121.0" text="Date de Naissance" />
                   <TableColumn fx:id="adressegpstab" onEditCommit="#Change_AdressGPSR" prefWidth="77.0" text="AdresseGPS" />
-                  <TableColumn fx:id="roletab" prefWidth="77.0" text="Role" />
+                  <TableColumn fx:id="rolestab" prefWidth="77.0" text="roles" />
                   <TableColumn fx:id="nationalitetab" onEditCommit="#Change_NationaliteR" prefWidth="71.0" text="Nationalite" />
                </columns>
             </TableView>
@@ -64,7 +64,7 @@
                   <TableColumn fx:id="villetab1" onEditCommit="#Change_VilleN" prefWidth="89.0" text="Ville" />
                   <TableColumn fx:id="datenaisstab1" prefWidth="121.0" text="Date de Naissance" />
                   <TableColumn fx:id="adressegpstab1" onEditCommit="#Change_AdressGPSN" prefWidth="77.0" text="AdresseGPS" />
-                  <TableColumn fx:id="roletab1" prefWidth="75.0" text="Role" />
+                  <TableColumn fx:id="rolestab1" prefWidth="75.0" text="roles" />
                   <TableColumn fx:id="besointab" onEditCommit="#Change_BesoinN" prefWidth="75.0" text="Besoin" />
                </columns>
             </TableView>

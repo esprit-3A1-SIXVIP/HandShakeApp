@@ -71,20 +71,20 @@ public class HandshakeController implements Initializable {
                 try
                  {
                      int id = SU.getIdUser1(email, Password);
-                     String role = SU.getRole(id);
-                     String login = SU.getLogin(id);
-                     UserSession.setU(new User(id,login,Password,email,role,SU.getUser(id).isAccesShakeHub()));
+                     String roles = SU.getroles(id);
+                     String username = SU.getusername(id);
+                     UserSession.setU(new User(id,username,Password,email,roles,SU.getUser(id).isAccesShakeHub()));
                      if(id != -1)
                      {
-                         if(role.equals("admin"))
+                         if(roles.equals("admin"))
                          {
-                             UserSession.getInstace(email, id,role,login);
+                             UserSession.getInstace(email, id,roles,username);
                          
                          loadStage("Admin.fxml");
                          }
                          else
                          {
-                             UserSession.getInstace(email, id,role,login);
+                             UserSession.getInstace(email, id,roles,username);
                          
                          loadStage("Home.fxml");
                          }

@@ -37,13 +37,13 @@ public class CommentaireService implements IService<Commentaire> {
     @Override
     public void ajouter(Commentaire t) throws SQLException {
         ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `handshake`.`commentaire` (`userId`, `questionId`, `texteCommentaire`, `dateCommentaire`) VALUES ('" + t.getUser().getUserId() + "', '" + t.getQuestion().getQuestionId() + "', '" + t.getTexteCommentaire() + "', '" +t.getDateCommentaire()+"');";
+        String requeteInsert = "INSERT INTO `handshake`.`commentaire` (`id`, `questionId`, `texteCommentaire`, `dateCommentaire`) VALUES ('" + t.getUser().getid() + "', '" + t.getQuestion().getQuestionId() + "', '" + t.getTexteCommentaire() + "', '" +t.getDateCommentaire()+"');";
         ste.executeUpdate(requeteInsert);
     }
     public void ajouter1(Commentaire p) throws SQLException
     {
-    PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`commentaire` (`userId`, `questionId`, `texteCommentaire`, `dateCommentaire`) VALUES ( ?, ?, ?, ?);");
-    pre.setInt(1, p.getUser().getUserId());
+    PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`commentaire` (`id`, `questionId`, `texteCommentaire`, `dateCommentaire`) VALUES ( ?, ?, ?, ?);");
+    pre.setInt(1, p.getUser().getid());
     pre.setInt(2, p.getQuestion().getQuestionId());
     pre.setString(3, p.getTexteCommentaire());
     pre.setDate(4, p.getDateCommentaire());
@@ -54,14 +54,14 @@ public class CommentaireService implements IService<Commentaire> {
     @Override
     public boolean delete(Commentaire t) throws SQLException {
        ste = con.createStatement();
-       String requeteDelete = "DELETE FROM `handshake`.`commentaire` WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "' AND `dateCommentaire`='"+t.getDateCommentaire()+"';";
+       String requeteDelete = "DELETE FROM `handshake`.`commentaire` WHERE `id`= '" + t.getUser().getid() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "' AND `dateCommentaire`='"+t.getDateCommentaire()+"';";
        return(ste.execute(requeteDelete));
     }
 
     @Override
     public boolean update(Commentaire t) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `userId`= '" + t.getUser().getUserId() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`commentaire` SET `texteCommentaire` = '" + t.getTexteCommentaire().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `id`= '" + t.getUser().getid() + "' AND `questionId`= '" + t.getQuestion().getQuestionId() + "';";
        return(ste.execute(requeteUpdate)); 
     }
     
@@ -69,13 +69,13 @@ public class CommentaireService implements IService<Commentaire> {
     ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
     ServiceUser us=new ServiceUser();
-    ResultSet rs=ste.executeQuery("select c.userId,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId()+" ORDER BY dateCommentaire DESC");
+    ResultSet rs=ste.executeQuery("select c.id,c.questionId,c.texteCommentaire,c.dateCommentaire,c.score from commentaire c join question q where c.questionId=q.questionId and q.questionId="+Q.getQuestionId()+" ORDER BY dateCommentaire DESC");
      while (rs.next()) {
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");
-               int userId= rs.getInt("userId");  
+               int id= rs.getInt("id");  
                int score=rs.getInt("score");
-               Commentaire p=new Commentaire(us.getUser(userId), Q, texteCommentaire, dateCommentaire, score);               
+               Commentaire p=new Commentaire(us.getUser(id), Q, texteCommentaire, dateCommentaire, score);               
                arr.add(p);
      }
      return arr;
@@ -92,7 +92,7 @@ public class CommentaireService implements IService<Commentaire> {
     public ObservableList<Commentaire> search(String S,Question Q) throws SQLException {
      ObservableList<Commentaire> arr= FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select u.userId,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where c.questionId=q.questionId and q.questionId='"+Q.getQuestionId()+"' and u.userId='"+Q.getUser().getUserId()+"' and 'texteCommentaire' like '%"+S+"%';");
+    ResultSet rs=ste.executeQuery("select u.id,q.questionId,c.texteCommentaire,c.dateCommentaire from commentaire c join question q join user u where c.questionId=q.questionId and q.questionId='"+Q.getQuestionId()+"' and u.id='"+Q.getUser().getid()+"' and 'texteCommentaire' like '%"+S+"%';");
      while (rs.next()) {                
                String texteCommentaire=rs.getString("texteCommentaire");
                Date dateCommentaire=rs.getDate("dateCommentaire");

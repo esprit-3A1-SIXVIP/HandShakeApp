@@ -13,14 +13,14 @@ public class Admin extends User{
 
    
 
-    public Admin(String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role) {
-        super(login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role);
+    public Admin(String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String roles) {
+        super(username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles);
     }
     
      
 
-    public Admin(int userId, String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role, String profil) {
-        super(userId, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+    public Admin(int id, String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String roles, String profil) {
+        super(id, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
     }
     
 }

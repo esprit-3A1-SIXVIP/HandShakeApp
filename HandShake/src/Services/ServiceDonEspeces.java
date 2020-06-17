@@ -36,11 +36,11 @@ public class ServiceDonEspeces implements InterfaceDon<DonEspeces>{
     public void ajouter(DonEspeces t) throws SQLException {
          long  millis = System.currentTimeMillis ();  
     java.sql.Date date = new  java.sql.Date (millis);
-         PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`don` ( `montantDon`, `typeDon`, `cibleDon`,`userId`,`dateDon`) VALUES ( ?, ?, ?, ?, ?);");
+         PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`don` ( `montantDon`, `typeDon`, `cibleDon`,`id`,`dateDon`) VALUES ( ?, ?, ?, ?, ?);");
     pre.setInt(1, t.getMontantDon());
     pre.setString(2, "Especes");
     pre.setString(3,t.getCibleDon());
-     pre.setInt(4,t.getUserId());
+     pre.setInt(4,t.getid());
     pre.setDate(5,date );
     pre.executeUpdate();
     }
@@ -93,7 +93,7 @@ public class ServiceDonEspeces implements InterfaceDon<DonEspeces>{
                String type=rs.getString("typeDon");
                int montant=rs.getInt("montantDon");
                 java.sql.Date date1 = java.sql.Date.valueOf(rs.getString("dateDon")) ;
-                int user = rs.getInt("userId");
+                int user = rs.getInt("id");
                DonEspeces de=new DonEspeces(id,montant, type, cible,user,date1);
                 
      arr.add(de);

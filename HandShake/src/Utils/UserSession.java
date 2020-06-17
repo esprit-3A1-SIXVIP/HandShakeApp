@@ -20,8 +20,8 @@ public final class UserSession {
 
     private String email;
     private int id;
-    private String role;
-    private String login;
+    private String roles;
+    private String username;
     private static User U;
     private static ServiceUser us= new ServiceUser();
     
@@ -29,15 +29,15 @@ public final class UserSession {
     {
         email = getEmail();
         id = getId();
-        role = getRole();
-        login = getLogin();
+        roles = getroles();
+        username = getusername();
     }
 
-    private UserSession(String email, int id,String role,String login) {
+    private UserSession(String email, int id,String roles,String username) {
         this.email = email;
         this.id = id;
-        this.role = role;
-        this.login = login;
+        this.roles = roles;
+        this.username = username;
     }
     
     public static UserSession getInstance() {
@@ -47,22 +47,22 @@ public final class UserSession {
         return instance;
     }
 
-    public static UserSession getInstace(String email, int id,String role,String login) throws SQLException {
+    public static UserSession getInstace(String email, int id,String roles,String username) throws SQLException {
         if(instance == null) {
-            instance = new UserSession(email, id,role,login);
+            instance = new UserSession(email, id,roles,username);
         }
         return instance;
     }
-    public static UserSession getInstance(String email, int id,String password,String role,String login) throws SQLException {
+    public static UserSession getInstance(String email, int id,String password,String roles,String username) throws SQLException {
         if(instance == null) {
-            instance = new UserSession(email, id,role,login);
-            U=new User(id,login,password,email,role,us.getUser(id).isAccesShakeHub());
+            instance = new UserSession(email, id,roles,username);
+            U=new User(id,username,password,email,roles,us.getUser(id).isAccesShakeHub());
         }
         return instance;
     }
 
-    public String getRole() {
-        return role;
+    public String getroles() {
+        return roles;
     }
 
     public String getEmail() {
@@ -73,8 +73,8 @@ public final class UserSession {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getusername() {
+        return username;
     }
 
     public void cleanUserSession() {
@@ -88,7 +88,7 @@ public final class UserSession {
     }
 
     public static void setU(User U) {
-        UserSession.U = new User(U.getUserId(),U.getLogin(),U.getPassword(),U.getEmail(),U.getRole());
+        UserSession.U = new User(U.getid(),U.getusername(),U.getPassword(),U.getEmail(),U.getroles());
     }
     
     @Override

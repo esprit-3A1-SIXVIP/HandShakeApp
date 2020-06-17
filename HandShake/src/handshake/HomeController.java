@@ -108,7 +108,7 @@ public class HomeController  implements Initializable, MapComponentInitializedLi
              mapView.addMapInializedListener((this));
              ServiceUser sa = new ServiceUser();
              int us = UserSession.getInstance().getId();
-             String login = UserSession.getInstance().getLogin();
+             String username = UserSession.getInstance().getusername();
          
     }
     public void mapInitialized() {

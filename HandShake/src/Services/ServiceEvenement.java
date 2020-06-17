@@ -41,7 +41,7 @@ public class ServiceEvenement implements IService<Evenement> {
     public void ajouter(Evenement t) throws SQLException {
        ste = con.createStatement();
        
-         String query="INSERT INTO `handshake`.`evenement`(`evenementId`,`descriptionEvenement`,`lieuEvenement`,`dateEvenement`,`heureEvenement`,`porteeEvenement`,`prixEvenement`,`userId`,`image`) VALUES(NULL,'"+t.getDescriptionEvenement()+"','"+t.getLieuEvenement()+"','"+t.getDateEvenement()+"','"+t.getHeureEvenement()+"','"+t.getPorteeEvenement()+"','"+t.getPrixEvenement()+"','"+t.getUserId()+"','"+t.getImage()+"');";
+         String query="INSERT INTO `handshake`.`evenement`(`evenementId`,`descriptionEvenement`,`lieuEvenement`,`dateEvenement`,`heureEvenement`,`porteeEvenement`,`prixEvenement`,`id`,`image`) VALUES(NULL,'"+t.getDescriptionEvenement()+"','"+t.getLieuEvenement()+"','"+t.getDateEvenement()+"','"+t.getHeureEvenement()+"','"+t.getPorteeEvenement()+"','"+t.getPrixEvenement()+"','"+t.getid()+"','"+t.getImage()+"');";
          
          
          ste.executeUpdate(query);
@@ -118,7 +118,7 @@ public class ServiceEvenement implements IService<Evenement> {
    public ObservableList<Evenement> readEvenement(int idU) throws SQLException {
         ObservableList<Evenement> arr =FXCollections.observableArrayList();
         ste=con.createStatement();
-        ResultSet rs=ste.executeQuery("SELECT evenementId,descriptionEvenement,lieuEvenement,dateEvenement,heureEvenement,porteeEvenement,prixEvenement FROM evenement  WHERE userId="+ idU + "");
+        ResultSet rs=ste.executeQuery("SELECT evenementId,descriptionEvenement,lieuEvenement,dateEvenement,heureEvenement,porteeEvenement,prixEvenement FROM evenement  WHERE id="+ idU + "");
         while(rs.next()){
             int evenementId =rs.getInt(1);
             String descriptionEvenement= rs.getString(2);
@@ -127,11 +127,11 @@ public class ServiceEvenement implements IService<Evenement> {
              java.sql.Time heureEvenement = java.sql.Time.valueOf(rs.getString(5));
            String porteeEvenement= rs.getString(6);
             Float prixEvenement =rs.getFloat(7);
-           /* int userId=rs.getInt(8);
+           /* int id=rs.getInt(8);
             String image=rs.getString(9);*/
             Evenement e= new Evenement(
                 
-                    evenementId,descriptionEvenement,lieuEvenement,dateEvenement.toLocalDate(),heureEvenement.toLocalTime(),porteeEvenement,prixEvenement/*,userId,image*/);
+                    evenementId,descriptionEvenement,lieuEvenement,dateEvenement.toLocalDate(),heureEvenement.toLocalTime(),porteeEvenement,prixEvenement/*,id,image*/);
             arr.add(e);
         }
         return arr;
@@ -139,7 +139,7 @@ public class ServiceEvenement implements IService<Evenement> {
    
     public void particper(Evenement a, int id) throws SQLException {
         ste = con.createStatement();
-        String query="INSERT INTO `handshake`.`participation`(`userId`,`evenementId`) VALUES("+id+",'"+a.getEvenementId()+"')";
+        String query="INSERT INTO `handshake`.`participation`(`id`,`evenementId`) VALUES("+id+",'"+a.getEvenementId()+"')";
          ste.executeUpdate(query);
         
     }
@@ -158,7 +158,7 @@ public class ServiceEvenement implements IService<Evenement> {
         ObservableList<Evenement>  arr=FXCollections.observableArrayList();
       ste = con.createStatement();
        ste = con.createStatement();
-   ResultSet rs=ste.executeQuery("select evenementId,descriptionEvenement from evenement where userId="+ idU+ "");
+   ResultSet rs=ste.executeQuery("select evenementId,descriptionEvenement from evenement where id="+ idU+ "");
           while(rs.next()){
               
               int evenementId=rs.getInt(1);
@@ -180,7 +180,7 @@ public class ServiceEvenement implements IService<Evenement> {
         ste=con.createStatement();
         ResultSet rs=ste.executeQuery("select E.descriptionEvenement, U.nomUser, U.prenomUser\n" +
                                         "from evenement E, user U, participation P\n" +
-                                        "where E.evenementId=P.evenementId and U.userId=P.userId and E.evenementId='"+t.getEvenementId()+"'");
+                                        "where E.evenementId=P.evenementId and U.id=P.id and E.evenementId='"+t.getEvenementId()+"'");
         while(rs.next()){
            
              String descriptionEvenement= rs.getString(1);

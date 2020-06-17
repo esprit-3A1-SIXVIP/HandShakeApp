@@ -57,9 +57,9 @@
          <columns>
             <TableColumn fx:id="tabnom" prefWidth="128.0" text="nom" />
             <TableColumn fx:id="tabprenom" prefWidth="70.0" text="prenom" />
-            <TableColumn fx:id="tablogin" minWidth="0.0" prefWidth="134.0" text="login" />
+            <TableColumn fx:id="tabusername" minWidth="0.0" prefWidth="134.0" text="username" />
             <TableColumn fx:id="tabemail" prefWidth="115.0" text="email" />
-            <TableColumn fx:id="tabrole" prefWidth="66.0" text="role" />
+            <TableColumn fx:id="tabroles" prefWidth="66.0" text="roles" />
             <TableColumn fx:id="tabtel" prefWidth="125.0" text="telephone" />
             <TableColumn fx:id="tabprofil" prefWidth="75.0" text="profil" />
             <TableColumn fx:id="tabrue" prefWidth="75.0" text="rue" />
@@ -109,7 +109,7 @@
       </Label>
       <JFXTextField fx:id="lireNon" layoutX="253.0" layoutY="562.0" prefHeight="25.0" prefWidth="150.0" />
       <JFXTextField fx:id="lirePrenom" layoutX="440.0" layoutY="565.0" prefHeight="25.0" prefWidth="168.0" />
-      <JFXTextField fx:id="lireLogin" layoutX="649.0" layoutY="565.0" prefHeight="25.0" prefWidth="157.0" />
+      <JFXTextField fx:id="lireusername" layoutX="649.0" layoutY="565.0" prefHeight="25.0" prefWidth="157.0" />
       <JFXTextField fx:id="lireEmail" layoutX="835.0" layoutY="565.0" prefHeight="25.0" prefWidth="143.0" />
       <JFXTextField fx:id="lireTel" layoutX="258.0" layoutY="625.0" prefHeight="25.0" prefWidth="151.0" />
       <JFXTextField fx:id="lireRue" layoutX="444.0" layoutY="627.0" prefHeight="25.0" prefWidth="171.0" />

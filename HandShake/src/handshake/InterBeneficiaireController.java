@@ -75,7 +75,7 @@ public class InterBeneficiaireController implements Initializable {
     @FXML
     private TableColumn<Refugie, String> adressegpstab;
     @FXML
-    private TableColumn<Refugie, String> roletab;
+    private TableColumn<Refugie, String> rolestab;
     @FXML
     private TableColumn<Refugie, String> nationalitetab;
 
@@ -116,7 +116,7 @@ public class InterBeneficiaireController implements Initializable {
     @FXML
     private TableColumn<Necessiteux, String> adressegpstab1;
     @FXML
-    private TableColumn<Necessiteux, String> roletab1;
+    private TableColumn<Necessiteux, String> rolestab1;
     @FXML
     private TableColumn<Necessiteux, String> besointab;
     @FXML
@@ -142,7 +142,7 @@ public class InterBeneficiaireController implements Initializable {
         List<Refugie> list = ser.readr();
         for (Refugie aux : list)
         {
-          cls.add(new Refugie(aux.getNationalite(),aux.getBeneficiaireId(), aux.getAideId(), aux.getNomBeneficiaire(),aux.getPrenomBeneficiaire(),aux.getEmail(),aux.getDateNaissance(),aux.getVille(),aux.getTelephone(),aux.getAdresseGPS(),aux.getRole()));  
+          cls.add(new Refugie(aux.getNationalite(),aux.getBeneficiaireId(), aux.getAideId(), aux.getNomBeneficiaire(),aux.getPrenomBeneficiaire(),aux.getEmail(),aux.getDateNaissance(),aux.getVille(),aux.getTelephone(),aux.getAdresseGPS(),aux.getroles()));  
         }
             idtab.setCellValueFactory(new PropertyValueFactory<>("beneficiaireId"));
             idaidetab.setCellValueFactory(new PropertyValueFactory<>("aideId"));
@@ -153,7 +153,7 @@ public class InterBeneficiaireController implements Initializable {
             villetab.setCellValueFactory(new PropertyValueFactory<>("ville"));
             numteltab.setCellValueFactory(new PropertyValueFactory<>("telephone"));
             adressegpstab.setCellValueFactory(new PropertyValueFactory<>("adresseGPS"));
-            roletab.setCellValueFactory(new PropertyValueFactory<>("role"));
+            rolestab.setCellValueFactory(new PropertyValueFactory<>("roles"));
             nationalitetab.setCellValueFactory(new PropertyValueFactory<>("nationalite"));
 
             AffichageBeneficiaire.setItems(cls);
@@ -182,7 +182,7 @@ public class InterBeneficiaireController implements Initializable {
         List<Necessiteux> list = ser.readn();
         for (Necessiteux aux : list)
         {
-          clss.add(new Necessiteux(aux.getBesoin(),aux.getBeneficiaireId(), aux.getAideId(), aux.getNomBeneficiaire(),aux.getPrenomBeneficiaire(),aux.getEmail(),aux.getDateNaissance(),aux.getVille(),aux.getTelephone(),aux.getAdresseGPS(),aux.getRole()));  
+          clss.add(new Necessiteux(aux.getBesoin(),aux.getBeneficiaireId(), aux.getAideId(), aux.getNomBeneficiaire(),aux.getPrenomBeneficiaire(),aux.getEmail(),aux.getDateNaissance(),aux.getVille(),aux.getTelephone(),aux.getAdresseGPS(),aux.getroles()));  
         }
              
             idtab1.setCellValueFactory(new PropertyValueFactory<>("beneficiaireId"));
@@ -194,7 +194,7 @@ public class InterBeneficiaireController implements Initializable {
             villetab1.setCellValueFactory(new PropertyValueFactory<>("ville"));
             numteltab1.setCellValueFactory(new PropertyValueFactory<>("telephone"));
             adressegpstab1.setCellValueFactory(new PropertyValueFactory<>("adresseGPS"));
-            roletab1.setCellValueFactory(new PropertyValueFactory<>("role"));
+            rolestab1.setCellValueFactory(new PropertyValueFactory<>("roles"));
             besointab.setCellValueFactory(new PropertyValueFactory<>("besoin"));
 
             AffichageBeneficiaire1.setItems(clss);

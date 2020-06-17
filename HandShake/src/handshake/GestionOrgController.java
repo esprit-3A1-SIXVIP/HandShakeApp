@@ -73,11 +73,11 @@ public class GestionOrgController implements Initializable {
     @FXML
     private TableColumn<Organisation, ?> tabprenom1;
     @FXML
-    private TableColumn<Organisation, String> tablogin1;
+    private TableColumn<Organisation, String> tabusername1;
     @FXML
     private TableColumn<Organisation, ?> tabemail1;
     @FXML
-    private TableColumn<Organisation, ?> tabrole1;
+    private TableColumn<Organisation, ?> tabroles1;
     @FXML
     private TableColumn<Organisation, ?> tabtel1;
     @FXML
@@ -103,7 +103,7 @@ public class GestionOrgController implements Initializable {
     @FXML
     private JFXTextField lireEmail1;
     @FXML
-    private JFXTextField lireLogin1;
+    private JFXTextField lireusername1;
     @FXML
     private JFXTextField lireVille1;
     @FXML
@@ -152,7 +152,7 @@ public class GestionOrgController implements Initializable {
             
             ServiceAdmin sa = new ServiceAdmin();
             int us = UserSession.getInstance().getId();
-            String login = UserSession.getInstance().getLogin();
+            String username = UserSession.getInstance().getusername();
             Admin a = sa.chercherAdmin(us);
             Image I=null;
             chargerimagecircle(I, profile_admin ,a.getProfil());  
@@ -181,10 +181,10 @@ private void displayOrG()
             listU = (ObservableList<Organisation>) service.afficherOrganisation();
             tabnom1.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
             tabprenom1.setCellValueFactory(new PropertyValueFactory<>("prenomUser"));
-            tablogin1.setCellValueFactory(new PropertyValueFactory<>("login"));
+            tabusername1.setCellValueFactory(new PropertyValueFactory<>("username"));
             tabemail1.setCellValueFactory(new PropertyValueFactory<>("email"));
             tabprofil1.setCellValueFactory(new PropertyValueFactory<>("profil"));
-            tabrole1.setCellValueFactory(new PropertyValueFactory<>("role"));
+            tabroles1.setCellValueFactory(new PropertyValueFactory<>("roles"));
             tabtel1.setCellValueFactory(new PropertyValueFactory<>("telephone"));
             tabrue1.setCellValueFactory(new PropertyValueFactory<>("rue"));
             tabville1.setCellValueFactory(new PropertyValueFactory<>("ville"));
@@ -233,7 +233,7 @@ lireNon1.setText(p1.getNomUser());
 lirePrenom1.setText(p1.getPrenomUser());
 lireEmail1.setText(p1.getEmail());
 lireRue1.setText(p1.getRue());
-lireLogin1.setText(p1.getLogin());
+lireusername1.setText(p1.getusername());
 lireVille1.setText(p1.getVille());
 lirePays1.setText(p1.getPays());
 lireDomaine1.setText(p1.getDomaine());
@@ -277,10 +277,10 @@ lireTel1.setText(savedValue);
          
           
           
-              String login = tablogin1.getCellData(index);
+              String username = tabusername1.getCellData(index);
 
                 ServiceOrganisation so=new ServiceOrganisation();
-                Organisation x=so.chercherlogin(login);
+                Organisation x=so.chercherusername(username);
                 so.supprimer(x);
                 listU.removeAll(tableau1.getSelectionModel().getSelectedItems());
                 tableau1.getSelectionModel().clearSelection();

@@ -11,7 +11,7 @@ public class Article {
   
   private String image;
   
-  private int userid;
+  private int userId;
   
   User user;
   
@@ -20,7 +20,7 @@ public class Article {
     this.titre = titre;
     this.descriptionArticle = des;
     this.image = img;
-    this.userid = uid;
+    this.userId = uid;
   }
   
   public String getAuteur() {
@@ -71,25 +71,25 @@ public class Article {
     this.descriptionArticle = description;
   }
   
-  public int getUserid() {
-    return this.user.getUserId();
+  public int getid() {
+    return this.user.getid();
   }
   
-  public Article(String titre, String description, int userid) {
+  public Article(String titre, String description, int id) {
     this.titre = titre;
     this.descriptionArticle = description;
-    this.userid = this.user.getUserId();
-    this.userid = userid;
+    this.id = this.user.getid();
+    this.id = id;
   }
   
-  public Article(int id, String titre, String descriptionArticle, int userid) {
+  public Article(int id, String titre, String descriptionArticle, int userId) {
     this.id = id;
     this.titre = titre;
     this.descriptionArticle = descriptionArticle;
-    this.userid = userid;
+    this.userId = userId;
   }
   
   public String toString() {
-    return "Article{id=" + this.id + ", Auteur=" + this.Auteur + ", titre=" + this.titre + ", descriptionArticle=" + this.descriptionArticle + ", image=" + this.image + ", userid=" + this.userid + ", user=" + this.user.nomUser + '}';
+    return "Article{id=" + this.id + ", Auteur=" + this.Auteur + ", titre=" + this.titre + ", descriptionArticle=" + this.descriptionArticle + ", image=" + this.image + ", userId=" + this.userId + ", user=" + this.user.nomUser + '}';
   }
 }

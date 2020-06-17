@@ -15,13 +15,13 @@ import java.util.Date;
 public class Refugie extends Beneficiaire {
     private String nationalite;
 
-    public Refugie(String nationalite, int beneficiaireId, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String role) {
-        super(beneficiaireId, aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, role);
+    public Refugie(String nationalite, int beneficiaireId, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String roles) {
+        super(beneficiaireId, aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, roles);
         this.nationalite = nationalite;
     }
 
-    public Refugie(String nationalite, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String role) {
-        super(aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, role);
+    public Refugie(String nationalite, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String roles) {
+        super(aideId, nomBeneficiaire, prenomBeneficiaire, email, dateNaissance, ville, telephone, adresseGPS, roles);
         this.nationalite = nationalite;
     }
 

@@ -45,7 +45,7 @@ public class ServiceUser {
         int x = 1;
         try {
             ste = con.createStatement();
-            ResultSet rs = ste.executeQuery("select max(userId) from user ");
+            ResultSet rs = ste.executeQuery("select max(id) from user ");
             while (rs.next()) {
                 x = rs.getInt(1) + 1;
             }
@@ -58,9 +58,9 @@ public class ServiceUser {
 
 public User getUser(int id) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId=" + id );
+        ResultSet rs = ste.executeQuery("select * from user where id=" + id );
         if (rs.next()) {
-            User U = new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"),rs.getInt("accesShakeHub"));
+            User U = new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("roles"),rs.getInt("accesShakeHub"));
             return U;
         }
 
@@ -74,7 +74,7 @@ public User getUser(int id) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where email='" + u.getEmail() + "' and  password='" + u.getPassword() + "'");
         if (rs.next()) {
-            return rs.getInt("userId");
+            return rs.getInt("id");
         }
 
         return -1;
@@ -84,17 +84,17 @@ public User getUser(int id) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user where email='" + a1 + "' and  password='" + a2 + "'");
         if (rs.next()) {
-            return rs.getInt("userId");
+            return rs.getInt("id");
         }
 
         return -1;
     }
 
-    public String getRole(int a) throws SQLException {
+    public String getroles(int a) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId=" + a);
+        ResultSet rs = ste.executeQuery("select * from user where id=" + a);
         if (rs.next()) {
-            return rs.getString("role");
+            return rs.getString("roles");
         }
 
         return null;
@@ -109,12 +109,12 @@ public User getUser(int id) throws SQLException {
     public ObservableList<Dons> readAllDon(int idU) throws SQLException, ParseException {
         ObservableList<Dons> arr = FXCollections.observableArrayList();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from don where userId='" + idU + "'");
+        ResultSet rs = ste.executeQuery("select * from don where id='" + idU + "'");
 
         while (rs.next()) {
             if (rs.getString("typeDon").equals("Nature")) {
                 int id = rs.getInt("donId");
-                int user = rs.getInt("userId");
+                int user = rs.getInt("id");
                 String libelle = rs.getString("libelleDonNature");
                 String type = rs.getString("typeDon");
                 String categorie = rs.getString("categorieDonNature");
@@ -133,7 +133,7 @@ public User getUser(int id) throws SQLException {
                 int montant = rs.getInt("montantDon");
 
                 Date date1 = rs.getDate("dateDon");
-                int user = rs.getInt("userId");
+                int user = rs.getInt("id");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
 
                 arr.add(de);
@@ -153,7 +153,7 @@ public User getUser(int id) throws SQLException {
         while (rs.next()) {
             if (rs.getString("typeDon").equals("Nature")) {
                 int id = rs.getInt("donId");
-                int user = rs.getInt("userId");
+                int user = rs.getInt("id");
                 String libelle = rs.getString("libelleDonNature");
                 String type = rs.getString("typeDon");
                 String categorie = rs.getString("categorieDonNature");
@@ -173,12 +173,12 @@ public User getUser(int id) throws SQLException {
                 int montant = rs.getInt("montantDon");
 
                 Date date1 = rs.getDate("dateDon");
-                int user = rs.getInt("userId");
+                int user = rs.getInt("id");
                 DonEspeces de = new DonEspeces(id, montant, type, cible, user, date1);
                 arr.add(de);
             } else {
                 int id = rs.getInt("donId");
-                int user = rs.getInt("userId");
+                int user = rs.getInt("id");
                 String type = rs.getString("typeDon");
                 String cible = rs.getString("cibleDon");
                 String rueRefuge = rs.getString("rueRefuge");
@@ -203,7 +203,7 @@ public User getUser(int id) throws SQLException {
         ObservableList<User> arr =FXCollections.observableArrayList();
         ste=con.createStatement();
         ResultSet rs=ste.executeQuery("select nomOrganisation,pays,ville,domaine,email from user\n" +
-"where role=\"organisation\";");
+"where roles=\"organisation\";");
         while(rs.next()){
             
             String nomOrganisation= rs.getString("nomOrganisation");
@@ -239,7 +239,7 @@ public User getUser(int id) throws SQLException {
     public void ajouter(User u) throws SQLException {
 
         ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `handshake`.`user` ( `userId`,`login`, `password`, `nomUser`, `prenomUser`, `email`, `telephone`, `ville`, `rue`, `pays`,`profil`, `role`)  VALUES ( '" + u.getUserId() + "','" + u.getLogin() + "', '" + u.getPassword() + "', '" + u.getNomUser() + "', '" + u.getPrenomUser() + "', '" + u.getEmail() + "', '" + u.getTelephone() + "', '" + u.getVille() + "', '" + u.getRue() + "', '" + u.getPays() + "', '" + u.getProfil() + "','User Simple');";
+        String requeteInsert = "INSERT INTO `handshake`.`user` ( `id`,`username`, `password`, `nomUser`, `prenomUser`, `email`, `telephone`, `ville`, `rue`, `pays`,`profil`, `roles`)  VALUES ( '" + u.getid() + "','" + u.getusername() + "', '" + u.getPassword() + "', '" + u.getNomUser() + "', '" + u.getPrenomUser() + "', '" + u.getEmail() + "', '" + u.getTelephone() + "', '" + u.getVille() + "', '" + u.getRue() + "', '" + u.getPays() + "', '" + u.getProfil() + "','User Simple');";
 
         ste.executeUpdate(requeteInsert);
     }
@@ -247,20 +247,20 @@ public User getUser(int id) throws SQLException {
     public int chercher(User u) throws SQLException {
         int id = 0;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='User Simple' and login='" + u.getLogin() + "'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='User Simple' and username='" + u.getusername() + "'");
         while (rs.next()) {
             id = rs.getInt(1);
 
         }
         return id;
     }
-//attention pour connnexion login au lieu d'email
+//attention pour connnexion username au lieu d'email
 
     public int getIdUser2(String a1, String a2) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where login='" + a1 + "' and  password='" + a2 + "'");
+        ResultSet rs = ste.executeQuery("select * from user where username='" + a1 + "' and  password='" + a2 + "'");
         if (rs.next()) {
-            return rs.getInt("userId");
+            return rs.getInt("id");
         }
 
         return -1;
@@ -269,17 +269,17 @@ public User getUser(int id) throws SQLException {
     public void supprimer(User u) throws SQLException {
         ste = con.createStatement();
         int id = chercher(u);
-        String requeteDelete = "Delete From handshake.user Where role='User Simple' and userId='" + id + "'";
+        String requeteDelete = "Delete From handshake.user Where roles='User Simple' and id='" + id + "'";
         ste.executeUpdate(requeteDelete);
     }
 
     public User chercherUser(String a) throws SQLException {
         User p = null;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='User Simple' and login='" + a + "'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='User Simple' and username='" + a + "'");
         while (rs.next()) {
             int id = rs.getInt(1);
-            String login = rs.getString("login");
+            String username = rs.getString("username");
             String password = rs.getString("password");
             String nomUser = rs.getString("nomUser");
             String prenomUser = rs.getString("prenomUser");
@@ -288,10 +288,10 @@ public User getUser(int id) throws SQLException {
             String ville = rs.getString("ville");
             String rue = rs.getString("rue");
             String pays = rs.getString("pays");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String profil = rs.getString("profil");
 
-            p = new User(id, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+            p = new User(id, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
 
         }
         return p;
@@ -300,28 +300,28 @@ public User getUser(int id) throws SQLException {
     public void modifpassword(String password, int id) throws SQLException {
 
         ste = con.createStatement();
-        String sql = "Update user set password =" + password + " Where role='User Simple' and userId=" + id;
+        String sql = "Update user set password =" + password + " Where roles='User Simple' and id=" + id;
         ste.executeUpdate(sql);
 
     }
 
     public void modifierprofil(String image, User u) throws SQLException {
         ste = con.createStatement();
-        String sql = "Update user set profil ='" + image + "' Where role='User Simple' and userId=" + chercher(u);
+        String sql = "Update user set profil ='" + image + "' Where roles='User Simple' and id=" + chercher(u);
         ste.executeUpdate(sql);
     }
 
-    public boolean update(int id, String nom, String prenom, String email, String rue, String ville, String profil, String login, String pays) throws SQLException {
+    public boolean update(int id, String nom, String prenom, String email, String rue, String ville, String profil, String username, String pays) throws SQLException {
         ste = con.createStatement();
         String requeteInsert = "UPDATE user SET ville='" + ville
                 + "',nomUser='" + nom
                 + "',prenomUser='" + prenom
                 + "',email='" + email
-                + "',login='" + login
+                + "',username='" + username
                 + "',rue='" + rue
                 + "',pays='" + pays
                 + "',profil='" + profil
-                + "' WHERE userId=" + id;
+                + "' WHERE id=" + id;
         ste.executeUpdate(requeteInsert);
         System.out.println("Modification effectuer");
         return true;
@@ -333,10 +333,10 @@ public User getUser(int id) throws SQLException {
     public List<User> readAll() throws SQLException {
         List<User> arr = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='user simple'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='user simple'");
         while (rs.next()) {
-            int userId = rs.getInt(1);
-            String login = rs.getString("login");
+            int id = rs.getInt(1);
+            String username = rs.getString("username");
             String password = rs.getString("password");
             String nomUser = rs.getString("nomUser");
             String prenomUser = rs.getString("prenomUser");
@@ -345,8 +345,8 @@ public User getUser(int id) throws SQLException {
             String ville = rs.getString("ville");
             String rue = rs.getString("rue");
             String pays = rs.getString("pays");
-            String role = rs.getString("role");
-            User p = new User(login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role);
+            String roles = rs.getString("roles");
+            User p = new User(username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles);
             arr.add(p);
 
         }
@@ -358,11 +358,11 @@ public User getUser(int id) throws SQLException {
         ste = con.createStatement();
         ResultSet rs = ste.executeQuery("select * from user ");
 
-        if (rs.getString("role").equals("Organisation")) {
+        if (rs.getString("roles").equals("Organisation")) {
             int id = rs.getInt(1);
 
-            int user = rs.getInt("userId");
-            String login = rs.getString("login");
+            int user = rs.getInt("id");
+            String username = rs.getString("username");
             String password = rs.getString("password");
             String nomUser = rs.getString("nomUser");
             String prenomUser = rs.getString("prenomUser");
@@ -371,11 +371,11 @@ public User getUser(int id) throws SQLException {
             String ville = rs.getString("ville");
             String rue = rs.getString("rue");
             String pays = rs.getString("pays");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String profil = rs.getString("profil");
             String norg = rs.getString("nomOrganisation");
             String domaine = rs.getString("domaine");
-            Organisation de = new Organisation(norg, domaine, user, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+            Organisation de = new Organisation(norg, domaine, user, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
 
             arr.add(de);
         }
@@ -388,9 +388,9 @@ public User getUser(int id) throws SQLException {
         ResultSet rs = ste.executeQuery("select * from user ");
 
         while (rs.next()) {
-            if (rs.getString("role").equals("User Simple")) {
-                int user = rs.getInt("userId");
-                String login = rs.getString("login");
+            if (rs.getString("roles").equals("User Simple")) {
+                int user = rs.getInt("id");
+                String username = rs.getString("username");
                 String password = rs.getString("password");
                 String nomUser = rs.getString("nomUser");
                 String prenomUser = rs.getString("prenomUser");
@@ -399,9 +399,9 @@ public User getUser(int id) throws SQLException {
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
                 String pays = rs.getString("pays");
-                String role = rs.getString("role");
+                String roles = rs.getString("roles");
                 String profil = rs.getString("profil");
-                User p = new User(user, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+                User p = new User(user, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
                 arr.add(p);
 
             }
@@ -412,11 +412,11 @@ public User getUser(int id) throws SQLException {
 
     }
 
-    public String getLogin(int a) throws SQLException {
+    public String getusername(int a) throws SQLException {
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where userId=" + a);
+        ResultSet rs = ste.executeQuery("select * from user where id=" + a);
         if (rs.next()) {
-            return rs.getString("login");
+            return rs.getString("username");
         }
 
         return null;
@@ -444,17 +444,17 @@ public User getUser(int id) throws SQLException {
 
     public boolean setAccessShakeHub(User U) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`user` SET `accesShakeHub` = '" + U.isAccesShakeHub() + "' WHERE `userId`= '" + U.getUserId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`user` SET `accesShakeHub` = '" + U.isAccesShakeHub() + "' WHERE `id`= '" + U.getid() + "';";
        return(ste.execute(requeteUpdate)); 
     }
 
     public User chercherUser(int id) throws SQLException {
         User p = null;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='User Simple' and userId='" + id + "'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='User Simple' and id='" + id + "'");
         while (rs.next()) {
             int userId = rs.getInt(1);
-            String login = rs.getString("login");
+            String username = rs.getString("username");
             String password = rs.getString("password");
             String nomUser = rs.getString("nomUser");
             String prenomUser = rs.getString("prenomUser");
@@ -463,9 +463,9 @@ public User getUser(int id) throws SQLException {
             String ville = rs.getString("ville");
             String rue = rs.getString("rue");
             String pays = rs.getString("pays");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String profil = rs.getString("profil");
-            p = new User(userId, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+            p = new User(userId, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
 
         }
         return p;

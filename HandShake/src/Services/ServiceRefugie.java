@@ -36,7 +36,7 @@ public class ServiceRefugie implements IServiceAide<Refugie>{
     
     @Override
     public void ajouter(Refugie a) throws SQLException {
-        PreparedStatement PS = con.prepareStatement("INSERT INTO `handshake`.`beneficiaire` ( `aideId`,`nomBeneficiaire`, `prenomBeneficiaire`, `email`,`dateNaissance`, `ville`, `telephone`,`adresseGPS`,`role`,`nationalite`) VALUES ( ?,?, ?, ?,?, ?,?,?,?, ?);");
+        PreparedStatement PS = con.prepareStatement("INSERT INTO `handshake`.`beneficiaire` ( `aideId`,`nomBeneficiaire`, `prenomBeneficiaire`, `email`,`dateNaissance`, `ville`, `telephone`,`adresseGPS`,`roles`,`nationalite`) VALUES ( ?,?, ?, ?,?, ?,?,?,?, ?);");
         PS.setInt(1, a.getAideId());
         PS.setString(2, a.getNomBeneficiaire());
         PS.setString(3, a.getPrenomBeneficiaire());
@@ -45,7 +45,7 @@ public class ServiceRefugie implements IServiceAide<Refugie>{
         PS.setString(6, a.getVille());
         PS.setInt(7, a.getTelephone());
         PS.setString(8, a.getAdresseGPS());
-        PS.setString(9, a.getRole());
+        PS.setString(9, a.getroles());
         PS.setString(10, a.getNationalite());
         PS.executeUpdate();
     }
@@ -105,9 +105,9 @@ public class ServiceRefugie implements IServiceAide<Refugie>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(8);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String Nat = rs.getString("nationalite");
-            Refugie a = new Refugie(Nat,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            Refugie a = new Refugie(Nat,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
             AL.add(a);
         }
         return AL;
@@ -115,7 +115,7 @@ public class ServiceRefugie implements IServiceAide<Refugie>{
         public List<Refugie> readr() throws SQLException {
         List<Refugie> AL = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from beneficiaire where `role`= \"Refugie\"");
+        ResultSet rs = ste.executeQuery("select * from beneficiaire where `roles`= \"Refugie\"");
         while (rs.next()) {
             int id = rs.getInt(1);
             int idaide = rs.getInt(2);
@@ -126,9 +126,9 @@ public class ServiceRefugie implements IServiceAide<Refugie>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(8);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String Nat = rs.getString("nationalite");
-            Refugie a = new Refugie(Nat,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            Refugie a = new Refugie(Nat,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
             AL.add(a);
         }
         return AL;
@@ -165,8 +165,8 @@ public class ServiceRefugie implements IServiceAide<Refugie>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(7);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
-            Beneficiaire a = new Beneficiaire(id,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            String roles = rs.getString("roles");
+            Beneficiaire a = new Beneficiaire(id,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
      arr.add(a);
      }
     return arr;

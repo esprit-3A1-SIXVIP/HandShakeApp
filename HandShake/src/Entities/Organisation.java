@@ -17,14 +17,14 @@ public class Organisation extends User {
     String domaine;
 
 
-    public Organisation(String nomOrganisation, String domaine, String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String profil) {
-        super(login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, profil);
+    public Organisation(String nomOrganisation, String domaine, String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String profil) {
+        super(username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, profil);
         this.nomOrganisation = nomOrganisation;
         this.domaine = domaine;
     }
 
-    public Organisation(String nomOrganisation, String domaine, int userId, String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role, String profil) {
-        super(userId, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+    public Organisation(String nomOrganisation, String domaine, int id, String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String roles, String profil) {
+        super(id, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
         this.nomOrganisation = nomOrganisation;
         this.domaine = domaine;
     }

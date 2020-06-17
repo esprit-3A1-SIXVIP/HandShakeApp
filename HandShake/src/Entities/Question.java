@@ -80,7 +80,7 @@ public class Question {
     
     @Override
     public String toString() {
-        return "Question posée par " + user.getLogin() + ": '" + texteQuestion + "' Créee le=" + dateQuestion ;
+        return "Question posée par " + user.getusername() + ": '" + texteQuestion + "' Créee le=" + dateQuestion ;
     }
 
     @Override

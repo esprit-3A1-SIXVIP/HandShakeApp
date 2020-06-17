@@ -35,7 +35,7 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
     
     @Override
     public void ajouter(Beneficiaire a) throws SQLException {
-        PreparedStatement PS = con.prepareStatement("INSERT INTO `handshake`.`beneficiaire` ( `nomBeneficiaire`, `prenomBeneficiaire`, `email`,`dateNaissance`, `ville`, `telephone`,`adresseGPS`,`role`) VALUES ( ?,?, ?, ?,?, ?,?, ?);");
+        PreparedStatement PS = con.prepareStatement("INSERT INTO `handshake`.`beneficiaire` ( `nomBeneficiaire`, `prenomBeneficiaire`, `email`,`dateNaissance`, `ville`, `telephone`,`adresseGPS`,`roles`) VALUES ( ?,?, ?, ?,?, ?,?, ?);");
         PS.setString(1, a.getNomBeneficiaire());
         PS.setString(2, a.getPrenomBeneficiaire());
         PS.setString(3,a.getEmail());
@@ -43,7 +43,7 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
         PS.setString(5, a.getVille());
         PS.setInt(6, a.getTelephone());
         PS.setString(7, a.getAdresseGPS());
-        PS.setString(8, a.getRole());
+        PS.setString(8, a.getroles());
         PS.executeUpdate();
     }
     
@@ -58,7 +58,7 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
 
     @Override
     public void update(Beneficiaire a,int id) throws SQLException {
-        PreparedStatement PS=con.prepareStatement("UPDATE `handshake`.`beneficiaire` SET `nomBeneficiaire`=?,`prenomBeneficiaire`=? ,`email`=?,`dateNaissance`=?,`ville`=?,`telephone`=?,`adresseGPS`=?,`role`=? WHERE `beneficiaireId`=?");
+        PreparedStatement PS=con.prepareStatement("UPDATE `handshake`.`beneficiaire` SET `nomBeneficiaire`=?,`prenomBeneficiaire`=? ,`email`=?,`dateNaissance`=?,`ville`=?,`telephone`=?,`adresseGPS`=?,`roles`=? WHERE `beneficiaireId`=?");
         PS.setString(1, a.getNomBeneficiaire());
         PS.setString(2, a.getPrenomBeneficiaire());
         PS.setString(3,a.getEmail());
@@ -66,13 +66,13 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
         PS.setString(5, a.getVille());
         PS.setInt(6, a.getTelephone());
         PS.setString(7, a.getAdresseGPS());
-        PS.setString(8, a.getRole());
+        PS.setString(8, a.getroles());
         PS.setInt(10,id);
         PS.executeUpdate();
     }
         public void updatetab(Beneficiaire a) throws SQLException {
             try {
-        PreparedStatement PS=con.prepareStatement("UPDATE `handshake`.`beneficiaire` SET `nomBeneficiaire`=?,`prenomBeneficiaire`=? ,`email`=?,`dateNaissance`=?,`ville`=?,`telephone`=?,`adresseGPS`=?,`role`=? WHERE `beneficiaireId`=?");
+        PreparedStatement PS=con.prepareStatement("UPDATE `handshake`.`beneficiaire` SET `nomBeneficiaire`=?,`prenomBeneficiaire`=? ,`email`=?,`dateNaissance`=?,`ville`=?,`telephone`=?,`adresseGPS`=?,`roles`=? WHERE `beneficiaireId`=?");
         PS.setString(1, a.getNomBeneficiaire());
         PS.setString(2, a.getPrenomBeneficiaire());
         PS.setString(3,a.getEmail());
@@ -80,7 +80,7 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
         PS.setString(5, a.getVille());
         PS.setInt(6, a.getTelephone());
         PS.setString(7, a.getAdresseGPS());
-        PS.setString(8, a.getRole());
+        PS.setString(8, a.getroles());
         PS.setInt(10,a.getBeneficiaireId());
         PS.executeUpdate();
             } catch (Exception e) {
@@ -103,8 +103,8 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(7);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
-            Beneficiaire a = new Beneficiaire(id,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            String roles = rs.getString("roles");
+            Beneficiaire a = new Beneficiaire(id,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
             AL.add(a);
         }
         return AL;
@@ -123,8 +123,8 @@ public class ServiceBeneficiaire implements IServiceAide<Beneficiaire>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(7);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
-            Beneficiaire a = new Beneficiaire(id,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            String roles = rs.getString("roles");
+            Beneficiaire a = new Beneficiaire(id,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
      arr.add(a);
      }
     return arr;

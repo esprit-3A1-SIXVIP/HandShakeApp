@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.Login2Controller">
+<AnchorPane id="AnchorPane" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" stylesheets="@username.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="handshake.Login2Controller">
    <children>
       <ImageView fitHeight="603.0" fitWidth="396.0" layoutX="7.0" layoutY="-2.0" pickOnBounds="true" smooth="false">
          <image>
@@ -29,14 +29,14 @@
             <Image url="@../images/main1.jpg" />
          </image>
       </ImageView>
-      <Pane fx:id="paneinscription" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: rgba(0,0,0,0.3);" stylesheets="@login.css">
+      <Pane fx:id="paneinscription" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: rgba(0,0,0,0.3);" stylesheets="@username.css">
          <children>
             <JFXPasswordField fx:id="tipas" focusColor="#0c78e4" layoutX="39.0" layoutY="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="password" unFocusColor="#2c07fc" />
             <JFXPasswordField fx:id="tipas3" focusColor="#0c78e4" layoutX="39.0" layoutY="317.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="resaisissez le password" unFocusColor="#2c07fc" />
             <JFXTextField fx:id="tip" focusColor="#056ed7" layoutX="39.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="21.0" prefWidth="290.0" promptText="prenom" style="-fx-background-color: #EBEAE6;" text="prenom" unFocusColor="#0013f2" />
             <JFXTextField fx:id="tie" focusColor="#056ed7" layoutX="39.0" layoutY="229.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="21.0" prefWidth="290.0" promptText="email" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
             <JFXTextField fx:id="tin" focusColor="#056ed7" layoutX="39.0" layoutY="165.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.78" prefHeight="21.0" prefWidth="290.0" promptText="nom" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
-            <JFXTextField fx:id="til2" focusColor="#056ed7" layoutX="39.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="login" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
+            <JFXTextField fx:id="til2" focusColor="#056ed7" layoutX="39.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="username" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
             <JFXTextField fx:id="tir" focusColor="#056ed7" layoutX="39.0" layoutY="380.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="rue" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
             <JFXTextField fx:id="tiv" focusColor="#056ed7" layoutX="39.0" layoutY="411.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="ville" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
             <JFXTextField fx:id="titel" focusColor="#056ed7" layoutX="39.0" layoutY="347.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="telephone" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
@@ -56,8 +56,8 @@
             </Label>
             <JFXTextField fx:id="tinog" focusColor="#056ed7" layoutX="41.0" layoutY="502.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="nom organisation(facultatif)" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
             <JFXTextField fx:id="tidog" focusColor="#056ed7" layoutX="39.0" layoutY="532.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="domaine(facultatif)" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
-            <JFXButton fx:id="btni1" buttonType="RAISED" layoutX="67.0" layoutY="558.0" onMouseClicked="#btnisave" prefHeight="33.0" prefWidth="216.0" ripplerFill="#fcaa1d" styleClass="loginbtn" stylesheets="@login.css" text="save" />
-            <JFXButton fx:id="btni2" buttonType="RAISED" layoutX="120.0" layoutY="78.0" onMouseClicked="#profil" ripplerFill="#fcb529" styleClass="loginbtn" stylesheets="@login.css" text="charger profil" />
+            <JFXButton fx:id="btni1" buttonType="RAISED" layoutX="67.0" layoutY="558.0" onMouseClicked="#btnisave" prefHeight="33.0" prefWidth="216.0" ripplerFill="#fcaa1d" styleClass="usernamebtn" stylesheets="@username.css" text="save" />
+            <JFXButton fx:id="btni2" buttonType="RAISED" layoutX="120.0" layoutY="78.0" onMouseClicked="#profil" ripplerFill="#fcb529" styleClass="usernamebtn" stylesheets="@username.css" text="charger profil" />
             <JFXTextField fx:id="urlimage" focusColor="#056ed7" layoutX="41.0" layoutY="475.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="290.0" promptText="url image" style="-fx-background-color: #EBEAE6;" unFocusColor="#0013f2" />
             <ToggleButtonGroup layoutX="8.0" layoutY="29.0" prefHeight="25.0" prefWidth="50.0" selectionType="SINGLE">
                <toggles>
@@ -72,14 +72,14 @@
             </BorderPane>
          </children>
       </Pane>
-      <Pane fx:id="interfaceconnexion" layoutX="404.0" layoutY="-6.0" prefHeight="816.0" prefWidth="597.0" stylesheets="@login.css">
+      <Pane fx:id="interfaceconnexion" layoutX="404.0" layoutY="-6.0" prefHeight="816.0" prefWidth="597.0" stylesheets="@username.css">
          <children>
             <ImageView fx:id="lc1" fitHeight="68.0" fitWidth="200.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true">
                <image>
                   <Image url="@../images/logo.png" />
                </image>
             </ImageView>
-            <Label fx:id="lc2" layoutX="116.0" layoutY="62.0" stylesheets="@login.css" text="Help Humanity" textFill="#f2a203">
+            <Label fx:id="lc2" layoutX="116.0" layoutY="62.0" stylesheets="@username.css" text="Help Humanity" textFill="#f2a203">
                <font>
                   <Font name="Bookman Old Style" size="18.0" />
                </font>
@@ -89,18 +89,18 @@
                   <Font name="Bookman Old Style" size="12.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btncx" buttonType="RAISED" layoutX="214.0" layoutY="634.0" onMouseClicked="#btncx" prefHeight="35.0" prefWidth="208.0" ripplerFill="#e39910" styleClass="loginbtn" text="connexion" />
-            <JFXTextField fx:id="tcl" focusColor="#056ed7" layoutX="168.0" layoutY="423.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="40.0" prefWidth="300.0" promptText="Email" style="-fx-background-color: white;" stylesheets="@login.css" unFocusColor="#e39910">
+            <JFXButton fx:id="btncx" buttonType="RAISED" layoutX="214.0" layoutY="634.0" onMouseClicked="#btncx" prefHeight="35.0" prefWidth="208.0" ripplerFill="#e39910" styleClass="usernamebtn" text="connexion" />
+            <JFXTextField fx:id="tcl" focusColor="#056ed7" layoutX="168.0" layoutY="423.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="40.0" prefWidth="300.0" promptText="Email" style="-fx-background-color: white;" stylesheets="@username.css" unFocusColor="#e39910">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></JFXTextField>
-            <JFXPasswordField fx:id="tcp" focusColor="#0c78e4" layoutX="168.0" layoutY="539.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="40.0" prefWidth="300.0" promptText="password" style="-fx-background-color: white;" stylesheets="@login.css" unFocusColor="#e39910">
+            <JFXPasswordField fx:id="tcp" focusColor="#0c78e4" layoutX="168.0" layoutY="539.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="40.0" prefWidth="300.0" promptText="password" style="-fx-background-color: white;" stylesheets="@username.css" unFocusColor="#e39910">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></JFXPasswordField>
          </children>
       </Pane>
-      <VBox fx:id="vboxinscription" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: #0c9ae0;" styleClass="vbox" stylesheets="@login.css">
+      <VBox fx:id="vboxinscription" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="407.0" style="-fx-background-color: #0c9ae0;" styleClass="vbox" stylesheets="@username.css">
          <children>
             <Label fx:id="ti1" prefHeight="43.0" prefWidth="253.0" text="hello friend" translateX="100.0" translateY="200.0">
                <font>
@@ -115,7 +115,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <JFXButton fx:id="btnc1" buttonType="RAISED" onMouseClicked="#btnc1" prefHeight="43.0" prefWidth="148.0" ripplerFill="#e39910" styleClass="loginbtn" text="Sign in" translateX="140.0" translateY="350.0" />
+            <JFXButton fx:id="btnc1" buttonType="RAISED" onMouseClicked="#btnc1" prefHeight="43.0" prefWidth="148.0" ripplerFill="#e39910" styleClass="usernamebtn" text="Sign in" translateX="140.0" translateY="350.0" />
             <Label fx:id="ti2" prefHeight="35.0" prefWidth="193.0" text="etes vous nouveau?" translateX="10.0" translateY="250.0">
                <font>
                   <Font name="Bookman Old Style" size="14.0" />
@@ -131,7 +131,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox fx:id="vboxconnexion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" style="-fx-background-color: #0c9ae0;" styleClass="vbox" stylesheets="@login.css">
+      <VBox fx:id="vboxconnexion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" style="-fx-background-color: #0c9ae0;" styleClass="vbox" stylesheets="@username.css">
          <children>
             <Label fx:id="tc1" prefHeight="43.0" prefWidth="253.0" text="Welcome Back" translateX="100.0" translateY="200.0">
                <font>
@@ -159,7 +159,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <JFXButton fx:id="btni" buttonType="RAISED" onMouseClicked="#btni" prefHeight="33.0" prefWidth="148.0" ripplerFill="#e39910" styleClass="loginbtn" text="Sign up" translateX="140.0" translateY="350.0" />
+            <JFXButton fx:id="btni" buttonType="RAISED" onMouseClicked="#btni" prefHeight="33.0" prefWidth="148.0" ripplerFill="#e39910" styleClass="usernamebtn" text="Sign up" translateX="140.0" translateY="350.0" />
          </children>
       </VBox>
    </children>

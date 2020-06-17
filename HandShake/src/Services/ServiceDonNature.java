@@ -38,13 +38,13 @@ public class ServiceDonNature implements InterfaceDon<DonNature> {
     public void ajouter(DonNature t) throws SQLException {
          long  millis = System.currentTimeMillis ();  
     java.sql.Date date = new  java.sql.Date (millis);
-         PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`don` ( `libelleDonNature`, `categorieDonNature`, `quantiteDonNature`,`typeDon`,`cibleDon`,`userId`,`dateDon`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
+         PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`don` ( `libelleDonNature`, `categorieDonNature`, `quantiteDonNature`,`typeDon`,`cibleDon`,`id`,`dateDon`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
     pre.setString(1, t.getLibelleDonNature());
     pre.setString(2, t.getCategorieDonNature());
     pre.setInt(3,t.getQuantiteDonNature());
     pre.setString(4,"Nature");
     pre.setString(5, t.getCibleDon());
-    pre.setInt(6,t.getUserId());
+    pre.setInt(6,t.getid());
     pre.setDate(7,date );
     pre.executeUpdate();
     }
@@ -103,7 +103,7 @@ public class ServiceDonNature implements InterfaceDon<DonNature> {
      while (rs.next()) {  
          
              int id=rs.getInt("donId");
-             int user = rs.getInt("userId");
+             int user = rs.getInt("id");
              String libelle=rs.getString("libelleDonNature");
              String type=rs.getString("typeDon");
              String categorie=rs.getString("categorieDonNature");

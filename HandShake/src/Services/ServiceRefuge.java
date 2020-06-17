@@ -39,7 +39,7 @@ public class ServiceRefuge {
         try {
             ste = con.createStatement();
 
-            String requetajout = "insert into don(`donId` ,`typeDon` ,`rueRefuge`, `villeRefuge`, `paysRefuge`, `disponibiliteRefuge`, `capaciteRefuge`,`longitude`,`latitude`,`dateDebutRefuge`,`dateFinRefuge`,userId) values('" + r.getDonId() + "','Refuge','" + r.getRueRefuge() + "','" + r.getVilleRefuge() + "','" + r.getPaysRefuge() + "','" + r.getDisponibiliteRefuge() + "','" + r.getCapaciteRefuge() + "','" + r.getLongitude() + "','" + r.getLatitude() + "','" + r.getDate_debut() + "','" + r.getDate_fin() + "','" + r.getUserId() + "');";
+            String requetajout = "insert into don(`donId` ,`typeDon` ,`rueRefuge`, `villeRefuge`, `paysRefuge`, `disponibiliteRefuge`, `capaciteRefuge`,`longitude`,`latitude`,`dateDebutRefuge`,`dateFinRefuge`,id) values('" + r.getDonId() + "','Refuge','" + r.getRueRefuge() + "','" + r.getVilleRefuge() + "','" + r.getPaysRefuge() + "','" + r.getDisponibiliteRefuge() + "','" + r.getCapaciteRefuge() + "','" + r.getLongitude() + "','" + r.getLatitude() + "','" + r.getDate_debut() + "','" + r.getDate_fin() + "','" + r.getid() + "');";
             ste.executeUpdate(requetajout);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -54,7 +54,7 @@ public class ServiceRefuge {
     public int chercher(Refuge u) throws SQLException {
         int id = 0;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from don where userId='" + chercherUser(u.getUserId()) + "'and  longitude='" + u.getLongitude() + "' and latitude='" + u.getLatitude() + "'");
+        ResultSet rs = ste.executeQuery("select * from don where id='" + chercherUser(u.getid()) + "'and  longitude='" + u.getLongitude() + "' and latitude='" + u.getLatitude() + "'");
         while (rs.next()) {
             id = rs.getInt(1);
         }
@@ -63,10 +63,10 @@ public class ServiceRefuge {
      public User infomarker(int id) throws SQLException {
         User p = null;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user u join don d on u.userId=d.userId where donId='"+id+"' and typeDon='Refuge'");
+        ResultSet rs = ste.executeQuery("select * from user u join don d on u.id=d.id where donId='"+id+"' and typeDon='Refuge'");
         while (rs.next()) {
-            int userId = rs.getInt(1);
-            String login = rs.getString("login");
+            int userId= rs.getInt(1);
+            String username = rs.getString("username");
             String password = rs.getString("password");
             String nomUser = rs.getString("nomUser");
             String prenomUser = rs.getString("prenomUser");
@@ -75,9 +75,9 @@ public class ServiceRefuge {
             String ville = rs.getString("ville");
             String rue = rs.getString("rue");
             String pays = rs.getString("pays");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String profil = rs.getString("profil");
-            p = new User(userId, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+            p = new User(userId, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
 
         }
         return p;
@@ -105,7 +105,7 @@ public class ServiceRefuge {
 
         int x = 0;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='user simple' and UserId='" + id + "'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='user simple' and id='" + id + "'");
         while (rs.next()) {
             x = rs.getInt(1);
 
@@ -130,7 +130,7 @@ public class ServiceRefuge {
     public void supprimer(Refuge r) throws SQLException {
         ste = con.createStatement();
         int id = chercher(r);
-        String requeteDelete = "Delete From handshake.don Where userId='" + id + "'";
+        String requeteDelete = "Delete From handshake.don Where id='" + id + "'";
         ste.executeUpdate(requeteDelete);
     }
 

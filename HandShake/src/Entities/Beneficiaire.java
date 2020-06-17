@@ -23,9 +23,9 @@ public class Beneficiaire {
     private String ville;
     private int telephone;
     private String adresseGPS;
-    private String role;
+    private String roles;
 
-    public Beneficiaire(int beneficiaireId, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String role) {
+    public Beneficiaire(int beneficiaireId, int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String roles) {
         this.beneficiaireId = beneficiaireId;
         this.aideId = aideId;
         this.nomBeneficiaire = nomBeneficiaire;
@@ -35,10 +35,10 @@ public class Beneficiaire {
         this.ville = ville;
         this.telephone = telephone;
         this.adresseGPS = adresseGPS;
-        this.role = role;
+        this.roles = roles;
     }
 
-    public Beneficiaire(int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String role) {
+    public Beneficiaire(int aideId, String nomBeneficiaire, String prenomBeneficiaire, String email, java.sql.Date dateNaissance, String ville, int telephone, String adresseGPS, String roles) {
         this.aideId = aideId;
         this.nomBeneficiaire = nomBeneficiaire;
         this.prenomBeneficiaire = prenomBeneficiaire;
@@ -47,7 +47,7 @@ public class Beneficiaire {
         this.ville = ville;
         this.telephone = telephone;
         this.adresseGPS = adresseGPS;
-        this.role = role;
+        this.roles = roles;
     }
 
     public Beneficiaire() {
@@ -89,8 +89,8 @@ public class Beneficiaire {
         return adresseGPS;
     }
 
-    public String getRole() {
-        return role;
+    public String getroles() {
+        return roles;
     }
 
     public void setBeneficiaireId(int beneficiaireId) {
@@ -129,13 +129,13 @@ public class Beneficiaire {
         this.adresseGPS = adresseGPS;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setroles(String roles) {
+        this.roles = roles;
     }
 
     @Override
     public String toString() {
-        return "Beneficiaire{" + "beneficiaireId=" + beneficiaireId + ", aideId=" + aideId + ", nomBeneficiaire=" + nomBeneficiaire + ", prenomBeneficiaire=" + prenomBeneficiaire + ", email=" + email + ", dateNaissance=" + dateNaissance + ", ville=" + ville + ", telephone=" + telephone + ", adresseGPS=" + adresseGPS + ", role=" + role + '}';
+        return "Beneficiaire{" + "beneficiaireId=" + beneficiaireId + ", aideId=" + aideId + ", nomBeneficiaire=" + nomBeneficiaire + ", prenomBeneficiaire=" + prenomBeneficiaire + ", email=" + email + ", dateNaissance=" + dateNaissance + ", ville=" + ville + ", telephone=" + telephone + ", adresseGPS=" + adresseGPS + ", roles=" + roles + '}';
     }
 
     

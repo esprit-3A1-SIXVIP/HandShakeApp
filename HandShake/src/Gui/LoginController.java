@@ -185,7 +185,7 @@ public class LoginController {
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
-        String login = UserSession.getInstance().getLogin();
+        String username = UserSession.getInstance().getusername();
 
         ti1.setVisible(false);
         ti2.setVisible(false);
@@ -212,7 +212,7 @@ public class LoginController {
 
     }
 
-    private void btnLoginAction(ActionEvent event) {
+    private void btnusernameAction(ActionEvent event) {
 
     }
 
@@ -333,10 +333,10 @@ public class LoginController {
                 try {
                    
                      int id = SU.getIdUser1(email, Password);
-                     String role = SU.getRole(id);
-                     String login = SU.getLogin(id);
+                     String roles = SU.getroles(id);
+                     String username = SU.getusername(id);
                     if (id != -1) {
-                          UserSession.getInstace(email, id,role,login);
+                          UserSession.getInstace(email, id,roles,username);
 
                         loadStage("Maps.fxml");
 
@@ -353,10 +353,10 @@ public class LoginController {
                 ServiceAdmin A = new ServiceAdmin();
                 try {
                     int id = A.getIdAdmin(email, Password);
-                     String role = SU.getRole(id);
-                     String login = SU.getLogin(id);
+                     String roles = SU.getroles(id);
+                     String username = SU.getusername(id);
                     if (id != -1) {
-                          UserSession.getInstace(email, id,role,login);
+                          UserSession.getInstace(email, id,roles,username);
 
                         loadStage("gestionnaire.fxml");
 
@@ -396,7 +396,7 @@ public class LoginController {
             String rue = tir.getText();
             String ville = tiv.getText();
             String pays = tipay.getText();
-            String login = til2.getText();
+            String username = til2.getText();
             String password1 = tipas.getText();
             String password2 = tipas3.getText();
             String prof = urlimage.getText();
@@ -406,7 +406,7 @@ public class LoginController {
             if (btnadduser.isSelected()) {
                 try {
 
-                    User u = new User(login, password1, nom, prenom, email, tel, ville, rue, pays, prof);
+                    User u = new User(username, password1, nom, prenom, email, tel, ville, rue, pays, prof);
                     ServiceUser SE = new ServiceUser();
                     SE.ajouter(u);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -430,7 +430,7 @@ public class LoginController {
             } else {
 
                 try {
-                    Organisation O = new Organisation(org, domaine, login, password1, nom, prenom, email, tel, ville, rue, pays, prof);
+                    Organisation O = new Organisation(org, domaine, username, password1, nom, prenom, email, tel, ville, rue, pays, prof);
                     ServiceOrganisation so = new ServiceOrganisation();
                     so.ajouter(O);
                      Alert alert = new Alert(Alert.AlertType.INFORMATION);

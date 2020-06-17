@@ -33,7 +33,7 @@ public class ServiceOrganisation {
 
     public void ajouter(Organisation u) throws SQLException {
         ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `handshake`.`user` ( `login`, `password`, `nomUser`, `prenomUser`,`email`,`nomOrganisation`, `telephone`, `ville`, `rue`, `pays`,`domaine`,`profil`,`role`)  VALUES ( '" + u.getLogin() + "', '" + u.getPassword() + "', '" + u.getNomUser() + "', '" + u.getPrenomUser() + "', '" + u.getEmail() + "', '" + u.getNomOrganisation() + "', '" + u.getTelephone() + "', '" + u.getVille() + "', '" + u.getRue() + "', '" + u.getPays() + "', '" + u.getDomaine() + "', '" + u.getProfil() + "','Organisation ');";
+        String requeteInsert = "INSERT INTO `handshake`.`user` ( `username`, `password`, `nomUser`, `prenomUser`,`email`,`nomOrganisation`, `telephone`, `ville`, `rue`, `pays`,`domaine`,`profil`,`roles`)  VALUES ( '" + u.getusername() + "', '" + u.getPassword() + "', '" + u.getNomUser() + "', '" + u.getPrenomUser() + "', '" + u.getEmail() + "', '" + u.getNomOrganisation() + "', '" + u.getTelephone() + "', '" + u.getVille() + "', '" + u.getRue() + "', '" + u.getPays() + "', '" + u.getDomaine() + "', '" + u.getProfil() + "','Organisation ');";
         ste.executeUpdate(requeteInsert);
     }
 
@@ -41,7 +41,7 @@ public class ServiceOrganisation {
 
         ste = con.createStatement();
         String sql = "Update user set password ='"
-                + password + "' Where role='Organisation' and userId="
+                + password + "' Where roles='Organisation' and id="
                 + id;
         ste.executeUpdate(sql);
 
@@ -50,20 +50,20 @@ public class ServiceOrganisation {
     public int chercher(Organisation u) throws SQLException {
         int id = 0;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='Organisation' and login='" + u.getLogin() + "'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='Organisation' and username='" + u.getusername() + "'");
         while (rs.next()) {
             id = rs.getInt(1);
 
         }
         return id;
     }
-    public Organisation chercherlogin(String a) throws SQLException {
+    public Organisation chercherusername(String a) throws SQLException {
       Organisation p=null;
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='Organisation' and login='" +a+ "'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='Organisation' and username='" +a+ "'");
         while (rs.next()) {
                     int id = rs.getInt(1);
-                String login = rs.getString("login");
+                String username = rs.getString("username");
                 String password = rs.getString("password");
                 String nomUser = rs.getString("nomUser");
                 String prenomUser = rs.getString("prenomUser");
@@ -72,11 +72,11 @@ public class ServiceOrganisation {
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
                 String pays = rs.getString("pays");
-                  String role = rs.getString("role");
+                  String roles = rs.getString("roles");
                 String profil = rs.getString("profil");
                   String norg = rs.getString("nomOrganisation");
                 String domaine = rs.getString("domaine");
-               p=new Organisation(norg, domaine, id, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+               p=new Organisation(norg, domaine, id, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
 
         }
         return p;
@@ -84,14 +84,14 @@ public class ServiceOrganisation {
     public void supprimer(Organisation u) throws SQLException {
         ste = con.createStatement();
         int id = chercher(u);
-        String requeteDelete = "Delete From handshake.user Where userId='" + id + "'";
+        String requeteDelete = "Delete From handshake.user Where id='" + id + "'";
         ste.executeUpdate(requeteDelete);
     }
 
     public void modifierprofil(String image, int id) throws SQLException {
         ste = con.createStatement();
         String sql = "Update user set profil ='"
-                + image + "' Where role='Organisation' and  userId="
+                + image + "' Where roles='Organisation' and  id="
                 + id;
         ste.executeUpdate(sql);
     }
@@ -99,10 +99,10 @@ public class ServiceOrganisation {
     public List<Organisation> readAll() throws SQLException {
         List<Organisation> arr = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from user where role='Organisation'");
+        ResultSet rs = ste.executeQuery("select * from user where roles='Organisation'");
         while (rs.next()) {
-            int userId = rs.getInt(1);
-            String login = rs.getString("login");
+            int id = rs.getInt(1);
+            String username = rs.getString("username");
             String password = rs.getString("password");
             String nomUser = rs.getString("nomUser");
             String prenomUser = rs.getString("prenomUser");
@@ -114,7 +114,7 @@ public class ServiceOrganisation {
             String pays = rs.getString("pays");
             String domaine = rs.getString("domaine");
             String profil = rs.getString("profil");
-            Organisation p = new Organisation(nomOrganisation, domaine, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, profil);
+            Organisation p = new Organisation(nomOrganisation, domaine, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, profil);
             arr.add(p);
         }
         return arr;
@@ -123,12 +123,12 @@ public class ServiceOrganisation {
    public ObservableList<Organisation> afficherOrganisation() throws SQLException, ParseException {
         ObservableList<Organisation> arr = FXCollections.observableArrayList();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("SELECT * FROM `user` WHERE role='Organisation'");
+        ResultSet rs = ste.executeQuery("SELECT * FROM `user` WHERE roles='Organisation'");
 
         while (rs.next()) {
          
-                int user = rs.getInt("userId");
-                String login = rs.getString("login");
+                int user = rs.getInt("id");
+                String username = rs.getString("username");
                 String password = rs.getString("password");
                 String nomUser = rs.getString("nomUser");
                 String prenomUser = rs.getString("prenomUser");
@@ -137,11 +137,11 @@ public class ServiceOrganisation {
                 String ville = rs.getString("ville");
                 String rue = rs.getString("rue");
                 String pays = rs.getString("pays");
-                  String role = rs.getString("role");
+                  String roles = rs.getString("roles");
                 String profil = rs.getString("profil");
                   String norg = rs.getString("nomOrganisation");
                 String domaine = rs.getString("domaine");
-              Organisation p=new Organisation(norg, domaine, user, login, password, nomUser, prenomUser, email, telephone, ville, rue, pays, role, profil);
+              Organisation p=new Organisation(norg, domaine, user, username, password, nomUser, prenomUser, email, telephone, ville, rue, pays, roles, profil);
             arr.add(p);
               
                

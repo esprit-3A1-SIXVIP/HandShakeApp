@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class User {
     
-   int userId;
-   String login;
+   int id;
+   String username;
    String password;
    String nomUser;
    String prenomUser ;
@@ -24,7 +24,7 @@ public class User {
    String ville ;
    String rue ;
    String pays ;
-   String role ;
+   String roles ;
    int accesShakeHub;
    String nomOrganisation;
   String domaine;
@@ -37,21 +37,21 @@ public class User {
         this.pays = pays;
     }
    
-    public User(int userId, String login, String password, String email, String role) {
-        this.userId = userId;
-        this.login = login;
+    public User(int id, String username, String password, String email, String roles) {
+        this.id = id;
+        this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
     }
 
 
-    public User(int userId, String login, String password, String email, String role, int accesShakeHub) {
-        this.userId = userId;
-        this.login = login;
+    public User(int id, String username, String password, String email, String roles, int accesShakeHub) {
+        this.id = id;
+        this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
         this.accesShakeHub = accesShakeHub;
     }
     
@@ -61,10 +61,10 @@ public class User {
         this.ville = ville;
         this.pays = pays;
     }
-    public User( int userId,String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role) {
-        this.userId = userId;
-        this.login = login;
-        this.login = login;
+    public User( int id,String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String roles) {
+        this.id = id;
+        this.username = username;
+        this.username = username;
         this.password = password;
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
@@ -73,12 +73,12 @@ public class User {
         this.ville = ville;
         this.rue = rue;
         this.pays = pays;
-        this.role = role;
+        this.roles = roles;
     }
- public User(String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays,String profil) {
-        this.userId=(int) (Math.random()*(400000-20000));
+ public User(String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays,String profil) {
+        this.id=(int) (Math.random()*(400000-20000));
        
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
@@ -91,9 +91,9 @@ public class User {
         this.profil=profil;
     }
 
-    public User(int userId, String login, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String role, String profil) {
-        this.userId = userId;
-        this.login = login;
+    public User(int id, String username, String password, String nomUser, String prenomUser, String email, int telephone, String ville, String rue, String pays, String roles, String profil) {
+        this.id = id;
+        this.username = username;
         this.password = password;
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
@@ -102,7 +102,7 @@ public class User {
         this.ville = ville;
         this.rue = rue;
         this.pays = pays;
-        this.role = role;
+        this.roles = roles;
         this.profil = profil;
     }
 
@@ -118,20 +118,20 @@ public class User {
 
   
 
-    public String getLogin() {
-        return login;
+    public String getusername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setusername(String username) {
+        this.username = username;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getid() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setid(Integer id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -198,17 +198,17 @@ public class User {
         this.pays = pays;
     }
 
-    public String getRole() {
-        return role;
+    public String getroles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setroles(String roles) {
+        this.roles = roles;
     }
 
     @Override
     public String toString() {
-        return "\nUser{"+",login=" + login + ", password=" + password + ", nomUser=" + nomUser + ", prenomUser=" + prenomUser + ", email=" + email + ", telephone=" + telephone + ", ville=" + ville + ", rue=" + rue + ", pays=" + pays + ", role=" + role + '}';
+        return "\nUser{"+",username=" + username + ", password=" + password + ", nomUser=" + nomUser + ", prenomUser=" + prenomUser + ", email=" + email + ", telephone=" + telephone + ", ville=" + ville + ", rue=" + rue + ", pays=" + pays + ", roles=" + roles + '}';
     }
 
     public int isAccesShakeHub() {
@@ -237,10 +237,10 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        if (this.userId != other.userId) {
+        if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.login, other.login)) {
+        if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         if (!Objects.equals(this.password, other.password)) {
@@ -249,7 +249,7 @@ public class User {
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.role, other.role)) {
+        if (!Objects.equals(this.roles, other.roles)) {
             return false;
         }
         return true;

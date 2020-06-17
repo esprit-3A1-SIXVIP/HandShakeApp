@@ -12,14 +12,14 @@
 {
     -fx-text-fill: black;
 }
-.loginbtn
+.usernamebtn
 {
     -fx-background-color: orange;
     -fx-text-fill: #FFF;
    -fx-background-radius: 3px;
   
 }
-.loginbtn:hover
+.usernamebtn:hover
 {
     -fx-background-color: transparent;
     -fx-background-radius: 3px;

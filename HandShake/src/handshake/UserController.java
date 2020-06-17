@@ -169,11 +169,11 @@ public class UserController  implements Initializable{
             ServiceUser SU = new ServiceUser();
             int us = UserSession.getInstance().getId();
             String email = UserSession.getInstance().getEmail();
-            String login = UserSession.getInstance().getLogin();
-          User a = SU.chercherUser(login);
+            String username = UserSession.getInstance().getusername();
+          User a = SU.chercherUser(username);
          javafx.scene.image.Image I=null;
               chargerimagecircle(I, profil_user ,a.getProfil());
-            emailU.setText(login);
+            emailU.setText(username);
             try {
                 donList = (ObservableList<Dons>) SU.readAllDon(us);
             } catch (SQLException ex) {
@@ -222,7 +222,7 @@ public class UserController  implements Initializable{
             
             //* Debut Partie Chat *//
             input.setOnAction(event -> {
-                String message = isServer ? "Admin : " : ""+login+" : ";
+                String message = isServer ? "Admin : " : ""+username+" : ";
                 message += input.getText();
                 input.clear();
                 
@@ -386,7 +386,7 @@ public class UserController  implements Initializable{
 
         ste = con.createStatement();
         int idU = UserSession.getInstance().getId();
-        ResultSet rs = ste.executeQuery("select * from don where userId='" + idU + "'");
+        ResultSet rs = ste.executeQuery("select * from don where id='" + idU + "'");
 
         //On créer un objet table dans lequel on intialise ça taille.
         PdfPTable table = new PdfPTable(5);
@@ -433,7 +433,7 @@ public class UserController  implements Initializable{
 
         ste = con.createStatement();
         int idU = UserSession.getInstance().getId();
-        ResultSet rs = ste.executeQuery("select * from don where userId='" + idU + "'");
+        ResultSet rs = ste.executeQuery("select * from don where id='" + idU + "'");
 
         //On créer un objet table dans lequel on intialise ça taille.
         PdfPTable table = new PdfPTable(3);

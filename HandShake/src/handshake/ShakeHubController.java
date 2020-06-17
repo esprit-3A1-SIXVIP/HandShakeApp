@@ -147,9 +147,9 @@ public class ShakeHubController implements Initializable {
             } else {
                 score.setText("" + item.getScore());
                 TextLabel.setText(item.getTexteCommentaire());
-                userLabel.setText(" Par '" + item.getUser().getLogin() + "'");
+                userLabel.setText(" Par '" + item.getUser().getusername() + "'");
                 dateLabel.setText(" Le '" + item.getDateCommentaire().toString() + "'");
-                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getU().getRole().equals("admin"))) {
+                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getU().getroles().equals("admin"))) {
                     modifierCommentaire.setVisible(true);
                     supprimerCommentaire.setVisible(true);
                     TextArea TF = new TextArea(TextLabel.getText());
@@ -240,13 +240,13 @@ public class ShakeHubController implements Initializable {
                         }
                     }
                 });
-                if (UserSession.getInstance().getRole().equals("admin") && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                if (UserSession.getInstance().getroles().equals("admin") && (!item.getUser().getroles().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
                     ban.setVisible(true);
                     ban.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
                             Alert A = new Alert(Alert.AlertType.CONFIRMATION);
-                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getLogin() + "'?");
+                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getusername() + "'?");
                             ButtonType buttonTypeOne = new ButtonType("Bannir");
                             ButtonType buttonTypeOne1 = new ButtonType("Annuler");
                             A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
@@ -258,7 +258,7 @@ public class ShakeHubController implements Initializable {
                                 } catch (SQLException ex) {
                                     System.out.println(ex.getMessage());
                                 }
-                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getLogin()+"\n Vous avez été banni du ShakeHub car votre Commentaire '"+item.getTexteCommentaire()+"' publiée le "+item.getDateCommentaire()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
+                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getusername()+"\n Vous avez été banni du ShakeHub car votre Commentaire '"+item.getTexteCommentaire()+"' publiée le "+item.getDateCommentaire()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
                             
                             }
                         }
@@ -336,12 +336,12 @@ public class ShakeHubController implements Initializable {
                 }
                 score.setText("" + item.getScore());
                 this.TextLabel.setText(item.getTexteQuestion());
-                this.userLabel.setText(" Par '" + item.getUser().getLogin() + "'");
+                this.userLabel.setText(" Par '" + item.getUser().getusername() + "'");
                 this.dateLabel.setText(" Le '" + item.getDateQuestion().toString() + "'");
-                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getInstance().getRole().equals("admin"))) {
+                if ((UserSession.getU().equals(item.getUser())) || (UserSession.getInstance().getroles().equals("admin"))) {
                     modifierQuestion.setVisible(true);
 
-                    if ((this.commentlist.isEmpty()) || (UserSession.getInstance().getRole().equals("admin"))) {
+                    if ((this.commentlist.isEmpty()) || (UserSession.getInstance().getroles().equals("admin"))) {
                         supprimerQuestion.setVisible(true);
                     } else {
                         supprimerQuestion.setVisible(false);
@@ -396,13 +396,13 @@ public class ShakeHubController implements Initializable {
                     supprimerQuestion.setVisible(false);
 
                 }
-                if ((UserSession.getInstance().getRole().equals("admin")) && (!item.getUser().getRole().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
+                if ((UserSession.getInstance().getroles().equals("admin")) && (!item.getUser().getroles().equals("admin")) && (item.getUser().isAccesShakeHub() == (1))) {
                     ban.setVisible(true);
                     ban.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
                             Alert A = new Alert(Alert.AlertType.CONFIRMATION);
-                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getLogin() + "'?");
+                            A.setContentText("Voulez vous vraiment bannir l'utilisateur '" + item.getUser().getusername() + "'?");
                             ButtonType buttonTypeOne = new ButtonType("Bannir");
                             ButtonType buttonTypeOne1 = new ButtonType("Annuler");
                             A.getButtonTypes().setAll(buttonTypeOne, buttonTypeOne1);
@@ -414,7 +414,7 @@ public class ShakeHubController implements Initializable {
                                 } catch (SQLException ex) {
                                     System.out.println(ex.getMessage());
                                 }
-                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getLogin()+"\n Vous avez été banni du ShakeHub car votre Question '"+item.getTexteQuestion()+"' publiée le "+item.getDateQuestion()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
+                                SendMail.sendMail(item.getUser().getEmail(),"HandShake - Accès au ShakeHub restreint",item.getUser().getusername()+"\n Vous avez été banni du ShakeHub car votre Question '"+item.getTexteQuestion()+"' publiée le "+item.getDateQuestion()+" transgrèsse nos règles. \n Si vous pensez que vous avez été banni injustement, veuillez répondre à ce mail.");
                             }
                         }
                     });
@@ -499,7 +499,7 @@ public class ShakeHubController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        username.setText(UserSession.getU().getLogin());
+        username.setText(UserSession.getU().getusername());
         try {
             Callback<ListView<Question>, ListCell<Question>> cellFactory = (param) -> {
                 return new QCell();
@@ -536,7 +536,7 @@ public class ShakeHubController implements Initializable {
     }
     @FXML
     private void home(ActionEvent event) {
-        if (UserSession.getInstance().getRole().equals("admin")) {
+        if (UserSession.getInstance().getroles().equals("admin")) {
             loadStage("gestionnaire.fxml");
         } else {
             loadStage("Home.fxml");

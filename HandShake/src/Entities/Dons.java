@@ -87,7 +87,7 @@ public  class  Dons {
         this.dateDon = dateDon;
     }
 
-    public int getUserId() {
+    public int getid() {
        
         return userI;
     }
@@ -126,7 +126,7 @@ public  class  Dons {
 
     @Override
     public String toString() {
-        return " idDon = " + donId +", userId ="+userI+ ", type = " + typeDon +", Cible = " + cibleDon+ ", Date = "+dateDon;
+        return " idDon = " + donId +", id ="+userI+ ", type = " + typeDon +", Cible = " + cibleDon+ ", Date = "+dateDon;
     }
     
     

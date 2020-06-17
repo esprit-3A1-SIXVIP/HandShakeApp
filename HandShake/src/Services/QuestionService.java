@@ -33,24 +33,24 @@ import javafx.collections.ObservableList;
     }
     public int countDailyQuestionsByUser(List<Question> questionList, Question t) {
         int count = 0;
-        return (questionList.stream().filter((q) -> (((q.getUser().getUserId())==(t.getUser().getUserId()))&&(q.getDateQuestion().getDay()==t.getDateQuestion().getDay()))).map((_item) -> {
+        return (questionList.stream().filter((q) -> (((q.getUser().getid())==(t.getUser().getid()))&&(q.getDateQuestion().getDay()==t.getDateQuestion().getDay()))).map((_item) -> {
             return 1;
         }).reduce(count, Integer::sum));
     }
     public boolean checkQuestionHasComments(List<Commentaire> commentList, Question t) {
-        return (commentList.stream().anyMatch((c) -> ((c.getUser().getUserId())==(t.getUser().getUserId()))));
+        return (commentList.stream().anyMatch((c) -> ((c.getUser().getid())==(t.getUser().getid()))));
     }
     
     public ObservableList<Question> readAll() throws SQLException {
         ObservableList<Question> arr=FXCollections.observableArrayList();
         ste=con.createStatement();
-        ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,Q.score,U.userId,U.login,U.password,U.email,U.role from question Q join user U where Q.userId=U.userId");
+        ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,Q.score,U.id,U.username,U.password,U.email,U.roles from question Q join user U where Q.id=U.id");
          while (rs.next()) {                
                    int questionId=rs.getInt("questionId");
                    String texteQuestion=rs.getString("texteQuestion");
                    Date dateQuestion=rs.getDate("dateQuestion");
                    int score=rs.getInt("score");
-                   User user=new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"));
+                   User user=new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("roles"));
                    Question p=new Question(questionId, texteQuestion, dateQuestion,score,user);
          arr.add(p);
          }
@@ -60,13 +60,13 @@ import javafx.collections.ObservableList;
     @Override
     public void ajouter(Question t) throws SQLException {
         ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `handshake`.`question` (`questionId`, `texteQuestion`, `dateQuestion`,`userId`) VALUES (NULL, '" + t.getTexteQuestion() + "', '" +t.getDateQuestion()+"'," + t.getUser().getUserId() + ");";
+        String requeteInsert = "INSERT INTO `handshake`.`question` (`questionId`, `texteQuestion`, `dateQuestion`,`id`) VALUES (NULL, '" + t.getTexteQuestion() + "', '" +t.getDateQuestion()+"'," + t.getUser().getid() + ");";
         ste.executeUpdate(requeteInsert);
     }
     public void ajouter1(Question p) throws SQLException
     {
-    PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`question` (`questionId`, `texteQuestion`, `dateQuestion`,`userId`) VALUES ( NULL, ?, ?, ?);");
-    pre.setInt(4, p.getUser().getUserId());
+    PreparedStatement pre=con.prepareStatement("INSERT INTO `handshake`.`question` (`questionId`, `texteQuestion`, `dateQuestion`,`id`) VALUES ( NULL, ?, ?, ?);");
+    pre.setInt(4, p.getUser().getid());
     pre.setString(2, p.getTexteQuestion());
     pre.setDate(3, p.getDateQuestion());
     pre.executeUpdate();
@@ -78,24 +78,24 @@ import javafx.collections.ObservableList;
        CommentaireService CDB= new CommentaireService();
          
        ste = con.createStatement();
-       String requeteDelete = "DELETE FROM `handshake`.`question` WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
+       String requeteDelete = "DELETE FROM `handshake`.`question` WHERE `questionId`= '" + t.getQuestionId() + "' AND`id`= '" + t.getUser().getid() + "';";
        return(ste.execute(requeteDelete));
     }
     @Override
     public boolean update(Question t) throws SQLException {
        ste = con.createStatement();
-       String requeteUpdate = "UPDATE `handshake`.`question` SET `texteQuestion` = '" + t.getTexteQuestion().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `questionId`= '" + t.getQuestionId() + "' AND`userId`= '" + t.getUser().getUserId() + "';";
+       String requeteUpdate = "UPDATE `handshake`.`question` SET `texteQuestion` = '" + t.getTexteQuestion().replaceAll("'", "`") + "', score="+t.getScore()+" WHERE `questionId`= '" + t.getQuestionId() + "' AND`id`= '" + t.getUser().getid() + "';";
        return(ste.execute(requeteUpdate)); 
     }
     public ObservableList<Question> search(String S) throws SQLException {
      ObservableList<Question> arr=FXCollections.observableArrayList();
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,U.userId,U.login,U.password,U.email,U.role,U.accesShakeHub from question Q join user U where Q.userId=U.userId and (`texteQuestion` like '%"+S+"%' or `U.login` like '%"+S+"%');");
+    ResultSet rs=ste.executeQuery("select Q.questionId,Q.texteQuestion,Q.dateQuestion,U.id,U.username,U.password,U.email,U.roles,U.accesShakeHub from question Q join user U where Q.id=U.id and (`texteQuestion` like '%"+S+"%' or `U.username` like '%"+S+"%');");
      while (rs.next()) {                
                int questionId=rs.getInt("questionId");
                String texteQuestion=rs.getString("texteQuestion");
                Date dateQuestion=rs.getDate("dateQuestion");
-               User user=new User(rs.getInt("userId"),rs.getString("login"),rs.getString("password"),rs.getString("email"),rs.getString("role"),rs.getInt("accesShakeHub"));
+               User user=new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("roles"),rs.getInt("accesShakeHub"));
                Question p=new Question(questionId, texteQuestion, dateQuestion,user);
      arr.add(p);
      }
@@ -106,7 +106,7 @@ import javafx.collections.ObservableList;
         ResultSet rs = ste.executeQuery("select * from question where questionId=" + id );
         ServiceUser us =new ServiceUser();
         if (rs.next()) {
-            Question Q = new Question(rs.getInt("questionId"),rs.getString("texteQuestion"),rs.getDate("dateQuestion"),rs.getInt("score"),us.getUser(rs.getInt("userId")));
+            Question Q = new Question(rs.getInt("questionId"),rs.getString("texteQuestion"),rs.getDate("dateQuestion"),rs.getInt("score"),us.getUser(rs.getInt("id")));
             return Q;
         }
 

@@ -72,7 +72,7 @@ public class ProfilUserController implements Initializable {
     @FXML
     private TextField pays;
     @FXML
-    private TextField login;
+    private TextField username;
   
     private IntegerStringConverter quant = new IntegerStringConverter();
     @FXML
@@ -88,7 +88,7 @@ public class ProfilUserController implements Initializable {
             ServiceUser sa = new ServiceUser();
             int us = UserSession.getInstance().getId();
             afficherProfil(us);
-            String login = UserSession.getInstance().getLogin();
+            String username = UserSession.getInstance().getusername();
             User a = sa.chercherUser(us);
             Image I = null;
             chargerimagecircle(I, profil, a.getProfil());
@@ -119,7 +119,7 @@ public class ProfilUserController implements Initializable {
         rue.setText(a.getRue());
         ville.setText(a.getVille());
         pays.setText(a.getPays());
-        login.setText(a.getLogin());
+        username.setText(a.getusername());
         image.setText(a.getProfil());
 
     }
@@ -133,7 +133,7 @@ public class ProfilUserController implements Initializable {
         String r = rue.getText();
         String v = ville.getText();
         String p = pays.getText();
-        String log = login.getText();
+        String log = username.getText();
         String imG = image.getText();   
         int us = UserSession.getInstance().getId();
         SE.update(us, n, pre, em, r,v, imG, log, p);

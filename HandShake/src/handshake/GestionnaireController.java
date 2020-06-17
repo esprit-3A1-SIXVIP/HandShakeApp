@@ -79,11 +79,11 @@ public class GestionnaireController implements Initializable {
     @FXML
     private TableColumn<User, String> tabprenom;
     @FXML
-    private TableColumn<User, String> tablogin;
+    private TableColumn<User, String> tabusername;
     @FXML
     private TableColumn<User, String> tabemail;
     @FXML
-    private TableColumn<User, String> tabrole;
+    private TableColumn<User, String> tabroles;
     @FXML
     private TableColumn<User, String> tabtel;
     @FXML
@@ -113,7 +113,7 @@ public class GestionnaireController implements Initializable {
     @FXML
     private JFXTextField lirePrenom;
     @FXML
-    private JFXTextField lireLogin;
+    private JFXTextField lireusername;
     @FXML
     private JFXTextField lireEmail;
     @FXML
@@ -182,10 +182,10 @@ public class GestionnaireController implements Initializable {
             listU = (ObservableList<User>) service.afficherUser();
             tabnom.setCellValueFactory(new PropertyValueFactory<>("nomUser"));
             tabprenom.setCellValueFactory(new PropertyValueFactory<>("prenomUser"));
-            tablogin.setCellValueFactory(new PropertyValueFactory<>("login"));
+            tabusername.setCellValueFactory(new PropertyValueFactory<>("username"));
             tabprofil.setCellValueFactory(new PropertyValueFactory<>("profil"));
             tabemail.setCellValueFactory(new PropertyValueFactory<>("email"));
-            tabrole.setCellValueFactory(new PropertyValueFactory<>("role"));
+            tabroles.setCellValueFactory(new PropertyValueFactory<>("roles"));
             tabtel.setCellValueFactory(new PropertyValueFactory<>("telephone"));
             tabrue.setCellValueFactory(new PropertyValueFactory<>("rue"));
             tabville.setCellValueFactory(new PropertyValueFactory<>("ville"));
@@ -225,7 +225,7 @@ public class GestionnaireController implements Initializable {
                 lirePrenom.setText(p1.getPrenomUser());
                 lireEmail.setText(p1.getEmail());
                 lireRue.setText(p1.getRue());
-                lireLogin.setText(p1.getLogin());
+                lireusername.setText(p1.getusername());
                 lireVille.setText(p1.getVille());
                 lirePays.setText(p1.getPays());
                
@@ -313,9 +313,9 @@ public class GestionnaireController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne) {
             int index = tableau.getSelectionModel().getSelectedIndex();
-            String login = tablogin.getCellData(index);
+            String username = tabusername.getCellData(index);
             ServiceUser so = new ServiceUser();
-            User x = so.chercherUser(login);
+            User x = so.chercherUser(username);
             so.supprimer(x);
             listU.removeAll(tableau.getSelectionModel().getSelectedItems());
             tableau.getSelectionModel().clearSelection();

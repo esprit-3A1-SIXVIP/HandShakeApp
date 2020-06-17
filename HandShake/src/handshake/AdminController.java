@@ -219,7 +219,7 @@ public class AdminController implements Initializable {
         ServiceUser SU = new ServiceUser();
         int us = UserSession.getInstance().getId();
         String email = UserSession.getInstance().getEmail();
-        String login = UserSession.getInstance().getLogin();
+        String username = UserSession.getInstance().getusername();
         con = DataBase.getInstance().getConnection();
                ServiceAdmin sa = new ServiceAdmin();
                 int id = UserSession.getInstance().getId();
@@ -291,7 +291,7 @@ public class AdminController implements Initializable {
         
         //* Debut Partie Chat *//
         input.setOnAction(event -> {
-            String message = isServer ? ""+login+"(Admin) : " : "Client : ";
+            String message = isServer ? ""+username+"(Admin) : " : "Client : ";
             message += input.getText();
             input.clear();
             

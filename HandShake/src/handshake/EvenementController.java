@@ -184,7 +184,7 @@ public class EvenementController implements Initializable {
    std.setHeureEvenement(heureEvenement);
    std.setPorteeEvenement(porteeEvenement);
    std.setPrixEvenement(prixEvenement);
-   std.setUserId(us);
+   std.setid(us);
    std.setImage(fich);
     System.out.println(lieuEvenement);
         System.out.println(dateEvenement);

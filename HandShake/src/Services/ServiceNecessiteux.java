@@ -37,7 +37,7 @@ public class ServiceNecessiteux implements IServiceAide<Necessiteux>{
     
     @Override
     public void ajouter(Necessiteux a) throws SQLException {
-        PreparedStatement PS = con.prepareStatement("INSERT INTO `handshake`.`beneficiaire` ( `aideId`,`nomBeneficiaire`, `prenomBeneficiaire`, `email`,`dateNaissance`, `ville`, `telephone`,`adresseGPS`,`role`,`besoin`) VALUES ( ?,?, ?, ?,?, ?,?,?,?, ?);");
+        PreparedStatement PS = con.prepareStatement("INSERT INTO `handshake`.`beneficiaire` ( `aideId`,`nomBeneficiaire`, `prenomBeneficiaire`, `email`,`dateNaissance`, `ville`, `telephone`,`adresseGPS`,`roles`,`besoin`) VALUES ( ?,?, ?, ?,?, ?,?,?,?, ?);");
         PS.setInt(1, a.getAideId());
         PS.setString(2, a.getNomBeneficiaire());
         PS.setString(3, a.getPrenomBeneficiaire());
@@ -46,7 +46,7 @@ public class ServiceNecessiteux implements IServiceAide<Necessiteux>{
         PS.setString(6, a.getVille());
         PS.setInt(7, a.getTelephone());
         PS.setString(8, a.getAdresseGPS());
-        PS.setString(9, a.getRole());
+        PS.setString(9, a.getroles());
         PS.setString(10, a.getBesoin());
         PS.executeUpdate();
     }
@@ -124,9 +124,9 @@ public class ServiceNecessiteux implements IServiceAide<Necessiteux>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(8);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String bes = rs.getString("besoin");
-            Necessiteux a = new Necessiteux(bes,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            Necessiteux a = new Necessiteux(bes,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
             AL.add(a);
         }
         return AL;
@@ -134,7 +134,7 @@ public class ServiceNecessiteux implements IServiceAide<Necessiteux>{
             public List<Necessiteux> readn() throws SQLException {
         List<Necessiteux> AL = new ArrayList<>();
         ste = con.createStatement();
-        ResultSet rs = ste.executeQuery("select * from beneficiaire where `role`= \"Necessiteux\"");
+        ResultSet rs = ste.executeQuery("select * from beneficiaire where `roles`= \"Necessiteux\"");
         while (rs.next()) {
             int id = rs.getInt(1);
             int idaide = rs.getInt(2);
@@ -145,9 +145,9 @@ public class ServiceNecessiteux implements IServiceAide<Necessiteux>{
             String ville = rs.getString("ville");
             int numtel = rs.getInt(8);
             String adresseGPS = rs.getString("adresseGPS");
-            String role = rs.getString("role");
+            String roles = rs.getString("roles");
             String bes = rs.getString("besoin");
-            Necessiteux a = new Necessiteux(bes,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,role);
+            Necessiteux a = new Necessiteux(bes,id,idaide,nom,prenom,email,datenaiss,ville,numtel,adresseGPS,roles);
             AL.add(a);
         }
         return AL;

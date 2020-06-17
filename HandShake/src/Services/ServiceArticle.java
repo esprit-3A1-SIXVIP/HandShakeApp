@@ -116,7 +116,7 @@ public class ServiceArticle implements IService<Article> {
       String des = rs.getString("descriptionArticle");
       String img = rs.getString("img");
       int id = rs.getInt("articleId");
-      int uid = rs.getInt("userId");
+      int uid = rs.getInt("id");
       a1 = new Article(id, auth, titre, des, img, uid);
     } 
     return a1;

@@ -39,12 +39,12 @@
       <TextField layoutX="46.0" layoutY="338.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField layoutX="46.0" layoutY="439.0" prefHeight="37.0" prefWidth="289.0" />
       <TextField layoutX="37.0" layoutY="555.0" prefHeight="37.0" prefWidth="289.0" />
-      <JFXButton layoutX="609.0" layoutY="679.0" prefHeight="27.0" prefWidth="115.0" styleClass="loginbtn" stylesheets="@../Gui/login.css" text="Modifier">
+      <JFXButton layoutX="609.0" layoutY="679.0" prefHeight="27.0" prefWidth="115.0" styleClass="usernamebtn" stylesheets="@../Gui/username.css" text="Modifier">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="773.0" layoutY="679.0" prefHeight="37.0" prefWidth="150.0" styleClass="loginbtn" stylesheets="@../Gui/login.css" text="Changer Profil">
+      <JFXButton layoutX="773.0" layoutY="679.0" prefHeight="37.0" prefWidth="150.0" styleClass="usernamebtn" stylesheets="@../Gui/username.css" text="Changer Profil">
          <font>
             <Font size="18.0" />
          </font>
