@@ -35,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
@@ -330,7 +331,10 @@ public class Login2Controller {
                         loadStage("Home.fxml");
                     }
                 } else {
-                    System.out.println("Password incorrect");
+                    
+                    Alert A = new Alert(Alert.AlertType.ERROR);
+                            A.setContentText("Your credentials are incorrect!");
+                            A.showAndWait();
                 }
 
             } catch (SQLException ex) {
