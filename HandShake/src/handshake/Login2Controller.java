@@ -92,7 +92,6 @@ public class Login2Controller {
     @FXML
     private JFXButton btncx;
 
-
     @FXML
     private Pane paneinscription;
 
@@ -317,46 +316,41 @@ public class Login2Controller {
             String email = tcl.getText();
             String Password = tcp.getText();
 
-                try {
+            try {
 
-                    int id = SU.getIdUser1(email, Password);
-                    String roles = SU.getroles(id);
-                    String username = SU.getusername(id);
+                int id = SU.getIdUser1(email, Password);
+                String roles = SU.getroles(id);
+                String username = SU.getusername(id);
+                if (id != -1) {
                     UserSession.setU(new User(id, username, Password, email, roles, SU.getUser(id).isAccesShakeHub()));
-                    if (id != -1) {
-                        UserSession.getInstance(email, id, Password, roles, username);
-                        if (roles.equals("admin")) {
-                            loadStage("gestionnaire.fxml");
-                        }
-                        else
-                        {
-                            loadStage("Home.fxml");
-                        }
+                    UserSession.getInstance(email, id, Password, roles, username);
+                    if (roles.equals("admin")) {
+                        loadStage("gestionnaire.fxml");
+                    } else {
+                        loadStage("Home.fxml");
                     }
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
+                } else {
+                    System.out.println("Password incorrect");
                 }
-   
 
-            
-            
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
         }
 
     }
 
-    private void loadStage(String fxml)
-        {
-            try
-            {
-                AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
-                
-               rootPane.getChildren().setAll(pane);
-                
-            } catch (IOException ex) {
+    private void loadStage(String fxml) {
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource(fxml));
+
+            rootPane.getChildren().setAll(pane);
+
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
-        }
+    }
 
     @FXML
 
